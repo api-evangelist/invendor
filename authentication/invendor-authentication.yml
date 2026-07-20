@@ -1,0 +1,19 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://identity.scanbro.com/connect/authorize
+    tokenUrl: https://identity.scanbro.com/connect/token
+    scopes: 1
+  sources:
+  - openapi/invendor-common-openapi-original.json
+  - openapi/invendor-reporting-openapi-original.json
