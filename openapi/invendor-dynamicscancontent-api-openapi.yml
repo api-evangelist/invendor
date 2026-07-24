@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts DynamicScanContent API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: DynamicScanContent
+paths:
+  /v1/DynamicScanContent/datasources:
+    get:
+      tags:
+      - DynamicScanContent
+      summary: "Get list of all possible field datasoruces for dynamic content configuration\r\nCurrenlty are supported Item.Code, Barcode.Unit and all Item properties defined on items"
+      operationId: DynamicContentFieldDatasources
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DynamicFieldDataSource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/DynamicScanContent/datasources/{operationId}:
+    get:
+      tags:
+      - DynamicScanContent
+      summary: Get list of all possible field datasoruces for dynamic content configuration for selected operation
+      operationId: OperationDynamicContentFieldDatasources
+      parameters:
+      - name: operationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DynamicFieldDataSource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    DynamicFieldValueSourceEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    DynamicFieldDataSource:
+      type: object
+      properties:
+        valueSource:
+          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
+        displayName:
+          type: string
+          nullable: true
+        key:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

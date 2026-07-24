@@ -1,0 +1,1184 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Orders API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Orders
+paths:
+  /v1/Orders:
+    get:
+      tags:
+      - Orders
+      operationId: GetAllOrders
+      parameters:
+      - name: OrderType
+        in: query
+        schema:
+          $ref: '#/components/schemas/OrderType'
+      - name: ExcludeCompleted
+        in: query
+        schema:
+          type: boolean
+      - name: VendorAccountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderListResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}:
+    get:
+      tags:
+      - Orders
+      operationId: GetOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Orders
+      operationId: UpdateOrderDetails
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderDetailsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderDetailsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderDetailsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderDetailsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Orders
+      operationId: DeleteOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/replenishment:
+    post:
+      tags:
+      - Orders
+      operationId: CreateReplenishmentOrder
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReplenishmentOrderRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReplenishmentOrderRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReplenishmentOrderRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReplenishmentOrderRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/purchase:
+    post:
+      tags:
+      - Orders
+      operationId: CreatePurchaseOrder
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreatePurchaseOrderRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreatePurchaseOrderRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreatePurchaseOrderRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreatePurchaseOrderRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/confirm:
+    post:
+      tags:
+      - Orders
+      operationId: ConfirmOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/cancel:
+    post:
+      tags:
+      - Orders
+      operationId: CancelOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/ship:
+    post:
+      tags:
+      - Orders
+      operationId: ShipOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/receive:
+    post:
+      tags:
+      - Orders
+      operationId: ReceiveOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/line:
+    post:
+      tags:
+      - Orders
+      operationId: CreateOrderLine
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrderLineRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrderLineRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrderLineRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrderLineRequest'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/lines:
+    put:
+      tags:
+      - Orders
+      operationId: UpdateOrderLines
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateOrderLineRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateOrderLineRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateOrderLineRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdateOrderLineRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/line/{orderLineId}/cancel:
+    post:
+      tags:
+      - Orders
+      operationId: CancelOrderLine
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: orderLineId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/complete:
+    post:
+      tags:
+      - Orders
+      operationId: CompleteOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/{orderId}/journal/reception:
+    post:
+      tags:
+      - Orders
+      operationId: CreateReceptionJournal
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReceptionJournalForOrderRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReceptionJournalForOrderRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReceptionJournalForOrderRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReceptionJournalForOrderRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/location/param:
+    post:
+      tags:
+      - Orders
+      operationId: CreateOrUpdateOrderLocationParam
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateOrderLocationParamRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateOrderLocationParamRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateOrderLocationParamRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateOrderLocationParamRequest'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Orders/location/{locationId}/param:
+    get:
+      tags:
+      - Orders
+      operationId: GetOrderLocationParam
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderLocationParamResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Orders
+      operationId: DeleteOrderLocationParam
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    UpdateOrderLineRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        shippedQty:
+          type: number
+          format: double
+        receivedQty:
+          type: number
+          format: double
+      additionalProperties: false
+    CreateOrUpdateOrderLocationParamRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        orderAutoShip:
+          type: boolean
+        partialFulFillmentAllowed:
+          type: boolean
+      additionalProperties: false
+    CreatePurchaseOrderRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        vendorId:
+          type: integer
+          format: int32
+        buyerId:
+          type: integer
+          format: int32
+        description:
+          type: string
+          nullable: true
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePurchaseOrderLine'
+          nullable: true
+      additionalProperties: false
+    CreatePurchaseOrderLine:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+        transDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    OrderType:
+      enum:
+      - 10
+      - 20
+      - 40
+      - 90
+      type: integer
+      format: int32
+    CreateReplenishmentOrderLine:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+        transDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    OrderLocationParamResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        orderAutoShip:
+          type: boolean
+        partialFulFillmentAllowed:
+          type: boolean
+      additionalProperties: false
+    CreateOrderLineRequest:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int32
+        transDate:
+          type: string
+          format: date-time
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OrderLineType:
+      enum:
+      - 10
+      - 20
+      type: integer
+      format: int32
+    OrderListResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        orderNumber:
+          type: string
+          nullable: true
+        externalOrderNumber:
+          type: string
+          nullable: true
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        description:
+          type: string
+          nullable: true
+        orderDate:
+          type: string
+          format: date-time
+        orderStatus:
+          $ref: '#/components/schemas/OrderStatus'
+        statusDate:
+          type: string
+          format: date-time
+        buyerAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        buyerAccountName:
+          type: string
+          nullable: true
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        vendorAccountName:
+          type: string
+          nullable: true
+        isReplenishmentOrder:
+          type: boolean
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OrderDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        orderNumber:
+          type: string
+          nullable: true
+        externalOrderNumber:
+          type: string
+          nullable: true
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        description:
+          type: string
+          nullable: true
+        orderDate:
+          type: string
+          format: date-time
+        orderStatus:
+          $ref: '#/components/schemas/OrderStatus'
+        statusDate:
+          type: string
+          format: date-time
+        buyerAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        buyerAccountName:
+          type: string
+          nullable: true
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        vendorAccountName:
+          type: string
+          nullable: true
+        isReplenishmentOrder:
+          type: boolean
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+        orderLines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineResponse'
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+        locationName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OrderLineResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        inventDimId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        lineType:
+          $ref: '#/components/schemas/OrderLineType'
+        lineStatus:
+          $ref: '#/components/schemas/OrderLineStatus'
+        orderQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        shippedQty:
+          type: number
+          format: double
+        receivedQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+        transDate:
+          type: string
+          format: date-time
+        receivedDate:
+          type: string
+          format: date-time
+          nullable: true
+        statusDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CreateReplenishmentOrderRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateReplenishmentOrderLine'
+          nullable: true
+      additionalProperties: false
+    OrderLineStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    OrderListResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderListResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    UpdateOrderDetailsRequest:
+      type: object
+      properties:
+        externalOrderNumber:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        buyerAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    CreateReceptionJournalForOrderRequest:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    InventDimDto:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

@@ -1,0 +1,310 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Subscriptions API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Subscriptions
+paths:
+  /v1/Subscriptions:
+    get:
+      tags:
+      - Subscriptions
+      operationId: Subscriptions list
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceSubscription'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Subscriptions/start:
+    post:
+      tags:
+      - Subscriptions
+      operationId: Start subscription
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/StartSubscriptionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/StartSubscriptionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/StartSubscriptionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/StartSubscriptionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Subscriptions/finish:
+    post:
+      tags:
+      - Subscriptions
+      operationId: Finish subscription
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/EndSubscriptionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/EndSubscriptionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/EndSubscriptionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/EndSubscriptionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Subscriptions/{serviceCode}/start:
+    post:
+      tags:
+      - Subscriptions
+      operationId: Start subscription by code
+      parameters:
+      - name: serviceCode
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Subscriptions/{serviceCode}/end:
+    post:
+      tags:
+      - Subscriptions
+      operationId: End subscription by code
+      parameters:
+      - name: serviceCode
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    EndSubscriptionRequest:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    ServiceSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        tenantId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+        ended:
+          type: boolean
+        serviceCode:
+          type: string
+          nullable: true
+        serviceName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    StartSubscriptionRequest:
+      type: object
+      properties:
+        serviceId:
+          type: string
+          format: uuid
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

@@ -1,0 +1,221 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts DataJobs API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: DataJobs
+paths:
+  /v1/DataJobs:
+    get:
+      tags:
+      - DataJobs
+      summary: "Get all data-transfer jobs (import and export) created by the logged-in user.\r\nPass direction to filter to one direction; omit it to return both."
+      operationId: GetDataJobs
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: direction
+        in: query
+        schema:
+          $ref: '#/components/schemas/BulkJobDirection'
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkJobStatusResponsePagedResult'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/DataJobs/{jobId}/download:
+    get:
+      tags:
+      - DataJobs
+      summary: "Download the result xlsx of a completed export job owned by the logged-in user. Returns 404 if the\r\njob is not the caller's, 409 if it has not finished, and 410 if its result has expired / been reaped."
+      operationId: DownloadDataJobResult
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '410':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    BulkJobStatusResponse:
+      type: object
+      properties:
+        jobId:
+          type: string
+          format: uuid
+        jobType:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        fileName:
+          type: string
+          nullable: true
+        totalItems:
+          type: integer
+          format: int32
+        totalBatches:
+          type: integer
+          format: int32
+        processedBatches:
+          type: integer
+          format: int32
+        failedBatches:
+          type: integer
+          format: int32
+        errors:
+          type: array
+          items:
+            type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        resultAvailable:
+          type: boolean
+        resultFileName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    BulkJobDirection:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    BulkJobStatusResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkJobStatusResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

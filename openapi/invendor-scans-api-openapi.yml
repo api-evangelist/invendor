@@ -1,0 +1,577 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Scans API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Scans
+paths:
+  /api/v1/Scans:
+    get:
+      tags:
+      - Scans
+      summary: "Get scan events. When dateFrom is not provided, it defaults to 3 months before the\r\ncurrent date; dateTo defaults to the current date."
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: userAccountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        schema:
+          type: string
+          default: ''
+      - name: dateFrom
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: sessionId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: userId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: operationName
+        in: query
+        schema:
+          type: string
+      - name: searchTerm
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanEventReportRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Scans/my:
+    get:
+      tags:
+      - Scans
+      summary: "Get user's scan events. When dateFrom is not provided, it defaults to 7 days before\r\nthe current date; dateTo defaults to the current date."
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        schema:
+          type: string
+          default: ''
+      - name: dateFrom
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: sessionId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: userId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: operationName
+        in: query
+        schema:
+          type: string
+      - name: searchTerm
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanEventReportRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Scans/anonymous:
+    get:
+      tags:
+      - Scans
+      summary: Get anonymous scan events
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        schema:
+          type: string
+          default: ''
+      - name: dateFrom
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: sessionId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: userId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: operationName
+        in: query
+        schema:
+          type: string
+      - name: searchTerm
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanEventReportRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Scans/count:
+    get:
+      tags:
+      - Scans
+      summary: Returns scans count by location, operation for selected period. Max period is 30 days, defaults to 7 days.
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: operationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: dateFrom
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationOperationDateScansDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Scans/badscans:
+    get:
+      tags:
+      - Scans
+      summary: Get bad scan events
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: dateFrom
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BadScanDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    BadScanDto:
+      type: object
+      properties:
+        scanId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        sessionTypeId:
+          type: integer
+          format: int32
+        sessionState:
+          type: integer
+          format: int32
+        scanDateTime:
+          type: string
+          format: date-time
+        itemId:
+          type: integer
+          format: int32
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        altCode:
+          type: string
+          nullable: true
+        altName:
+          type: string
+          nullable: true
+        barcode:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+          nullable: true
+        expectedQuantity:
+          type: number
+          format: double
+          nullable: true
+        confirmedQuantity:
+          type: number
+          format: double
+          nullable: true
+        rawWeight:
+          type: number
+          format: double
+          nullable: true
+        itemWeight:
+          type: number
+          format: double
+          nullable: true
+        itemBinWeight:
+          type: number
+          format: double
+          nullable: true
+        calculatedItemWeight:
+          type: number
+          format: double
+          nullable: true
+        weightDiffPercent:
+          type: number
+          format: double
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        wmsLocationId:
+          type: string
+          nullable: true
+        operation:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ScanEventReportRowDTO:
+      type: object
+      properties:
+        scanId:
+          type: integer
+          format: int32
+        sessionId:
+          type: integer
+          format: int32
+        itemId:
+          type: integer
+          format: int32
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+        sessionTypeId:
+          type: integer
+          format: int32
+        scannedData:
+          type: string
+          nullable: true
+        unit:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        expectedQuantity:
+          type: number
+          format: double
+        firmedQuantity:
+          type: number
+          format: double
+        scanDate:
+          type: string
+          format: date
+          readOnly: true
+        scanDateTime:
+          type: string
+          format: date-time
+        itemName:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        altCode:
+          type: string
+          nullable: true
+        altName:
+          type: string
+          nullable: true
+        vendor:
+          type: string
+          nullable: true
+        itemUnit:
+          type: string
+          nullable: true
+        userId:
+          type: integer
+          format: int32
+          nullable: true
+        user:
+          type: string
+          nullable: true
+        userFirstName:
+          type: string
+          nullable: true
+        userLastName:
+          type: string
+          nullable: true
+        userFullName:
+          type: string
+          nullable: true
+        userGroupName:
+          type: string
+          nullable: true
+        companyName:
+          type: string
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        operation:
+          type: string
+          nullable: true
+        operationType:
+          type: string
+          nullable: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataDTO'
+          nullable: true
+        itemProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+        userProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+      additionalProperties: false
+    MetadataDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+        dimensionId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LocationOperationDateScansDTO:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date-time
+        scans:
+          type: integer
+          format: int64
+        operationName:
+          type: string
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

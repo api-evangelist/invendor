@@ -1,0 +1,393 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts UniqueItemStatuses API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: UniqueItemStatuses
+paths:
+  /v1/UniqueItemStatuses:
+    get:
+      tags:
+      - UniqueItemStatuses
+      summary: "Get a paged list of unique item statuses visible to the current account:\r\nglobal rows plus the caller's own. Tenant-primary / admin callers\r\n(no account context) see all rows."
+      operationId: Get unique item statuses
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: filterAccountId
+        in: query
+        description: 'Optional additional filter: restrict results to rows with this exact `AccountId`. Applied on top of the visibility rule; never exposes rows outside the caller''s visibility.'
+        schema:
+          type: integer
+          format: int32
+      - name: genericStatus
+        in: query
+        description: Optional generic status category filter.
+        schema:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniqueItemStatusResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - UniqueItemStatuses
+      summary: Create a new unique item status.
+      operationId: Create unique item status
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Create request.
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUniqueItemStatusRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUniqueItemStatusRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUniqueItemStatusRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUniqueItemStatusRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UniqueItemStatuses/{id}:
+    get:
+      tags:
+      - UniqueItemStatuses
+      summary: Get a single unique item status by id.
+      operationId: Get unique item status
+      parameters:
+      - name: id
+        in: path
+        description: Unique item status id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniqueItemStatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - UniqueItemStatuses
+      summary: Update an existing unique item status. `AccountId` is immutable.
+      operationId: Update unique item status
+      parameters:
+      - name: id
+        in: path
+        description: Unique item status id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Update request.
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUniqueItemStatusRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUniqueItemStatusRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUniqueItemStatusRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUniqueItemStatusRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - UniqueItemStatuses
+      summary: "Soft-delete a unique item status. Blocked if any active `Operation`\r\nreferences the status via `IssueItemStatusId` or `ReceiveItemStatusId`."
+      operationId: Delete unique item status
+      parameters:
+      - name: id
+        in: path
+        description: Unique item status id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    UniqueItemGenericStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    UniqueItemStatusResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UniqueItemStatusResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    UniqueItemStatusResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    CreateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    UpdateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

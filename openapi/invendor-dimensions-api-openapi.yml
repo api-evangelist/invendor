@@ -1,0 +1,967 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Dimensions API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Dimensions
+paths:
+  /v1/Dimensions:
+    get:
+      tags:
+      - Dimensions
+      summary: Get dimensions list
+      operationId: GetDimensionsList
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Dimensions
+      summary: Create new dimenson
+      operationId: CreateDimension
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Create dimension request object
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDimensionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDimensionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDimensionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDimensionRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Dimensions/{id}:
+    get:
+      tags:
+      - Dimensions
+      summary: Get dimension details
+      operationId: GetDimensionDetails
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Dimensions
+      summary: Update dimension
+      operationId: UpdateDimension
+      parameters:
+      - name: id
+        in: path
+        description: Dimension Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Update dimension request object
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDimensionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDimensionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDimensionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDimensionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Dimensions
+      summary: Delete dimension
+      operationId: DeleteDimension
+      parameters:
+      - name: id
+        in: path
+        description: Dimension Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Dimensions/{id}/operations:
+    get:
+      tags:
+      - Dimensions
+      summary: Get dimensions operations
+      operationId: GetDimensionOperations
+      parameters:
+      - name: id
+        in: path
+        description: Dimension Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Dimensions/properties:
+    get:
+      tags:
+      - Dimensions
+      summary: Get the list of all the properties added to dimensions
+      operationId: GetAllUsedDimensionProperties
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Dimensions/values/properties:
+    get:
+      tags:
+      - Dimensions
+      summary: Get the list of all the properties added to dimensions
+      operationId: GetAllUsedDimensionValueProperties
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Dimensions/params:
+    get:
+      tags:
+      - Dimensions
+      summary: Get dimensions' parameters
+      operationId: Account dimensions parameters
+      parameters:
+      - name: dimensionId
+        in: query
+        description: ''
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountDimensionsParametersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Dimensions
+      summary: Create or update dimension parameters
+      operationId: Account dimensions parameters
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUpdateAccountDimensionParametersRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUpdateAccountDimensionParametersRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUpdateAccountDimensionParametersRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUpdateAccountDimensionParametersRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDimensionsParametersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /api/v1/Dimensions/Users:
+    get:
+      tags:
+      - Dimensions
+      summary: Get all the values for user dimensions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Dimensions/Locations:
+    get:
+      tags:
+      - Dimensions
+      summary: Get all the values for location dimensions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Dimensions/Operations:
+    get:
+      tags:
+      - Dimensions
+      summary: Get all the values for operation dimensions
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OperationDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Dimensions/Items/properties:
+    get:
+      tags:
+      - Dimensions
+      summary: Get all the values of items public properties
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Dimensions/Users/properties:
+    get:
+      tags:
+      - Dimensions
+      summary: Get all the values of users public properties
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Dimensions/Accounts:
+    get:
+      tags:
+      - Dimensions
+      summary: Get all active accounts (companies) the user has access to
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountBasicResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    AccountBasicResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        accountCode:
+          type: string
+          nullable: true
+        isTenantPrimary:
+          type: boolean
+      additionalProperties: false
+    UserDTO:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+        userName:
+          type: string
+          nullable: true
+        profileId:
+          type: integer
+          format: int32
+        profileName:
+          type: string
+          nullable: true
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        fullName:
+          type: string
+          nullable: true
+        isDeleted:
+          type: boolean
+      additionalProperties: false
+    OperationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        parentId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OperationDTO:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DimensionType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 100
+      - 198
+      - 199
+      - 200
+      type: integer
+      format: int32
+    DimensionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    UpdateDimensionRequest:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        rank:
+          type: integer
+          format: int32
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
+      additionalProperties: false
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    DimensionResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DimensionResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    AccountDimensionsParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    LocationDTO:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        accounts:
+          type: array
+          items:
+            type: integer
+            format: int32
+          nullable: true
+      additionalProperties: false
+    ItemCondition:
+      type: object
+      properties:
+        propertyKey:
+          type: string
+          nullable: true
+        propertyValue:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CreateDimensionRequest:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        rank:
+          type: integer
+          format: int32
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
+      additionalProperties: false
+    CreateUpdateAccountDimensionParametersRequest:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    DimensionDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

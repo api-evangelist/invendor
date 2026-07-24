@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Auth API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Auth
+paths:
+  /api/v1/Auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login endpoint for Swagger - exchanges credentials for OAuth token and sets cookie
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            text/plain; x-api-version=1.0:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json; x-api-version=1.0:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json; x-api-version=1.0:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/Auth/logout:
+    post:
+      tags:
+      - Auth
+      summary: Logout endpoint - clears authentication cookie
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+  /api/v1/Auth/status:
+    get:
+      tags:
+      - Auth
+      summary: Check authentication status
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

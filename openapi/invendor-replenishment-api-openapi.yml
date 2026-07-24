@@ -1,0 +1,420 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Replenishment API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Replenishment
+paths:
+  /api/v1/Replenishment:
+    get:
+      tags:
+      - Replenishment
+      summary: Get replenishment data
+      parameters:
+      - name: dateFrom
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: itemId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: vendor
+        in: query
+        schema:
+          type: string
+          default: ''
+      - name: vendorAccountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReplenishmentReportDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Replenishment/order:
+    get:
+      tags:
+      - Replenishment
+      summary: Get replenishment order - for current state of inventory
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: vendor
+        in: query
+        schema:
+          type: string
+          default: ''
+      - name: vendorAccountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReplenishmentOrderRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Replenishment/orderlines:
+    get:
+      tags:
+      - Replenishment
+      summary: Returns order lines for selected location, vendor and up to defined order and/or line status
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: vendor
+        in: query
+        schema:
+          type: string
+          default: ''
+      - name: orderStatus
+        in: query
+        schema:
+          $ref: '#/components/schemas/OrderStatus'
+      - name: lineStatus
+        in: query
+        schema:
+          $ref: '#/components/schemas/OrderLineStatus'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReplenishementOrderLineDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    ReplenishmentOrderRowDTO:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        altName:
+          type: string
+          nullable: true
+        altCode:
+          type: string
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        diff:
+          type: number
+          format: double
+        inventUnitId:
+          type: string
+          nullable: true
+        orderQty:
+          type: number
+          format: double
+        moq:
+          type: number
+          format: double
+        orderUnit:
+          type: string
+          nullable: true
+        vendor:
+          type: string
+          nullable: true
+        itemProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+      additionalProperties: false
+    ReplenishementOrderLineDto:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int32
+        globalOrderId:
+          type: string
+          format: uuid
+        orderLineId:
+          type: integer
+          format: int32
+        itemId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        altName:
+          type: string
+          nullable: true
+        altCode:
+          type: string
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        inventUnitId:
+          type: string
+          nullable: true
+        orderQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+          nullable: true
+        shippedQty:
+          type: number
+          format: double
+          nullable: true
+        receivedQty:
+          type: number
+          format: double
+          nullable: true
+        orderUnit:
+          type: string
+          nullable: true
+        vendor:
+          type: string
+          nullable: true
+        itemProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+        locationProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+      additionalProperties: false
+    OrderLineStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    ReplenishmentReportDTO:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        locationParamId:
+          type: integer
+          format: int32
+          nullable: true
+        inventDimId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        altName:
+          type: string
+          nullable: true
+        altCode:
+          type: string
+          nullable: true
+        vendor:
+          type: string
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        moq:
+          type: number
+          format: double
+        buffer:
+          type: number
+          format: double
+        onHand:
+          type: number
+          format: double
+        onOrder:
+          type: number
+          format: double
+        ordered:
+          type: number
+          format: double
+        orderUnit:
+          type: string
+          nullable: true
+        inventUnit:
+          type: string
+          nullable: true
+        diff:
+          type: number
+          format: double
+        orderQty:
+          type: number
+          format: double
+        periodConsumption:
+          type: number
+          format: double
+        bufferPerc:
+          type: number
+          format: double
+        itemProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

@@ -1,0 +1,304 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts QuestionDefinitions API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: QuestionDefinitions
+paths:
+  /v1/QuestionDefinitions:
+    get:
+      tags:
+      - QuestionDefinitions
+      summary: Get all question definitions
+      operationId: Questions
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDefResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - QuestionDefinitions
+      summary: Create new question definition
+      operationId: Create question
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionDefinitionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionDefinitionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionDefinitionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionDefinitionRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/QuestionDefinitions/{id}:
+    get:
+      tags:
+      - QuestionDefinitions
+      summary: Get question definition by id
+      operationId: Question
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDefResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - QuestionDefinitions
+      summary: Update question definition
+      operationId: Update question definition
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateQuestionDefRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateQuestionDefRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateQuestionDefRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateQuestionDefRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - QuestionDefinitions
+      summary: Delete question definition
+      operationId: Delete question
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CreateQuestionDefinitionRequest:
+      type: object
+      properties:
+        questionId:
+          type: string
+          nullable: true
+        query:
+          type: string
+          nullable: true
+      additionalProperties: false
+    QuestionDefResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionDefResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    QuestionDefResponse:
+      type: object
+      properties:
+        questionId:
+          type: string
+          nullable: true
+        query:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    UpdateQuestionDefRequest:
+      type: object
+      properties:
+        questionId:
+          type: string
+          nullable: true
+        query:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

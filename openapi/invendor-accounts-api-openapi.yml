@@ -1,0 +1,1461 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Accounts
+paths:
+  /v1/Accounts/me:
+    get:
+      tags:
+      - Accounts
+      summary: Returns the detailed info of an account
+      operationId: My account details
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts:
+    get:
+      tags:
+      - Accounts
+      operationId: Accounts list
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponseIPagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Accounts
+      summary: "Creates a new account. Profiles and users must be created separately\r\nusing POST /api/profiles and POST /api/users, then linked via\r\nPOST /api/accounts/{accountId}/profiles."
+      operationId: Create account
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}:
+    get:
+      tags:
+      - Accounts
+      summary: Returns the detailed info of an account
+      operationId: Account details
+      parameters:
+      - name: accountId
+        in: path
+        description: Account Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Accounts
+      operationId: Update account
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Accounts
+      summary: Deletes an account. NB! Will disable all the related Groups, Users, Locations, Operations, Dimensions!
+      operationId: Delete account
+      parameters:
+      - name: accountId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/fromInvitation:
+    post:
+      tags:
+      - Accounts
+      operationId: Create account from invitation
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountFromInvitationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountFromInvitationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountFromInvitationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountFromInvitationRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}/fromInvitation:
+    put:
+      tags:
+      - Accounts
+      operationId: Create account linked settings from invitation
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountFromInvitationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountFromInvitationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountFromInvitationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountFromInvitationRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}/linkedLocations:
+    put:
+      tags:
+      - Accounts
+      operationId: Update linked account locations mapping
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedLocationsMap'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedLocationsMap'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedLocationsMap'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedLocationsMap'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}/linkedOperations:
+    put:
+      tags:
+      - Accounts
+      operationId: Update linked account operations mapping
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedOperationsMap'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedOperationsMap'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedOperationsMap'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinkedOperationsMap'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}/profiles:
+    post:
+      tags:
+      - Accounts
+      summary: Add group to account. Enables group to access account
+      operationId: Add related profile
+      parameters:
+      - name: accountId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: Request DTO - GroupId and IsDefault
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddAccountRelatedProfileRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddAccountRelatedProfileRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddAccountRelatedProfileRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddAccountRelatedProfileRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}/profiles/{userProfileId}:
+    delete:
+      tags:
+      - Accounts
+      summary: Remove related profile from the account
+      operationId: Delete related profile
+      parameters:
+      - name: accountId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: userProfileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/vendors:
+    get:
+      tags:
+      - Accounts
+      summary: Returns the list of vendors of an account
+      operationId: Account vendors
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountVendorResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/invitation:
+    get:
+      tags:
+      - Accounts
+      summary: Get data from the inviter's tenant regarding account
+      operationId: Client accepts vendor invitation
+      parameters:
+      - name: tenantId
+        in: query
+        description: Inviter's tenant id
+        schema:
+          type: string
+          format: uuid
+      - name: recordId
+        in: query
+        description: Id of the record
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedAccountSettingsDataResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Accounts
+      summary: Inviter creates an invitation
+      operationId: Vendor invitation
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountInvetationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountInvetationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountInvetationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAccountInvetationRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountInvetationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/linkedClientsTenants:
+    get:
+      tags:
+      - Accounts
+      summary: Get all tenants linked to account
+      operationId: Account's clients' tenants
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientTenantResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/{accountId}/linkedSettings/validation:
+    get:
+      tags:
+      - Accounts
+      summary: "Validate that a linked (vendor) account is fully configured for cross-tenant session\r\nreplication, and report exactly which pieces are missing."
+      operationId: Validate linked account configuration
+      parameters:
+      - name: accountId
+        in: path
+        description: Linked account id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkedAccountValidationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/integration:
+    delete:
+      tags:
+      - Accounts
+      summary: Delete account invitation
+      operationId: Delete account integration
+      parameters:
+      - name: recordId
+        in: query
+        description: ''
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Accounts/validate:
+    get:
+      tags:
+      - Accounts
+      summary: Validates whether a single account code exists
+      parameters:
+      - name: accountCode
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Accounts
+      summary: Validates multiple account codes. Returns only invalid codes.
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateAccountCodesRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateAccountCodesRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateAccountCodesRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateAccountCodesRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    LinkedLocationsMap:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+        externalLocationId:
+          type: integer
+          format: int32
+          nullable: true
+        externalLocationName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        filteredItems:
+          type: boolean
+        isTenantPrimary:
+          type: boolean
+        isUserPrimary:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        tenantId:
+          type: string
+          format: uuid
+          nullable: true
+        integrationEnabled:
+          type: boolean
+      additionalProperties: false
+    OperationsForHash:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        genericOperationType:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ClientTenantResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AccountRelationEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    UpdateAccountFromInvitationRequest:
+      type: object
+      properties:
+        inviterTenantId:
+          type: string
+          format: uuid
+        externalAccountId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    LinkedOperationsMap:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        genericOperationType:
+          type: string
+          nullable: true
+        operationId:
+          type: integer
+          format: int32
+          nullable: true
+        externalOperationId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    CreateAccountInvetationRequest:
+      type: object
+      properties:
+        accountIdToInvite:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        locationName:
+          type: string
+          nullable: true
+        genericOperationTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationsForHash'
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ValidateAccountCodesRequest:
+      type: object
+      properties:
+        accountCodes:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    CreateAccountRequest:
+      type: object
+      properties:
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountAddress'
+          nullable: true
+        filteredItems:
+          type: boolean
+          nullable: true
+        mfaEnabled:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    AccountDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        filteredItems:
+          type: boolean
+        isTenantPrimary:
+          type: boolean
+        isUserPrimary:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        tenantId:
+          type: string
+          format: uuid
+          nullable: true
+        integrationEnabled:
+          type: boolean
+        createdOn:
+          type: string
+          format: date-time
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountAddress'
+          nullable: true
+        relatedProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserProfileResponse'
+          nullable: true
+        accountSettings:
+          $ref: '#/components/schemas/LinkedAccountSettingsDataResponse'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountLocationResponse'
+          nullable: true
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        attachmentStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          nullable: true
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    AccountLocationResponse:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        relType:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AddAccountRelatedProfileRequest:
+      type: object
+      properties:
+        userProfileId:
+          type: integer
+          format: int32
+        isDefault:
+          type: boolean
+      additionalProperties: false
+    AccountVendorResult:
+      type: object
+      properties:
+        vendorId:
+          type: integer
+          format: int32
+        vendorCode:
+          type: string
+          nullable: true
+        vendorName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AddressType:
+      enum:
+      - 0
+      - 1
+      - 99
+      type: integer
+      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    LinkedAccountValidationResponse:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+        isComplete:
+          type: boolean
+        tenantLinked:
+          type: boolean
+        hasLocationMappings:
+          type: boolean
+        hasOperationMappings:
+          type: boolean
+        unmappedLocations:
+          type: array
+          items:
+            type: string
+          nullable: true
+        unmappedOperations:
+          type: array
+          items:
+            type: string
+          nullable: true
+        issues:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    LinkedAccountSettingsDataResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        tenantId:
+          type: string
+          format: uuid
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        userId:
+          type: integer
+          format: int32
+          nullable: true
+        type:
+          $ref: '#/components/schemas/AccountRelationEnum'
+        externalUserId:
+          type: integer
+          format: int32
+          nullable: true
+        externalAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        externalAccountName:
+          type: string
+          nullable: true
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedLocationsMap'
+          nullable: true
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedOperationsMap'
+          nullable: true
+      additionalProperties: false
+    OrderNotificationAttachmentFormat:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    CreateAccountInvetationResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        linkedAccountSettingsId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    AccountResponseIPagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    CreateAccountFromInvitationRequest:
+      type: object
+      properties:
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountAddress'
+          nullable: true
+        filteredItems:
+          type: boolean
+          nullable: true
+        inviterTenantId:
+          type: string
+          format: uuid
+        externalAccountId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    AccountAddress:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AddressType'
+        addressLine:
+          type: string
+          nullable: true
+        addressLine2:
+          type: string
+          nullable: true
+        addressLine3:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        state:
+          type: string
+          nullable: true
+        zipCode:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UpdateAccountRequest:
+      type: object
+      properties:
+        accountName:
+          type: string
+          nullable: true
+        mfaEnabled:
+          type: boolean
+          nullable: true
+        orderNotificationsEnabled:
+          type: boolean
+          nullable: true
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        attachmentStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          nullable: true
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

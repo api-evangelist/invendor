@@ -1,0 +1,129 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Consumption API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Consumption
+paths:
+  /api/v1/Consumption:
+    get:
+      tags:
+      - Consumption
+      summary: Get period consumption
+      parameters:
+      - name: dateFrom
+        in: query
+        description: Consumption report period start date
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        description: Consumption report period end date
+        schema:
+          type: string
+          format: date-time
+      - name: locationId
+        in: query
+        description: Location id to get consumption in selected location
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: query
+        description: ''
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        description: To filter based on itemId
+        schema:
+          type: integer
+          format: int32
+      - name: itemCode
+        in: query
+        description: ItemCode can also be used for filtering
+        schema:
+          type: string
+          default: ''
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemConsumptionDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ItemConsumptionDTO:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        altCode:
+          type: string
+          nullable: true
+        altName:
+          type: string
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+        locationName:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        itemUnit:
+          type: string
+          nullable: true
+        vendor:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

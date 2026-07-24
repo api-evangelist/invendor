@@ -1,0 +1,478 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts UnitConversions API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: UnitConversions
+paths:
+  /v1/UnitConversions:
+    get:
+      tags:
+      - UnitConversions
+      summary: Get all unit conversions
+      operationId: GetUnitConversions
+      parameters:
+      - name: ItemCode
+        in: query
+        schema:
+          type: string
+      - name: FromUnitId
+        in: query
+        schema:
+          type: string
+      - name: ToUnitId
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitConversionResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - UnitConversions
+      summary: Create unit conversions
+      operationId: CreateUnitConversions
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: CreateUnitConversionRequest dto
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUnitConversionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUnitConversionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUnitConversionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUnitConversionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UnitConversions/missing/{itemId}:
+    get:
+      tags:
+      - UnitConversions
+      summary: Get item missing unit conversions
+      operationId: GetItemMissingUnitConversions
+      parameters:
+      - name: itemId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemMissingUnitConversionResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UnitConversions/{unitConversionId}:
+    get:
+      tags:
+      - UnitConversions
+      summary: Get unit conversion details by id
+      operationId: GetUnitConversion
+      parameters:
+      - name: unitConversionId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitConversionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - UnitConversions
+      summary: Update unit conversions
+      operationId: UpdateUnitConversion
+      parameters:
+      - name: unitConversionId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: UpdateUnitConversionRequest dto
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUnitConversionRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUnitConversionRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUnitConversionRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUnitConversionRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - UnitConversions
+      summary: Delete unit conversions
+      operationId: DeleteUnitConversion
+      parameters:
+      - name: unitConversionId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    UpdateUnitConversionRequest:
+      type: object
+      properties:
+        factor:
+          type: number
+          format: double
+        decimals:
+          type: integer
+          format: int32
+        roundOffType:
+          $ref: '#/components/schemas/RoundOffType'
+      additionalProperties: false
+    ItemMissingUnitConversionResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemMissingUnitConversionResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    UnitConversionResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnitConversionResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    UnitConversionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        fromUnitId:
+          type: string
+          nullable: true
+        toUnitId:
+          type: string
+          nullable: true
+        factor:
+          type: number
+          format: double
+        decimals:
+          type: integer
+          format: int32
+        roundOffType:
+          $ref: '#/components/schemas/RoundOffType'
+        item:
+          $ref: '#/components/schemas/ItemResponseBase'
+      additionalProperties: false
+    RoundOffType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    CreateUnitConversionRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+          nullable: true
+        fromUnitId:
+          type: string
+          nullable: true
+        toUnitId:
+          type: string
+          nullable: true
+        factor:
+          type: number
+          format: double
+        decimals:
+          type: integer
+          format: int32
+        roundOffType:
+          $ref: '#/components/schemas/RoundOffType'
+      additionalProperties: false
+    ItemResponseBase:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ItemMissingUnitConversionResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        fromUnitId:
+          type: string
+          nullable: true
+        toUnitId:
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

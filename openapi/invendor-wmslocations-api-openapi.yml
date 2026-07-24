@@ -1,0 +1,1012 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts WMSLocations API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: WMSLocations
+paths:
+  /v1/WMSLocations/{locationId}/areas:
+    get:
+      tags:
+      - WMSLocations
+      summary: Get all location areas
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - WMSLocations
+      summary: Create new area for location. (All the lockers etc must be defined as areas)
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateWMSAreaRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateWMSAreaRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateWMSAreaRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateWMSAreaRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/{locationId}/areas/{areaId}:
+    get:
+      tags:
+      - WMSLocations
+      summary: Get location area details
+      parameters:
+      - name: locationId
+        in: path
+        description: LocationId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: areaId
+        in: path
+        description: AreaId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - WMSLocations
+      summary: Update WMSArea
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: areaId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateWMSAreaRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateWMSAreaRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateWMSAreaRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateWMSAreaRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - WMSLocations
+      summary: Delete an selected area
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: areaId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/areas/cabinet/attach:
+    post:
+      tags:
+      - WMSLocations
+      summary: Attach WMS location to cabinet
+      operationId: Attach WMS location to cabinet
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: JSON object
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AttachWmsLocationToCabinetRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AttachWmsLocationToCabinetRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AttachWmsLocationToCabinetRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AttachWmsLocationToCabinetRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/{locationId}/addresses:
+    get:
+      tags:
+      - WMSLocations
+      summary: Get location wms addresses
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: WMSAreaId
+        in: query
+        schema:
+          type: string
+      - name: Rack
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Shelf
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Bin
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: WithoutGravity
+        in: query
+        schema:
+          type: boolean
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WMSLocationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - WMSLocations
+      summary: Create new wh address for area.
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/{locationId}/addresses/bulk:
+    post:
+      tags:
+      - WMSLocations
+      summary: Bulk insert of wh address for area.
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateAreaWMSLocationRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/{locationId}/addresses/{wmsLocationId}:
+    delete:
+      tags:
+      - WMSLocations
+      summary: Delete wh address in a location by address.
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/{locationId}/addresses/generate:
+    post:
+      tags:
+      - WMSLocations
+      summary: Generate wh aadresses on predefined parameters
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/GenerateWMSLocationsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/GenerateWMSLocationsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/GenerateWMSLocationsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/GenerateWMSLocationsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/{locationId}/addresses/delete:
+    post:
+      tags:
+      - WMSLocations
+      summary: Delete selected or all wh aadresses in a location
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteWMSLocationsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteWMSLocationsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteWMSLocationsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteWMSLocationsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSLocations/validate:
+    get:
+      tags:
+      - WMSLocations
+      summary: Validates whether a single WMS location ID exists for a given location
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - WMSLocations
+      summary: Validates multiple WMS location IDs for a given location. Returns only invalid IDs.
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateWmsLocationIdsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateWmsLocationIdsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateWmsLocationIdsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ValidateWmsLocationIdsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    GenerateWMSLocationsRequest:
+      type: object
+      properties:
+        areaId:
+          type: integer
+          format: int32
+          nullable: true
+        rackCount:
+          type: integer
+          format: int32
+          nullable: true
+        shelfCount:
+          type: integer
+          format: int32
+          nullable: true
+        binCount:
+          type: integer
+          format: int32
+          nullable: true
+        addressFormat:
+          type: string
+          nullable: true
+        includeAllAreas:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    Shelf:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        bins:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bin'
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        slot:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CreateWMSAreaRequest:
+      type: object
+      properties:
+        wmsAreaId:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/WMSAreaType'
+        compartments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Compartment'
+          nullable: true
+      additionalProperties: false
+    CreateAreaWMSLocationRequest:
+      type: object
+      properties:
+        wmsLocationId:
+          type: string
+          nullable: true
+        areaId:
+          type: integer
+          format: int32
+          nullable: true
+        rack:
+          type: integer
+          format: int32
+          nullable: true
+        shelf:
+          type: integer
+          format: int32
+          nullable: true
+        bin:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    UpdateWMSAreaRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/WMSAreaType'
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    WMSAreaType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    AttachWmsLocationToCabinetRequest:
+      type: object
+      properties:
+        areaId:
+          type: integer
+          format: int32
+        deviceId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    BinItem:
+      type: object
+      properties:
+        barcode:
+          type: string
+          nullable: true
+        weight:
+          type: number
+          format: double
+        unit:
+          type: string
+          nullable: true
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        quantity:
+          type: number
+          format: double
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        isWeightAdjusted:
+          type: boolean
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    ValidateWmsLocationIdsRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationIds:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    CabinetLocationItemsParam:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        barcode:
+          type: string
+          nullable: true
+        weight:
+          type: number
+          format: double
+          nullable: true
+        unit:
+          type: string
+          nullable: true
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        quantity:
+          type: number
+          format: double
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        isWeightAdjusted:
+          type: boolean
+        bufferLevel:
+          type: number
+          format: double
+          nullable: true
+        minOrderQty:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    Bin:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BinItem'
+          nullable: true
+        itemParam:
+          $ref: '#/components/schemas/CabinetLocationItemsParam'
+      additionalProperties: false
+    Compartment:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        shelves:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shelf'
+          nullable: true
+        bins:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShelfBinValueTuple'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    WMSLocationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        areaId:
+          type: integer
+          format: int32
+          nullable: true
+        wmsAreaId:
+          type: string
+          nullable: true
+        wmsAreaType:
+          type: integer
+          format: int32
+          nullable: true
+        rack:
+          type: integer
+          format: int32
+          nullable: true
+        shelf:
+          type: integer
+          format: int32
+          nullable: true
+        bin:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    BulkDeleteWMSLocationsRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+          nullable: true
+        wmsLocationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    ShelfBinValueTuple:
+      type: object
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

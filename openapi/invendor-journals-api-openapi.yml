@@ -1,0 +1,1142 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Journals API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Journals
+paths:
+  /v1/Journals:
+    get:
+      tags:
+      - Journals
+      operationId: GetJournals
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/JournalType'
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: operationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: showPosted
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/{journalId}:
+    get:
+      tags:
+      - Journals
+      summary: Returns journal details by journalId
+      operationId: GetJournalById
+      parameters:
+      - name: journalId
+        in: path
+        description: JournalId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Journals
+      summary: Updates journal details. Description is always updated. Date, OperationId and LocationId are updated only if journal has no lines.
+      operationId: UpdateJournalDetails
+      parameters:
+      - name: journalId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateJournalDetailsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateJournalDetailsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateJournalDetailsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateJournalDetailsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Journals
+      summary: Adds new line to journal (Not allowed for counting journal)
+      operationId: AddJournalLine
+      parameters:
+      - name: journalId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateJournalLineRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateJournalLineRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateJournalLineRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateJournalLineRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Journals
+      summary: Delete journal by journalId
+      operationId: DeleteJournal
+      parameters:
+      - name: journalId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/{journalId}/lines:
+    get:
+      tags:
+      - Journals
+      summary: Returns journal lines by journalId
+      operationId: GetJournalLines
+      parameters:
+      - name: journalId
+        in: path
+        description: journalid
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalLineResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/{journalId}/lines/recreate:
+    post:
+      tags:
+      - Journals
+      summary: Re-creates counting journal lines
+      operationId: ReCreateCountingLines
+      parameters:
+      - name: journalId
+        in: path
+        description: JournalId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: IO.WMS.Contracts.DTOs.Journals.ReCreateJournalLinesRequest
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ReCreateJournalLinesRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ReCreateJournalLinesRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ReCreateJournalLinesRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/ReCreateJournalLinesRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/counting:
+    post:
+      tags:
+      - Journals
+      summary: Create counting journal
+      operationId: CreateCountingJournal
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCountingJournalRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCountingJournalRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCountingJournalRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCountingJournalRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/correction:
+    post:
+      tags:
+      - Journals
+      summary: Create correction journal
+      operationId: CreateCorrectionJournal
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Request body
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCorrectionJournalRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCorrectionJournalRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCorrectionJournalRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateCorrectionJournalRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/{journalId}/post:
+    post:
+      tags:
+      - Journals
+      summary: Post journal journal
+      operationId: PostJournal
+      parameters:
+      - name: journalId
+        in: path
+        description: JournalId to be posted
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Post paramerters
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/PostJournalRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/PostJournalRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/PostJournalRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/PostJournalRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/confirmation:
+    post:
+      tags:
+      - Journals
+      summary: Creates new confirmation journal
+      operationId: CreateConfirmationJournal
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateConfirmationJournalRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateConfirmationJournalRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateConfirmationJournalRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateConfirmationJournalRequest'
+      responses:
+        '204':
+          description: No Content
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/confirmation/{journalId}/lines:
+    post:
+      tags:
+      - Journals
+      summary: Save all journal lines
+      operationId: SaveConfirmationJournalLines
+      parameters:
+      - name: journalId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfirmationJournalLine'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfirmationJournalLine'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfirmationJournalLine'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfirmationJournalLine'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Journals/{journalId}/lines/xlsx:
+    get:
+      tags:
+      - Journals
+      summary: Create xlsx file including journal lines
+      operationId: Export journal lines
+      parameters:
+      - name: journalId
+        in: path
+        description: Journal Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalLineResponsePagedResult'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    ConfirmationJournalLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        lineRefId:
+          type: integer
+          format: int32
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        transDate:
+          type: string
+          format: date-time
+        inventDimId:
+          type: integer
+          format: int32
+          nullable: true
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+        expectedQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CreateCorrectionJournalRequestLine:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        transDate:
+          type: string
+          format: date-time
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+        expectedQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+        diff:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    JournalProcessType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    CreateConfirmationJournalRequestLine:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type: string
+          nullable: true
+        transDate:
+          type: string
+          format: date-time
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+        expectedQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        unitId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    JournalLineResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JournalLineResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    InventDimResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    JournalType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CreateCorrectionJournalRequest:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        sessionId:
+          type: string
+          format: uuid
+        userId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+        diffOnly:
+          type: boolean
+        autoPost:
+          type: boolean
+        journalDate:
+          type: string
+          format: date-time
+        isInternal:
+          type: boolean
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateCorrectionJournalRequestLine'
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    JournalLineResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        journalId:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+          nullable: true
+        journalType:
+          $ref: '#/components/schemas/JournalType'
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        transDate:
+          type: string
+          format: date-time
+        quantity:
+          type: number
+          format: double
+        qtyOnHand:
+          type: number
+          format: double
+        qtyConfirmed:
+          type: number
+          format: double
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
+      additionalProperties: false
+    JournalResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JournalResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    UpdateJournalDetailsRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        operationId:
+          type: integer
+          format: int32
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+          nullable: true
+        date:
+          type: string
+          format: date-time
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    CreateConfirmationJournalRequest:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        orderRefId:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+        journalDate:
+          type: string
+          format: date-time
+        processType:
+          $ref: '#/components/schemas/JournalProcessType'
+        autoPost:
+          type: boolean
+        isInternal:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateConfirmationJournalRequestLine'
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CreateJournalLineRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        onHandQty:
+          type: number
+          format: double
+        qtyConfirmed:
+          type: number
+          format: double
+      additionalProperties: false
+    CreateCountingJournalRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        diffOnly:
+          type: boolean
+        withLines:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    PostJournalRequest:
+      type: object
+      properties:
+        isInternal:
+          type: boolean
+      additionalProperties: false
+    ReCreateJournalLinesRequest:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        diffOnly:
+          type: boolean
+      additionalProperties: false
+    JournalResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+          nullable: true
+        operationName:
+          type: string
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+        journalType:
+          $ref: '#/components/schemas/JournalType'
+        processType:
+          $ref: '#/components/schemas/JournalProcessType'
+        description:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date-time
+        posted:
+          type: boolean
+        postedDate:
+          type: string
+          format: date-time
+          nullable: true
+        linesCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

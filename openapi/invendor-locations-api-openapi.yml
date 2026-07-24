@@ -1,0 +1,2702 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Locations API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Locations
+paths:
+  /v1/Locations:
+    get:
+      tags:
+      - Locations
+      summary: Get all locations
+      operationId: GetAllLocations
+      parameters:
+      - name: Type
+        in: query
+        schema:
+          $ref: '#/components/schemas/LocationType'
+      - name: WithProperties
+        in: query
+        schema:
+          type: boolean
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Locations
+      summary: Create a new locations
+      operationId: Create location
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Request object that contains all the data needed to create a new location
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{serviceId}:
+    get:
+      tags:
+      - Locations
+      summary: Get service locations
+      operationId: Get service locations
+      parameters:
+      - name: serviceId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Type
+        in: query
+        schema:
+          $ref: '#/components/schemas/LocationType'
+      - name: WithProperties
+        in: query
+        schema:
+          type: boolean
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{id}:
+    get:
+      tags:
+      - Locations
+      summary: Get location details
+      operationId: Get locations details
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}:
+    put:
+      tags:
+      - Locations
+      summary: Update location details
+      operationId: Update locations details
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id to be updated
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Request object that contains location details data
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationDetailsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationDetailsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationDetailsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationDetailsRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Locations
+      summary: Delete location
+      operationId: Delete location
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id to be deleted
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/order-notifications:
+    get:
+      tags:
+      - Locations
+      summary: Get order notification settings for location (buyer side)
+      operationId: Get location order notification settings
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderNotificationSettingsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Locations
+      summary: Update order notification settings for location (buyer side)
+      operationId: Update location order notification settings
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Order notification settings
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/accounts/{accountId}/order-notifications:
+    get:
+      tags:
+      - Locations
+      summary: Get order notification settings for a vendor account at this location
+      operationId: Get vendor order notification settings
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: path
+        description: Vendor Account Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderNotificationSettingsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Locations
+      summary: Update order notification settings for a vendor account at this location
+      operationId: Update vendor order notification settings
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: accountId
+        in: path
+        description: Vendor Account Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: Order notification settings
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/vendors:
+    get:
+      tags:
+      - Locations
+      summary: Get all vendor accounts for a location
+      operationId: Get location vendors
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VendorAccountResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Locations
+      summary: Add a vendor account to the location
+      operationId: Add vendor to location
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Vendor account to add
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddVendorAccountRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddVendorAccountRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddVendorAccountRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddVendorAccountRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/vendors/{accountIdToUpdate}:
+    put:
+      tags:
+      - Locations
+      summary: Update vendor order notification settings
+      operationId: Update vendor notification settings
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: accountIdToUpdate
+        in: path
+        description: Vendor to update
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Order notification settings
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/OrderNotificationSettingsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/vendors/{accountIdToRemove}:
+    delete:
+      tags:
+      - Locations
+      summary: Remove vendor account from location
+      operationId: Remove vendor from location
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: accountIdToRemove
+        in: path
+        description: Account id to be removed
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/customers:
+    get:
+      tags:
+      - Locations
+      summary: Get all customer accounts for a location
+      operationId: Get location customers
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerAccountResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - Locations
+      summary: Upsert customer accounts for a location
+      operationId: Upsert location customers
+      parameters:
+      - name: locationId
+        in: path
+        description: Location Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: List of customer account ids
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/groups:
+    get:
+      tags:
+      - Locations
+      summary: Get location groups related to current user
+      operationId: User groups for user in selected location
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfileResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/devices:
+    get:
+      tags:
+      - Locations
+      summary: Returns all devices linked to the location
+      operationId: LocationDevicesList
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Locations
+      summary: Link location and device
+      operationId: Add location device
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddLocationDeviceRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddLocationDeviceRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddLocationDeviceRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddLocationDeviceRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/devices/{deviceId}:
+    delete:
+      tags:
+      - Locations
+      summary: Unlink device to the location
+      operationId: Remove location device
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/locks:
+    get:
+      tags:
+      - Locations
+      summary: Returns all area locks in the location
+      operationId: GetLocationLocks
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationAreaLocksResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/locks/{wmsAreaId}:
+    get:
+      tags:
+      - Locations
+      summary: Returns all area locks for the given area in the location
+      operationId: GetAreaLocks
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: wmsAreaId
+        in: path
+        description: Area id
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationAreaLocksResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Locations
+      summary: Save all area locks
+      operationId: SaveAreaLocks
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: wmsAreaId
+        in: path
+        description: Area id
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Create lock request
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AreaLockRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AreaLockRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AreaLockRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AreaLockRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/properties:
+    get:
+      tags:
+      - Locations
+      summary: Get the list of all the properties added to locations
+      operationId: GetAllUsedLocationProperties
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/definedProperties:
+    get:
+      tags:
+      - Locations
+      summary: Get the defined properties for locations
+      operationId: Get defined properties for locations
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetDefinedPropertyParametersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Locations
+      summary: Create new location property with parameters
+      operationId: Create location defined property with parameters
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDefinedPropertyParametersRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDefinedPropertyParametersRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDefinedPropertyParametersRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateDefinedPropertyParametersRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/definedProperties/{id}:
+    put:
+      tags:
+      - Locations
+      summary: Update existing location property with parameters
+      operationId: Update location defined property with parameters
+      parameters:
+      - name: id
+        in: path
+        description: Property parameter Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDefinedPropertyParametersRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDefinedPropertyParametersRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDefinedPropertyParametersRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateDefinedPropertyParametersRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Locations
+      summary: Delete existing location property with parameters
+      operationId: Delete location defined propety with parameters
+      parameters:
+      - name: id
+        in: path
+        description: Property parameter Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/definedProperties/bulk:
+    post:
+      tags:
+      - Locations
+      summary: Bulk upsert/delete location properties with parameters
+      operationId: Create or update location defined propeties with parameters
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertDefinedPropertyParametersRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertDefinedPropertyParametersRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertDefinedPropertyParametersRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertDefinedPropertyParametersRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/{locationId}/tenants:
+    get:
+      tags:
+      - Locations
+      summary: Get the list of all external tenants related to this location
+      operationId: GetAllTenants
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientTenantResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Locations/forCompany:
+    get:
+      tags:
+      - Locations
+      summary: Get company locations
+      operationId: Get account locations
+      parameters:
+      - name: Type
+        in: query
+        schema:
+          $ref: '#/components/schemas/LocationType'
+      - name: WithProperties
+        in: query
+        schema:
+          type: boolean
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    LocationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/LocationType'
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+      additionalProperties: false
+    IDomainEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        occurredOn:
+          type: string
+          format: date-time
+          readOnly: true
+      additionalProperties: false
+    CreateDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    UpdateLocationDetailsRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        coordinates:
+          type: string
+          nullable: true
+        isCabinet:
+          type: boolean
+        isScale:
+          type: boolean
+        isLock:
+          type: boolean
+        hasDedicatedDevice:
+          type: boolean
+        ioid:
+          type: string
+          nullable: true
+        disableSubmitConfirmation:
+          type: boolean
+        anonymousDefaultOperationId:
+          type: integer
+          format: int32
+        defaultReceptionOperationId:
+          type: integer
+          format: int32
+        notificationsEnabled:
+          type: boolean
+        notificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+      additionalProperties: false
+    ClientTenantResponse:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DeviceEvent:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        content:
+          type: string
+          nullable: true
+          readOnly: true
+        received:
+          type: string
+          format: date-time
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    DeviceEventNotification:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        deviceId:
+          type: string
+          format: uuid
+        eventName:
+          type: string
+          nullable: true
+        eventContent:
+          type: string
+          nullable: true
+        receivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationsReceiver'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    CreateLocationRequest:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          format: uuid
+        ownerAccountId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        coordinates:
+          type: string
+          nullable: true
+        isCabinet:
+          type: boolean
+        isScale:
+          type: boolean
+        isLock:
+          type: boolean
+        hasDedicatedDevice:
+          type: boolean
+        ioid:
+          type: string
+          nullable: true
+        anonymousDefaultOperationId:
+          type: integer
+          format: int32
+        defaultReceptionOperationId:
+          type: integer
+          format: int32
+        supplierAccounts:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+          nullable: true
+        partnerAccounts:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    TenantDevice:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        deviceId:
+          type: string
+          format: uuid
+        device:
+          $ref: '#/components/schemas/Device'
+      additionalProperties: false
+    DeviceSIMStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        iccid:
+          maxLength: 21
+          minLength: 0
+          type: string
+          nullable: true
+        dataLimit:
+          type: number
+          format: double
+        dataUsage:
+          type: number
+          format: double
+        statusDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        token:
+          type: string
+          nullable: true
+          readOnly: true
+        iccid:
+          type: string
+          nullable: true
+          readOnly: true
+        dedicatedDeviceId:
+          type: string
+          format: uuid
+          nullable: true
+          readOnly: true
+        sbNumber:
+          type: string
+          nullable: true
+          readOnly: true
+        ioid:
+          type: string
+          nullable: true
+          readOnly: true
+        externalId:
+          type: string
+          nullable: true
+          readOnly: true
+        isDeleted:
+          type: boolean
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/DeviceType'
+        deletedOn:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        deviceTenants:
+          type: array
+          items:
+            $ref: '#/components/schemas/TenantDevice'
+          nullable: true
+          readOnly: true
+        deviceEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceEvent'
+          nullable: true
+          readOnly: true
+        deviceHeartbeats:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeat'
+          nullable: true
+          readOnly: true
+        deviceEventNotifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceEventNotification'
+          nullable: true
+          readOnly: true
+        deviceRegistrationStates:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceRegistrationState'
+          nullable: true
+          readOnly: true
+        deviceSIMStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceSIMStatus'
+          nullable: true
+          readOnly: true
+        deviceShelfStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceShelfStatus'
+          nullable: true
+          readOnly: true
+        cabinetProdData:
+          $ref: '#/components/schemas/CabinetProdData'
+        currentRegistrationState:
+          $ref: '#/components/schemas/DeviceRegistrationState'
+      additionalProperties: false
+    AreaLockResponse:
+      type: object
+      properties:
+        lockId:
+          type: string
+          nullable: true
+        index:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        wmsAreaId:
+          type: string
+          nullable: true
+        areaName:
+          type: string
+          nullable: true
+        ioid:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DeviceRegistrationState:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        pairingCode:
+          type: string
+          nullable: true
+        state:
+          $ref: '#/components/schemas/DevicePreRegistrationStatus'
+        tenantId:
+          type: string
+          format: uuid
+          nullable: true
+        deviceName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AddLocationDeviceRequest:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    VendorAccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+        accountName:
+          type: string
+          nullable: true
+        accountCode:
+          type: string
+          nullable: true
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        attachmentStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          nullable: true
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    CabinetProdData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        batchNumber:
+          type: string
+          nullable: true
+          readOnly: true
+        verdinSN:
+          type: string
+          nullable: true
+          readOnly: true
+        cabinetType:
+          $ref: '#/components/schemas/CabinetType'
+        comment:
+          type: string
+          nullable: true
+          readOnly: true
+        region:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    OrderNotificationSettingsRequest:
+      type: object
+      properties:
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        attachmentStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          nullable: true
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    GetDefinedPropertyParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        affinity:
+          $ref: '#/components/schemas/ExtendedPropertyAffinity'
+        key:
+          type: string
+          nullable: true
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    DeviceShelfStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        spineHWVer:
+          type: string
+          nullable: true
+        shelfHWVer:
+          type: string
+          nullable: true
+        pcbhwVer:
+          type: string
+          nullable: true
+        compartment:
+          type: integer
+          format: int32
+        slot:
+          type: integer
+          format: int32
+        binCount:
+          type: integer
+          format: int32
+        statusDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CabinetType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    OrderNotificationSettingsResponse:
+      type: object
+      properties:
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        attachmentStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          nullable: true
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    DeviceHeartbeat:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        osVersion:
+          type: string
+          nullable: true
+        appVersion:
+          type: string
+          nullable: true
+        batteryPercentage:
+          type: integer
+          format: int32
+        batteryCurrentNow:
+          type: integer
+          format: int32
+        batteryCurrentAverage:
+          type: integer
+          format: int32
+        batteryVoltage:
+          type: integer
+          format: int32
+        batteryStatus:
+          type: string
+          nullable: true
+        unsentSessions:
+          type: integer
+          format: int32
+        unfinishedSessions:
+          type: integer
+          format: int32
+        received:
+          type: string
+          format: date-time
+        device:
+          $ref: '#/components/schemas/Device'
+        ioid:
+          type: string
+          nullable: true
+        userInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
+          nullable: true
+          readOnly: true
+        linkedDevices:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    DeviceType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    DeviceHeartbeatUserInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          nullable: true
+          readOnly: true
+        heartbeatId:
+          type: integer
+          format: int32
+        unfinishedScans:
+          type: integer
+          format: int32
+        unfinishedSessions:
+          type: integer
+          format: int32
+        unsentSessions:
+          type: integer
+          format: int32
+        unsentScans:
+          type: integer
+          format: int32
+        username:
+          type: string
+          nullable: true
+        deviceHeartbeat:
+          $ref: '#/components/schemas/DeviceHeartbeat'
+      additionalProperties: false
+    LocationType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    LocationDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/LocationType'
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+        subscriptionId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        coordinates:
+          type: string
+          nullable: true
+        isCabinet:
+          type: boolean
+        isLock:
+          type: boolean
+        isScale:
+          type: boolean
+        hasDedicatedDevice:
+          type: boolean
+        disableSubmitConfirmation:
+          type: boolean
+        ioid:
+          type: string
+          nullable: true
+        anonymousDefaultOperation:
+          $ref: '#/components/schemas/OperationResponse'
+        defaultReceptionOperation:
+          $ref: '#/components/schemas/OperationResponse'
+        notificationsEnabled:
+          type: boolean
+        notificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        definedProperties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DefinedPropertyValueDTO'
+          nullable: true
+      additionalProperties: false
+    OperationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        parentId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LocationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    LocationConsumptionType:
+      enum:
+      - 10
+      - 20
+      type: integer
+      format: int32
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
+    UpdateDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        key:
+          type: string
+          nullable: true
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    LocationAreaLocksResponse:
+      type: object
+      properties:
+        wmsAreaId:
+          type: string
+          nullable: true
+        ioid:
+          type: string
+          nullable: true
+        locks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AreaLockResponse'
+          nullable: true
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrderNotificationAttachmentFormat:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    DevicePreRegistrationStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    AddVendorAccountRequest:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type: array
+          items:
+            type: string
+          nullable: true
+        attachmentStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          nullable: true
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    BulkUpsertDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          nullable: true
+        key:
+          type: string
+          nullable: true
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    DeviceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        ioid:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/DeviceType'
+        token:
+          type: string
+          nullable: true
+        osVersion:
+          type: string
+          nullable: true
+        appVersion:
+          type: string
+          nullable: true
+        received:
+          type: string
+          format: date-time
+          nullable: true
+        batteryPercentage:
+          type: integer
+          format: int32
+          nullable: true
+        batteryStatus:
+          type: string
+          nullable: true
+        unsentSessions:
+          type: integer
+          format: int32
+          nullable: true
+        unfinishedSessions:
+          type: integer
+          format: int32
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        lastSeenSecAgo:
+          type: integer
+          format: int32
+          nullable: true
+        userInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
+          nullable: true
+        serialNumber:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    CustomerAccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+        accountName:
+          type: string
+          nullable: true
+        accountCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ExtendedPropertyAffinity:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 14
+      - 15
+      - 20
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      - 26
+      - 27
+      - 31
+      - 33
+      - 34
+      - 35
+      - 81
+      - 100
+      - 101
+      - 102
+      - 103
+      - 104
+      - 105
+      - 200
+      - 201
+      - 210
+      - 211
+      - 220
+      - 230
+      - 240
+      - 241
+      - 300
+      - 310
+      - 311
+      - 400
+      - 401
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    NotificationsReceiver:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        notificationId:
+          type: integer
+          format: int32
+        value:
+          type: string
+          nullable: true
+        type:
+          type: integer
+          format: int32
+        deviceEventNotification:
+          $ref: '#/components/schemas/DeviceEventNotification'
+      additionalProperties: false
+    DefinedPropertyValueDTO:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+        isRequired:
+          type: boolean
+      additionalProperties: false
+    AreaLockRequest:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        args:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

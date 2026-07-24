@@ -1,0 +1,1179 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts UserProfiles API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: UserProfiles
+paths:
+  /v1/UserProfiles:
+    get:
+      tags:
+      - UserProfiles
+      summary: Returns all user groups
+      operationId: GetUserGroups
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - UserProfiles
+      summary: Create new user group
+      operationId: CreateUserGroup
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Create user profile request object. Description in docs
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUserProfileRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUserProfileRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUserProfileRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateUserProfileRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}:
+    get:
+      tags:
+      - UserProfiles
+      summary: Retruns selected user group details
+      operationId: GetUserGroupDetails
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - UserProfiles
+      summary: Update selected user group details
+      operationId: UpdateUserGroupDetails
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileDetailsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileDetailsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileDetailsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileDetailsRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - UserProfiles
+      summary: Delete selected user group
+      operationId: DeleteUserGroup
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/properties:
+    get:
+      tags:
+      - UserProfiles
+      summary: Get the list of all the properties added to user groups
+      operationId: GetAllUsedUserProfileProperties
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}/users:
+    get:
+      tags:
+      - UserProfiles
+      summary: Returns users list assigned to selected user group
+      operationId: GetUserGroupUsers
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - UserProfiles
+      summary: Add users to selected user group
+      operationId: AddUserToUserGroup
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}/locations/available:
+    get:
+      tags:
+      - UserProfiles
+      summary: Returns locations available to assign to a user group (not yet assigned)
+      operationId: GetAvailableLocationsForUserGroup
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: account
+        in: query
+        description: Account ID
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}/locations:
+    get:
+      tags:
+      - UserProfiles
+      summary: Returns user group locations list
+      operationId: GetUserGroupLocations
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileLocationResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - UserProfiles
+      summary: Save user group locations and operations
+      operationId: SaveUserGroupLocation
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateProfileLocationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateProfileLocationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateProfileLocationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateProfileLocationRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}/locations/{locationId}:
+    delete:
+      tags:
+      - UserProfiles
+      summary: Delete user group location
+      operationId: DeleteUserGroupLocation
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}/locations/{locationId}/operations:
+    post:
+      tags:
+      - UserProfiles
+      summary: Add a single operation to user group location
+      operationId: CreateUserGroupLocationOperation
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LocationOperationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LocationOperationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LocationOperationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/LocationOperationRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/UserProfiles/{profileId}/locations/{locationId}/operations/{operationId}:
+    delete:
+      tags:
+      - UserProfiles
+      summary: Delete selected operation from user group location
+      operationId: DeleteUserGroupLocationOperation
+      parameters:
+      - name: profileId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: operationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    ProfileLocationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileLocationResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    LocationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/LocationType'
+        accountCode:
+          type: string
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+      additionalProperties: false
+    UserProfileResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserProfileResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    LocationOperationLock:
+      type: object
+      properties:
+        lockId:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SessionScanEventEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    LocationOperationRequest:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        autoFinish:
+          type: boolean
+        noDoorAccess:
+          type: boolean
+        locks:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationOperationLock'
+          nullable: true
+        questions:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    UserProfileDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        mfaEnabled:
+          type: boolean
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        doors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Door'
+          nullable: true
+      additionalProperties: false
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+        profileId:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        fullName:
+          type: string
+          nullable: true
+          readOnly: true
+        profileName:
+          type: string
+          nullable: true
+        identityId:
+          type: string
+          nullable: true
+        nfcid:
+          type: string
+          nullable: true
+        pin:
+          type: string
+          nullable: true
+        simpleUser:
+          type: boolean
+        isDashboardEnabled:
+          type: boolean
+        email:
+          type: string
+          nullable: true
+        emailConfirmed:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProfileLocationOperationQuestionResponse:
+      type: object
+      properties:
+        questionId:
+          type: string
+          nullable: true
+        questionText:
+          type: string
+          nullable: true
+        scope:
+          $ref: '#/components/schemas/SessionScanEventEnum'
+      additionalProperties: false
+    CreateProfileLocationRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationOperationRequest'
+          nullable: true
+      additionalProperties: false
+    LocationType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    CreateUserProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        doors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Door'
+          nullable: true
+      additionalProperties: false
+    LocationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    UserResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    LocationConsumptionType:
+      enum:
+      - 10
+      - 20
+      type: integer
+      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ProfileLocationResponse:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        userProfileId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        serviceType:
+          type: string
+          nullable: true
+        subscriptionId:
+          type: string
+          format: uuid
+          nullable: true
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileLocationOperationResponse'
+          nullable: true
+      additionalProperties: false
+    UpdateUserProfileDetailsRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        mfaEnabled:
+          type: boolean
+        doors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Door'
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    ProfileLocationOperationResponse:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        autoFinish:
+          type: boolean
+          nullable: true
+        noDoorAccess:
+          type: boolean
+          nullable: true
+        doors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Door'
+          nullable: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileLocationOperationQuestionResponse'
+          nullable: true
+      additionalProperties: false
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        accountName:
+          type: string
+          nullable: true
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    Door:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

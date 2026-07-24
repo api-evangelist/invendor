@@ -1,0 +1,257 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Questions API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Questions
+paths:
+  /api/v1/Questions/tools/status:
+    get:
+      tags:
+      - Questions
+      summary: Get tools status by barcode
+      parameters:
+      - name: barcode
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemStatusRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Questions/user/tools:
+    get:
+      tags:
+      - Questions
+      summary: Get all tools that are in statuses provided
+      parameters:
+      - name: statuses
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemStatusRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+  /api/v1/Questions/items/consumption:
+    get:
+      tags:
+      - Questions
+      summary: Get item consumption by barcode in location
+      parameters:
+      - name: barcode
+        in: query
+        schema:
+          type: string
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemStatusRowDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    MetadataDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        shortName:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+        dimensionId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    ItemStatusRowDTO:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        imageUrl:
+          type: array
+          items:
+            type: string
+          nullable: true
+        locationId:
+          type: integer
+          format: int32
+        location:
+          type: string
+          nullable: true
+        vendor:
+          type: string
+          nullable: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataDTO'
+          nullable: true
+        sessionId:
+          type: integer
+          format: int32
+        scanEventId:
+          type: integer
+          format: int32
+        datetime:
+          type: string
+          format: date-time
+        returnDatetime:
+          type: string
+          format: date-time
+          nullable: true
+        operationId:
+          type: integer
+          format: int32
+        operation:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        itemType:
+          type: string
+          nullable: true
+        currentUserId:
+          type: integer
+          format: int32
+        currentUser:
+          type: string
+          nullable: true
+        currentUserFirstName:
+          type: string
+          nullable: true
+        currentUserLastName:
+          type: string
+          nullable: true
+        currentUserFullName:
+          type: string
+          nullable: true
+        previousUserId:
+          type: integer
+          format: int32
+          nullable: true
+        previousUser:
+          type: string
+          nullable: true
+        previousUserFirstName:
+          type: string
+          nullable: true
+        previousUserLastName:
+          type: string
+          nullable: true
+        previousUserFullName:
+          type: string
+          nullable: true
+        itemProperties:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

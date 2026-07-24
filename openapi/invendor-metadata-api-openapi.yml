@@ -1,0 +1,95 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Metadata API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Metadata
+paths:
+  /api/v1/Metadata/Dimensions:
+    get:
+      tags:
+      - Metadata
+      summary: Get all the values for metadata dimensions
+      parameters:
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetadataDimensionDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    DimensionType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 100
+      - 198
+      - 199
+      - 200
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MetadataDimensionDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        shortName:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        dimensionType:
+          $ref: '#/components/schemas/DimensionType'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

@@ -1,0 +1,426 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts ItemQuantities API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: ItemQuantities
+paths:
+  /v1/ItemQuantities:
+    get:
+      tags:
+      - ItemQuantities
+      summary: Get item quantities for defined criteria
+      parameters:
+      - name: locationId
+        in: query
+        description: Limit warehouse
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        description: Limit item
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: query
+        description: Limit location address
+        schema:
+          type: string
+      - name: itemBatch
+        in: query
+        description: Limit batch
+        schema:
+          type: string
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: showZero
+        in: query
+        description: Flag to include positions with 0 qtys
+        schema:
+          type: boolean
+          default: false
+      - name: showOnlyIlpOnHand
+        in: query
+        description: Flag to exclude positions that are not set in location items parameters list
+        schema:
+          type: boolean
+          default: false
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemQuantityGroupedResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/ItemQuantities/stockValue:
+    get:
+      tags:
+      - ItemQuantities
+      summary: Get the stock value for location items
+      parameters:
+      - name: locationId
+        in: query
+        description: Filter location ID
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        description: Filter itemId
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: query
+        description: Filter location address
+        schema:
+          type: string
+      - name: itemBatch
+        in: query
+        description: ''
+        schema:
+          type: string
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: showZero
+        in: query
+        description: Flag to include positions with 0 qtys
+        schema:
+          type: boolean
+          default: false
+      - name: showOnlyIlpOnHand
+        in: query
+        description: ''
+        schema:
+          type: boolean
+          default: false
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemQuantityResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /api/v1/ItemQuantities/onhand:
+    get:
+      tags:
+      - ItemQuantities
+      summary: Get locations' stock on-hand quantities
+      parameters:
+      - name: item
+        in: query
+        schema:
+          type: string
+      - name: accountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemQuantitiesDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.reporting
+components:
+  schemas:
+    InventDimResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ItemQuantitiesDTO:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        location:
+          type: string
+          nullable: true
+        locationCompany:
+          type: string
+          nullable: true
+        itemId:
+          type: integer
+          format: int32
+        item:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        altItem:
+          type: string
+          nullable: true
+        altItemCode:
+          type: string
+          nullable: true
+        qty:
+          type: number
+          format: double
+        vendor:
+          type: string
+          nullable: true
+        whAddress:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ItemQuantityResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        displayName:
+          type: string
+          nullable: true
+        displayCode:
+          type: string
+          nullable: true
+        onOrder:
+          type: number
+          format: double
+        ordered:
+          type: number
+          format: double
+        qty:
+          type: number
+          format: double
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type: string
+          nullable: true
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
+      additionalProperties: false
+    ItemQuantityResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemQuantityResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ItemQuantityGroupedResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemQuantityGroupedResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    ItemQuantityGroupedResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        displayName:
+          type: string
+          nullable: true
+        displayCode:
+          type: string
+          nullable: true
+        onOrder:
+          type: number
+          format: double
+        ordered:
+          type: number
+          format: double
+        qty:
+          type: number
+          format: double
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

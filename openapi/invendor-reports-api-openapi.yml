@@ -1,0 +1,457 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts Reports API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: Reports
+paths:
+  /v1/Reports:
+    get:
+      tags:
+      - Reports
+      summary: Get user saved report states
+      operationId: User reports
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserReportsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - Reports
+      summary: Saves (upserts) user defined custom report state
+      operationId: Save report
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Reports/{viewId}:
+    get:
+      tags:
+      - Reports
+      summary: Returns the saved report view payload by viewId
+      operationId: Get report view
+      parameters:
+      - name: viewId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Reports/targets:
+    get:
+      tags:
+      - Reports
+      summary: "Returns the users, groups and accounts available as report state targets for the calling user,\r\nbased on their group's account relationships."
+      operationId: Available report targets
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableReportTargetsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Reports/userDefault:
+    post:
+      tags:
+      - Reports
+      summary: To set users default report state
+      operationId: Set default report
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SetUserDefaultReportRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SetUserDefaultReportRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SetUserDefaultReportRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SetUserDefaultReportRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/Reports/{reportId}:
+    put:
+      tags:
+      - Reports
+      summary: Update saved report state
+      operationId: Update report
+      parameters:
+      - name: reportId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - Reports
+      summary: Delete saved report state
+      operationId: Delete report
+      parameters:
+      - name: reportId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    ReportScope:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    CreateReportRequest:
+      type: object
+      properties:
+        scope:
+          $ref: '#/components/schemas/ReportScope'
+        userId:
+          type: integer
+          format: int32
+          nullable: true
+        userProfileId:
+          type: integer
+          format: int32
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        reportId:
+          type: string
+          nullable: true
+        payload:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SetUserDefaultReportRequest:
+      type: object
+      properties:
+        reportId:
+          type: string
+          nullable: true
+        reportName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UpdateReportRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+          nullable: true
+        userProfileId:
+          type: integer
+          format: int32
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        scope:
+          $ref: '#/components/schemas/ReportScope'
+        payload:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UserReportsResponse:
+      type: object
+      properties:
+        defaultReports:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        userReports:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        profileReports:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        accountReports:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        tenantReports:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    AvailableReportTargetsResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportTargetGroup'
+          nullable: true
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportTargetAccount'
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    ReportTargetAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ReportTargetGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

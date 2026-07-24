@@ -1,0 +1,199 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts ItemTransactions API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: ItemTransactions
+paths:
+  /v1/ItemTransactions:
+    get:
+      tags:
+      - ItemTransactions
+      summary: Get item transaction for defined criteria
+      parameters:
+      - name: locationId
+        in: query
+        description: Limit warehouse
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        description: Limit item
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: query
+        description: Limit location address
+        schema:
+          type: string
+      - name: itemBatch
+        in: query
+        description: Limit batch
+        schema:
+          type: string
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventTransResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    InventDimResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+          nullable: true
+        locationName:
+          type: string
+          nullable: true
+        wmsLocationId:
+          type: string
+          nullable: true
+        batchId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    StatusIssue:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    StatusReceipt:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    InventTransResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventTransResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    InventTransResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        itemName:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        statusIssue:
+          $ref: '#/components/schemas/StatusIssue'
+        statusReceipt:
+          $ref: '#/components/schemas/StatusReceipt'
+        transDate:
+          type: string
+          format: date-time
+        refType:
+          type: integer
+          format: int32
+        operationName:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

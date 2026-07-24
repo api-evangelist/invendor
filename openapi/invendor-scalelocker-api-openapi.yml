@@ -1,0 +1,544 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts ScaleLocker API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: ScaleLocker
+paths:
+  /v1/ScaleLocker/{locationId}:
+    get:
+      tags:
+      - ScaleLocker
+      summary: Get location scale lockers
+      operationId: Get all lockers in location
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScaleLockerConfig'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/ScaleLocker/{locationId}/{lockerId}:
+    get:
+      tags:
+      - ScaleLocker
+      summary: Get defined locker configuration in defined location
+      operationId: GetScaleLockerLayouts
+      parameters:
+      - name: locationId
+        in: path
+        description: Location id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: lockerId
+        in: path
+        description: Locker id
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScaleLockerConfig'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - ScaleLocker
+      summary: Save Scale locker layout/configuration
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: lockerId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: ''
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateScaleLockerConfigRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateScaleLockerConfigRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateScaleLockerConfigRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateScaleLockerConfigRequest'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/ScaleLocker/{locationId}/{lockerId}/firm:
+    post:
+      tags:
+      - ScaleLocker
+      summary: Confirm Scale Locker layout/configuration
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: lockerId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/ScaleLocker/{locationId}/{lockerId}/state:
+    post:
+      tags:
+      - ScaleLocker
+      summary: Toggle locker state operational/Congifuration
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: lockerId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/ScaleLocker/{locationId}/{lockerId}/leds:
+    post:
+      tags:
+      - ScaleLocker
+      summary: Save seds configuration to cabinet
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: lockerId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SaveCabinetLedsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SaveCabinetLedsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SaveCabinetLedsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/SaveCabinetLedsRequest'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    ScaleLockerConfig:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        lockerId:
+          type: string
+          nullable: true
+        ioid:
+          type: string
+          nullable: true
+        compartments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompartmentConfig'
+          nullable: true
+      additionalProperties: false
+    ColorsDto:
+      type: object
+      properties:
+        red:
+          type: integer
+          format: int32
+        green:
+          type: integer
+          format: int32
+        blue:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ShelfBinConfig:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BinItem'
+          nullable: true
+        itemParam:
+          $ref: '#/components/schemas/CabinetLocationItemsParam'
+        createdOn:
+          type: string
+          format: date-time
+      additionalProperties: false
+    Shelf:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        bins:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bin'
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        slot:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CompartmentConfig:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        state:
+          $ref: '#/components/schemas/ScaleLockerStateEnum'
+        shelves:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShelfConfig'
+          nullable: true
+      additionalProperties: false
+    CreateScaleLockerConfigRequest:
+      type: object
+      properties:
+        compartments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Compartment'
+          nullable: true
+      additionalProperties: false
+    ShelfConfig:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        slot:
+          type: integer
+          format: int32
+        bins:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShelfBinConfig'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    BinItem:
+      type: object
+      properties:
+        barcode:
+          type: string
+          nullable: true
+        weight:
+          type: number
+          format: double
+        unit:
+          type: string
+          nullable: true
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        quantity:
+          type: number
+          format: double
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        isWeightAdjusted:
+          type: boolean
+      additionalProperties: false
+    LedsDto:
+      type: object
+      properties:
+        upper:
+          $ref: '#/components/schemas/CabinetDto'
+        lower:
+          $ref: '#/components/schemas/CabinetDto'
+      additionalProperties: false
+    ScaleLockerStateEnum:
+      enum:
+      - 0
+      - 10
+      - 20
+      type: integer
+      format: int32
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    CabinetDto:
+      type: object
+      properties:
+        open:
+          $ref: '#/components/schemas/ColorsDto'
+        closed:
+          $ref: '#/components/schemas/ColorsDto'
+      additionalProperties: false
+    CabinetLocationItemsParam:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        barcode:
+          type: string
+          nullable: true
+        weight:
+          type: number
+          format: double
+          nullable: true
+        unit:
+          type: string
+          nullable: true
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        quantity:
+          type: number
+          format: double
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        isWeightAdjusted:
+          type: boolean
+        bufferLevel:
+          type: number
+          format: double
+          nullable: true
+        minOrderQty:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    Bin:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        code:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BinItem'
+          nullable: true
+        itemParam:
+          $ref: '#/components/schemas/CabinetLocationItemsParam'
+      additionalProperties: false
+    Compartment:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        shelves:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shelf'
+          nullable: true
+        bins:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShelfBinValueTuple'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    ShelfBinValueTuple:
+      type: object
+      additionalProperties: false
+    SaveCabinetLedsRequest:
+      type: object
+      properties:
+        leds:
+          $ref: '#/components/schemas/LedsDto'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

@@ -1,0 +1,411 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts FlagTypes API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: FlagTypes
+paths:
+  /v1/FlagTypes:
+    get:
+      tags:
+      - FlagTypes
+      summary: "Get a paged list of flag types visible to the current account: global rows plus\r\nthe caller's own. Tenant-primary / admin callers (no account context) see all rows."
+      operationId: Get flag types
+      parameters:
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: filterAccountId
+        in: query
+        description: 'Optional additional filter: restrict results to rows with this exact `AccountId`. Applied on top of the visibility rule; never exposes rows outside the caller''s visibility.'
+        schema:
+          type: integer
+          format: int32
+      - name: severity
+        in: query
+        description: Optional severity filter.
+        schema:
+          $ref: '#/components/schemas/FlagSeverity'
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlagTypeResponsePagedResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - FlagTypes
+      summary: Create a new flag type.
+      operationId: Create flag type
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Create request.
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateFlagTypeRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateFlagTypeRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateFlagTypeRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateFlagTypeRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ResourceCreatedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/FlagTypes/{id}:
+    get:
+      tags:
+      - FlagTypes
+      summary: Get a single flag type by id.
+      operationId: Get flag type
+      parameters:
+      - name: id
+        in: path
+        description: Flag type id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlagTypeResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    put:
+      tags:
+      - FlagTypes
+      summary: Update an existing flag type. `AccountId` is immutable.
+      operationId: Update flag type
+      parameters:
+      - name: id
+        in: path
+        description: Flag type id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: Update request.
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateFlagTypeRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateFlagTypeRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateFlagTypeRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateFlagTypeRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - FlagTypes
+      summary: "Soft-delete a flag type. Blocked if any active `ItemFlag` or any\r\n`OperationFlag` config row references it."
+      operationId: Delete flag type
+      parameters:
+      - name: id
+        in: path
+        description: Flag type id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    UpdateFlagTypeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        color:
+          type: string
+          nullable: true
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CreateFlagTypeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        color:
+          type: string
+          nullable: true
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    FlagTypeResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlagTypeResponse'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FlagSeverity:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    FlagTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        color:
+          type: string
+          nullable: true
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type: string
+          nullable: true
+        accountId:
+          type: integer
+          format: int32
+          nullable: true
+        createdOn:
+          type: string
+          format: date-time
+          nullable: true
+        modifiedOn:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope

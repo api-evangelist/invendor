@@ -1,0 +1,834 @@
+openapi: 3.0.1
+info:
+  title: IO.Common Accounts WMSItemLocationParams API
+  version: '1.0'
+security:
+- OAuth2: []
+tags:
+- name: WMSItemLocationParams
+paths:
+  /v1/WMSItemLocationParams:
+    get:
+      tags:
+      - WMSItemLocationParams
+      summary: Get location item parameters
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: vendorAccountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemLocationParamsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    post:
+      tags:
+      - WMSItemLocationParams
+      summary: Create new item location parameters
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationsItemsParamsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationsItemsParamsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationsItemsParamsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/CreateLocationsItemsParamsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/{paramId}:
+    get:
+      tags:
+      - WMSItemLocationParams
+      summary: Get location item parameters by id
+      parameters:
+      - name: paramId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemLocationParamsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/bulk:
+    post:
+      tags:
+      - WMSItemLocationParams
+      summary: Bulk upsert new item location parameters
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertItemLocationItemsParamsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertItemLocationItemsParamsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertItemLocationItemsParamsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BulkUpsertItemLocationItemsParamsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/{itemParamsId}:
+    put:
+      tags:
+      - WMSItemLocationParams
+      summary: Update item location parameters
+      parameters:
+      - name: itemParamsId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationsItemsParamsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationsItemsParamsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationsItemsParamsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/UpdateLocationsItemsParamsRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - WMSItemLocationParams
+      summary: Delete item location parameters
+      parameters:
+      - name: itemParamsId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/bulk/delete:
+    post:
+      tags:
+      - WMSItemLocationParams
+      summary: "Bulk delete item location parameters. Deletes records that can be deleted\r\nand returns a list of items that could not be deleted."
+      parameters:
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        description: List of IDs to delete
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteItemLocationParamsRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteItemLocationParamsRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteItemLocationParamsRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteItemLocationParamsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/{locationId}/{wmsLocationId}/barcodes:
+    post:
+      tags:
+      - WMSItemLocationParams
+      summary: Add barcode to item location parameters.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      requestBody:
+        content:
+          application/json-patch+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddBarcodeToItemLocationRequest'
+          application/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddBarcodeToItemLocationRequest'
+          text/json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddBarcodeToItemLocationRequest'
+          application/*+json; x-api-version=1.0:
+            schema:
+              $ref: '#/components/schemas/AddBarcodeToItemLocationRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemLocationParamsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+    delete:
+      tags:
+      - WMSItemLocationParams
+      summary: Remove item barcode from item location parameters.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: wmsLocationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: barcode
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemLocationParamsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/{locationId}/download/xlsx/label:
+    get:
+      tags:
+      - WMSItemLocationParams
+      summary: Get location item parameters in xlsx file for label printing
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: areaId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+  /v1/WMSItemLocationParams/download/xlsx:
+    get:
+      tags:
+      - WMSItemLocationParams
+      summary: Get all location items in excel
+      operationId: Get location items in excel
+      parameters:
+      - name: locationId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: itemId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: vendorAccountId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Filter
+        in: query
+        schema:
+          type: string
+      - name: Page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: PageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SortColumn
+        in: query
+        schema:
+          type: string
+      - name: SortOrder
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        description: Account
+        schema:
+          title: Account
+          type: int
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - OAuth2:
+        - io.common
+components:
+  schemas:
+    ItemLocationBarcodeResponse:
+      type: object
+      properties:
+        barcode:
+          type: string
+          nullable: true
+        unitId:
+          type: string
+          nullable: true
+        weight:
+          type: number
+          format: double
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        isWeightAdjusted:
+          type: boolean
+      additionalProperties: false
+    BulkDeleteItemLocationParamsRequest:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+          nullable: true
+      additionalProperties: false
+    ItemLocationParamsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type: string
+          nullable: true
+        itemName:
+          type: string
+          nullable: true
+        inventDimId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        locationName:
+          type: string
+          nullable: true
+        wmsLocationId:
+          type: string
+          nullable: true
+        wmsAreaType:
+          type: integer
+          format: int32
+          nullable: true
+        bufferLevel:
+          type: number
+          format: double
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type: string
+          nullable: true
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type: string
+          nullable: true
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        vendorAccountName:
+          type: string
+          nullable: true
+        vendorAccountCode:
+          type: string
+          nullable: true
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+        barcodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemLocationBarcodeResponse'
+          nullable: true
+        deL_Alternatives:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    UpdateLocationsItemsParamsRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        bufferLevel:
+          type: number
+          format: double
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type: string
+          nullable: true
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type: string
+          nullable: true
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    BulkUpsertItemLocationItemsParamsRequest:
+      type: object
+      properties:
+        itemCode:
+          type: string
+          nullable: true
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type: string
+          nullable: true
+        bufferLevel:
+          type: number
+          format: double
+        wmsLocationId:
+          type: string
+          nullable: true
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        vendorAccountCode:
+          type: string
+          nullable: true
+        serviceLevel:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    IlpServiceLevel:
+      enum:
+      - 70
+      - 95
+      - 99
+      - 100
+      type: integer
+      format: int32
+    AddBarcodeToItemLocationRequest:
+      type: object
+      properties:
+        barcode:
+          type: string
+          nullable: true
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+      additionalProperties: false
+    CreateLocationsItemsParamsRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type: string
+          nullable: true
+        bufferLevel:
+          type: number
+          format: double
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type: string
+          nullable: true
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type: string
+          nullable: true
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
+        vendorAccountId:
+          type: integer
+          format: int32
+          nullable: true
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+      additionalProperties: false
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.scanbro.com/connect/authorize
+          tokenUrl: https://identity.scanbro.com/connect/token
+          scopes:
+            io.common: default scope
