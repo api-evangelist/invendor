@@ -1,0 +1,80 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/invendor-common-openapi-original.json
+note: Entity graph derived from the Common API OpenAPI path structure (nested resources)
+  and *Id reference fields across component schemas. The Reporting API is a read model
+  over these entities (scans, consumption, replenishment, unique-item statuses).
+entities:
+- Account
+- Item
+- Location
+- Operation
+- Order
+- OrderLine
+- User
+- UserProfile
+- Device
+- Scan
+- ItemQuantity
+- Barcode
+- Unit
+- Dimension
+- Subscription
+- Journal
+- Door
+- Scale
+- Service
+schema_count: 326
+relationships:
+- from: Item
+  to: Barcode
+  type: has_many
+  via: itemId
+- from: Item
+  to: AltItem
+  type: has_many
+  via: itemId
+- from: Location
+  to: Device
+  type: has_many
+  via: locationId
+- from: Location
+  to: Account(vendor)
+  type: has_many
+  via: locationId
+- from: Account
+  to: Location
+  type: has_many
+  via: accountId
+- from: Operation
+  to: Dimension
+  type: has_many
+  via: operationId
+- from: Operation
+  to: Question
+  type: has_many
+  via: operationId
+- from: Order
+  to: OrderLine
+  type: has_many
+  via: orderId
+- from: Order
+  to: Location
+  type: belongs_to
+  via: locationId
+- from: Order
+  to: Journal
+  type: has_many
+  via: orderId
+- from: User
+  to: UserProfile
+  type: has_many
+  via: userId
+- from: Device
+  to: Heartbeat
+  type: has_many
+  via: deviceId
+- from: Device
+  to: Event
+  type: has_many
+  via: deviceId

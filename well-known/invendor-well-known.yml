@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+note: >-
+  The Common and Reporting API hosts expose no /.well-known/ documents. The
+  OAuth2 authorization/token endpoints in both OpenAPI specs resolve to the
+  identity.scanbro.com identity server, which publishes a full OpenID Connect
+  discovery surface. Those two documents are indexed and saved here.
+hosts:
+  - host: https://api.invendor.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://reporting.invendor.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://identity.scanbro.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: invendor-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: invendor-oauth-authorization-server.json

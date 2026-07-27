@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json
+note: >-
+  Agent Skills generated from the Invendor Common + Reporting OpenAPI. Every step
+  is grounded in a real operationId (Common API) or method+path (Reporting API,
+  whose operations have no operationId). No provider-published skills/AGENTS.md
+  were found.
+skills:
+  - file: invendor-catalog-item-with-barcode.md
+    name: Catalog an item and attach a barcode
+    api: openapi/invendor-common-openapi-original.json
+    operations: [CreateItem, CreateItemBarcodes, GetItemDetails, GetItemBarcodes, GetItems]
+  - file: invendor-provision-location-and-device.md
+    name: Provision a location and bind a cabinet device
+    api: openapi/invendor-common-openapi-original.json
+    operations: ['Create location', 'Add location device', LocationDevicesList, 'Devices list']
+  - file: invendor-replenishment-order.md
+    name: Raise and fulfil a replenishment order
+    api: openapi/invendor-common-openapi-original.json
+    operations: [CreateReplenishmentOrder, GetOrder, ConfirmOrder, ShipOrder, ReceiveOrder, CompleteOrder]
+  - file: invendor-consumption-and-scans-report.md
+    name: Pull consumption and scan activity
+    api: openapi/invendor-reporting-openapi-original.json
+    operations: ['GET /api/v1/Scans', 'GET /api/v1/Consumption', 'GET /api/v1/Replenishment', 'GET /api/v1/ItemQuantities/onhand']

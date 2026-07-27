@@ -1,0 +1,5376 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 353
+  by_action_class:
+    connected: 159
+    acting: 194
+  by_consequence:
+    read: 159
+    write: 170
+    safety-critical: 3
+    physical: 21
+  human_in_the_loop_required: 3
+operations:
+- path: /v1/Accounts/me
+  method: get
+  operationId: My account details
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts
+  method: get
+  operationId: Accounts list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts
+  method: post
+  operationId: Create account
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}
+  method: get
+  operationId: Account details
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts/{accountId}
+  method: put
+  operationId: Update account
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}
+  method: delete
+  operationId: Delete account
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/Accounts/fromInvitation
+  method: post
+  operationId: Create account from invitation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}/fromInvitation
+  method: put
+  operationId: Create account linked settings from invitation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}/linkedLocations
+  method: put
+  operationId: Update linked account locations mapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}/linkedOperations
+  method: put
+  operationId: Update linked account operations mapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}/profiles
+  method: post
+  operationId: Add related profile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/{accountId}/profiles/{userProfileId}
+  method: delete
+  operationId: Delete related profile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/vendors
+  method: get
+  operationId: Account vendors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts/invitation
+  method: get
+  operationId: Client accepts vendor invitation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts/invitation
+  method: post
+  operationId: Vendor invitation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/linkedClientsTenants
+  method: get
+  operationId: Account's clients' tenants
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts/{accountId}/linkedSettings/validation
+  method: get
+  operationId: Validate linked account configuration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts/integration
+  method: delete
+  operationId: Delete account integration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Accounts/validate
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Accounts/validate
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/Auth/login
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/Auth/logout
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/Auth/status
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Barcodes/item/scaleLocker
+  method: get
+  operationId: Get all items barcodes for scale lockers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/DataJobs
+  method: get
+  operationId: GetDataJobs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/DataJobs/{jobId}/download
+  method: get
+  operationId: DownloadDataJobResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Devices/commands
+  method: get
+  operationId: Device commands
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Devices
+  method: get
+  operationId: Devices list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Devices/{deviceId}
+  method: get
+  operationId: Device details
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Devices/{deviceId}
+  method: put
+  operationId: Update tenant device information
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Devices/{deviceId}
+  method: delete
+  operationId: Delete tenant device
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Devices/{deviceId}/command
+  method: post
+  operationId: Send command to the device
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Devices/locations/{locationId}/sync_users
+  method: post
+  operationId: Sync location users in related devices
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Devices/{deviceId}/heartbeats
+  method: get
+  operationId: Device heartbeats list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Devices/{deviceId}/events
+  method: get
+  operationId: Device events list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Devices/dedicated/register/pre
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Devices/{deviceId}/regen
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Devices/free-cabinets
+  method: get
+  operationId: Free cabinets list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions
+  method: get
+  operationId: GetDimensionsList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions
+  method: post
+  operationId: CreateDimension
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{id}
+  method: get
+  operationId: GetDimensionDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/{id}
+  method: put
+  operationId: UpdateDimension
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{id}
+  method: delete
+  operationId: DeleteDimension
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{id}/operations
+  method: get
+  operationId: GetDimensionOperations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/properties
+  method: get
+  operationId: GetAllUsedDimensionProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/values/properties
+  method: get
+  operationId: GetAllUsedDimensionValueProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/params
+  method: get
+  operationId: Account dimensions parameters
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/params
+  method: post
+  operationId: Account dimensions parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{dimId}/values
+  method: get
+  operationId: Get dimension values
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/{dimId}/values
+  method: post
+  operationId: CreateDimensionValue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{dimId}/values
+  method: put
+  operationId: UpdateDimensionValue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{dimId}/values/{valueId}
+  method: get
+  operationId: GetDimensionValue
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/{dimId}/values/{valueId}/parents
+  method: get
+  operationId: GetDimensionValueParents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/{dimId}/values/{valueId}/children
+  method: get
+  operationId: GetDimensionValueChildren
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Dimensions/{dimId}/values/{valueId}/children
+  method: post
+  operationId: SaveDimensionValueChildren
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{dimId}/values/bulk
+  method: post
+  operationId: CreateDimensionValuesBulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Dimensions/{dimId}/values/bulk
+  method: delete
+  operationId: DeleteDimensionValuesBulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Doors
+  method: get
+  operationId: Get doors list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/DynamicScanContent/datasources
+  method: get
+  operationId: DynamicContentFieldDatasources
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/DynamicScanContent/datasources/{operationId}
+  method: get
+  operationId: OperationDynamicContentFieldDatasources
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ExtendedProperties/{affinity}
+  method: get
+  operationId: Get global extended properties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ExtendedProperties/{affinity}/{ownerId}
+  method: get
+  operationId: Get extended properties for the object
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ExtendedProperties/{affinity}/{ownerId}
+  method: post
+  operationId: Create extended property for the object
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ExtendedProperties/{affinity}/{ownerId}/{key}
+  method: put
+  operationId: Update extended property for the object
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ExtendedProperties/{affinity}/{ownerId}/{key}
+  method: delete
+  operationId: Delete extended property for the object
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/FlagTypes
+  method: get
+  operationId: Get flag types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/FlagTypes
+  method: post
+  operationId: Create flag type
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/FlagTypes/{id}
+  method: get
+  operationId: Get flag type
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/FlagTypes/{id}
+  method: put
+  operationId: Update flag type
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/FlagTypes/{id}
+  method: delete
+  operationId: Delete flag type
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/GlobalSettings/types
+  method: get
+  operationId: Get global settings types list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/GlobalSettings
+  method: get
+  operationId: Get global settings list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/GlobalSettings
+  method: post
+  operationId: Create global setting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/GlobalSettings/{id}
+  method: get
+  operationId: Get a global setting by it's id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/GlobalSettings/{id}
+  method: put
+  operationId: Change global setting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/GlobalSettings/{id}
+  method: delete
+  operationId: Delete global setting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/GlobalSettings/bulk
+  method: put
+  operationId: Bulk update global settings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/GlobalSettings/logo
+  method: get
+  operationId: Get tenant logo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/GlobalSettings/logo
+  method: post
+  operationId: Upload tenant logo
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/GlobalSettings/logo/url
+  method: post
+  operationId: Update tenant logo URL
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ItemQuantities
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ItemQuantities/stockValue
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items
+  method: get
+  operationId: GetItems
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items
+  method: post
+  operationId: CreateItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{serviceId}/items
+  method: get
+  operationId: GetServiceItems
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}
+  method: get
+  operationId: GetItemDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}
+  method: put
+  operationId: UpdateItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}
+  method: delete
+  operationId: DeleteItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/conversions
+  method: get
+  operationId: GetItemUnitConversions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}/altitems
+  method: get
+  operationId: GetItemAltItems
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}/altitems
+  method: post
+  operationId: CreateItemAltItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/altitems
+  method: put
+  operationId: UpdateItemAltItemByItemId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/altitems
+  method: delete
+  operationId: DeleteItemAltItemByItemId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/altitems/{altItemId}
+  method: put
+  operationId: UpdateItemAltItemById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/altitems/{altItemId}
+  method: delete
+  operationId: DeleteItemAltItemById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/altitems/bulk
+  method: post
+  operationId: BulkUpsertAltItems
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/properties
+  method: get
+  operationId: GetAllUsedItemProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/definedProperties
+  method: get
+  operationId: Get defined properties for items
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/definedProperties
+  method: post
+  operationId: Create item defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/definedProperties/{id}
+  method: put
+  operationId: Update item defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/definedProperties/{id}
+  method: delete
+  operationId: Delete item defined propety with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/definedProperties/bulk
+  method: post
+  operationId: Create or update item defined propeties with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/bulk
+  method: post
+  operationId: BulkUpsertItem
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/download/xlsx
+  method: get
+  operationId: GetItemsExcel
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/sendToTenant
+  method: post
+  operationId: SendToTenant
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/barcodes
+  method: get
+  operationId: GetItemBarcodes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}/barcodes
+  method: post
+  operationId: CreateItemBarcodes
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/barcodes/location
+  method: get
+  operationId: GetItemBarcodesInUse
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}/barcodes/{id}
+  method: get
+  operationId: GetItemBarcodeDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}/barcodes/{id}
+  method: put
+  operationId: UpdateItemBarcode
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/barcodes/{id}
+  method: delete
+  operationId: DeleteItemBarcode
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/images/upload
+  method: post
+  operationId: UploadItemImages
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/images/link
+  method: post
+  operationId: AddLinkedImages
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/images/default/{key}
+  method: put
+  operationId: SetItemDefaultImage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/images/{key}
+  method: delete
+  operationId: DeleteItemImage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/validate
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/validate
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/bulk-file
+  method: post
+  operationId: BulkUpsertItemFile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/flags
+  method: get
+  operationId: GetItemFlags
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Items/{itemId}/flags
+  method: post
+  operationId: RaiseItemFlag
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Items/{itemId}/flags/{flagTypeId}
+  method: delete
+  operationId: ClearItemFlag
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ItemTransactions
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Journals
+  method: get
+  operationId: GetJournals
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Journals/{journalId}
+  method: get
+  operationId: GetJournalById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Journals/{journalId}
+  method: put
+  operationId: UpdateJournalDetails
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/{journalId}
+  method: post
+  operationId: AddJournalLine
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/{journalId}
+  method: delete
+  operationId: DeleteJournal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/{journalId}/lines
+  method: get
+  operationId: GetJournalLines
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Journals/{journalId}/lines/recreate
+  method: post
+  operationId: ReCreateCountingLines
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/counting
+  method: post
+  operationId: CreateCountingJournal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/correction
+  method: post
+  operationId: CreateCorrectionJournal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/{journalId}/post
+  method: post
+  operationId: PostJournal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/confirmation
+  method: post
+  operationId: CreateConfirmationJournal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/confirmation/{journalId}/lines
+  method: post
+  operationId: SaveConfirmationJournalLines
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Journals/{journalId}/lines/xlsx
+  method: get
+  operationId: Export journal lines
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations
+  method: get
+  operationId: GetAllLocations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations
+  method: post
+  operationId: Create location
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{serviceId}
+  method: get
+  operationId: Get service locations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{id}
+  method: get
+  operationId: Get locations details
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}
+  method: put
+  operationId: Update locations details
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}
+  method: delete
+  operationId: Delete location
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/order-notifications
+  method: get
+  operationId: Get location order notification settings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/order-notifications
+  method: put
+  operationId: Update location order notification settings
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/accounts/{accountId}/order-notifications
+  method: get
+  operationId: Get vendor order notification settings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/accounts/{accountId}/order-notifications
+  method: put
+  operationId: Update vendor order notification settings
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/vendors
+  method: get
+  operationId: Get location vendors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/vendors
+  method: post
+  operationId: Add vendor to location
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/vendors/{accountIdToUpdate}
+  method: put
+  operationId: Update vendor notification settings
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/vendors/{accountIdToRemove}
+  method: delete
+  operationId: Remove vendor from location
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/customers
+  method: get
+  operationId: Get location customers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/customers
+  method: put
+  operationId: Upsert location customers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/groups
+  method: get
+  operationId: User groups for user in selected location
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/devices
+  method: get
+  operationId: LocationDevicesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/devices
+  method: post
+  operationId: Add location device
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/devices/{deviceId}
+  method: delete
+  operationId: Remove location device
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/locks
+  method: get
+  operationId: GetLocationLocks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/locks/{wmsAreaId}
+  method: get
+  operationId: GetAreaLocks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/{locationId}/locks/{wmsAreaId}
+  method: post
+  operationId: SaveAreaLocks
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/properties
+  method: get
+  operationId: GetAllUsedLocationProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/definedProperties
+  method: get
+  operationId: Get defined properties for locations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/definedProperties
+  method: post
+  operationId: Create location defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/definedProperties/{id}
+  method: put
+  operationId: Update location defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/definedProperties/{id}
+  method: delete
+  operationId: Delete location defined propety with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/definedProperties/bulk
+  method: post
+  operationId: Create or update location defined propeties with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Locations/{locationId}/tenants
+  method: get
+  operationId: GetAllTenants
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Locations/forCompany
+  method: get
+  operationId: Get account locations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/OperationDimGroups
+  method: get
+  operationId: Get operation dimension groups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/OperationDimGroups
+  method: post
+  operationId: Create operation dimension group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/OperationDimGroups/{id}
+  method: get
+  operationId: Get operation dimension group
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/OperationDimGroups/{id}
+  method: put
+  operationId: Update operation dimension group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/OperationDimGroups/{id}
+  method: delete
+  operationId: Delete operation dimension group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/types
+  method: get
+  operationId: Get generic operation types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations
+  method: get
+  operationId: Get operations list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations
+  method: post
+  operationId: Create base operation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{id}
+  method: get
+  operationId: Get operation details
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/{id}
+  method: put
+  operationId: Update operation details
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{id}
+  method: delete
+  operationId: Delete operation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/properties
+  method: get
+  operationId: GetAllUsedOperationProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/definedProperties
+  method: get
+  operationId: Get defined properties for operations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/definedProperties
+  method: post
+  operationId: Create operation defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/definedProperties/{id}
+  method: put
+  operationId: Update operation defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/definedProperties/{id}
+  method: delete
+  operationId: Delete operation defined propety with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/definedProperties/bulk
+  method: post
+  operationId: Create or update operation defined propeties with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/extend
+  method: post
+  operationId: Create extended operation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{operationId}/unique-item-statuses
+  method: put
+  operationId: Update operation unique-item statuses
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{operationId}/operation-flags
+  method: put
+  operationId: Update operation flags (bulk replace)
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{opId}/dimensions
+  method: get
+  operationId: Get operation dimensions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/{opId}/dimensions
+  method: post
+  operationId: Create operation dimensions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{opId}/dimensions
+  method: put
+  operationId: Update operation dimensions (bulk)
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/dimensions/properties
+  method: get
+  operationId: GetAllUsedOperationDimProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/{opId}/dimensions/{id}
+  method: put
+  operationId: Update operation dimension
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{opId}/dimensions/{id}
+  method: delete
+  operationId: Remove operation dimensions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{id}/questions
+  method: get
+  operationId: Get operation questions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/{id}/questions
+  method: post
+  operationId: Add operation questions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{id}/questions
+  method: put
+  operationId: Bulk update operation questions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{id}/questions/{questionId}
+  method: put
+  operationId: Update operation questions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{id}/questions/{questionId}
+  method: delete
+  operationId: Delete operation question
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{operationId}/card
+  method: get
+  operationId: Get operation scan card
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/{operationId}/card
+  method: put
+  operationId: Update operation scan card
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{operationId}/line
+  method: get
+  operationId: Get operation scan line
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Operations/{operationId}/line
+  method: put
+  operationId: Update operation scan line
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Operations/{operationId}/usergrouplocations
+  method: get
+  operationId: User groups / locations where operation is used
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Orders
+  method: get
+  operationId: GetAllOrders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Orders/{orderId}
+  method: get
+  operationId: GetOrder
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Orders/{orderId}
+  method: put
+  operationId: UpdateOrderDetails
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}
+  method: delete
+  operationId: DeleteOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/replenishment
+  method: post
+  operationId: CreateReplenishmentOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/purchase
+  method: post
+  operationId: CreatePurchaseOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/confirm
+  method: post
+  operationId: ConfirmOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/cancel
+  method: post
+  operationId: CancelOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/ship
+  method: post
+  operationId: ShipOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/receive
+  method: post
+  operationId: ReceiveOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/line
+  method: post
+  operationId: CreateOrderLine
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/lines
+  method: put
+  operationId: UpdateOrderLines
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/line/{orderLineId}/cancel
+  method: post
+  operationId: CancelOrderLine
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/complete
+  method: post
+  operationId: CompleteOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/{orderId}/journal/reception
+  method: post
+  operationId: CreateReceptionJournal
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/location/param
+  method: post
+  operationId: CreateOrUpdateOrderLocationParam
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Orders/location/{locationId}/param
+  method: get
+  operationId: GetOrderLocationParam
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Orders/location/{locationId}/param
+  method: delete
+  operationId: DeleteOrderLocationParam
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/QuestionDefinitions
+  method: get
+  operationId: Questions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/QuestionDefinitions
+  method: post
+  operationId: Create question
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/QuestionDefinitions/{id}
+  method: get
+  operationId: Question
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/QuestionDefinitions/{id}
+  method: put
+  operationId: Update question definition
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/QuestionDefinitions/{id}
+  method: delete
+  operationId: Delete question
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Reports
+  method: get
+  operationId: User reports
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Reports
+  method: post
+  operationId: Save report
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Reports/{viewId}
+  method: get
+  operationId: Get report view
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Reports/targets
+  method: get
+  operationId: Available report targets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Reports/userDefault
+  method: post
+  operationId: Set default report
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Reports/{reportId}
+  method: put
+  operationId: Update report
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Reports/{reportId}
+  method: delete
+  operationId: Delete report
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Roles
+  method: get
+  operationId: Roles list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ScaleLocker/{locationId}
+  method: get
+  operationId: Get all lockers in location
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ScaleLocker/{locationId}/{lockerId}
+  method: get
+  operationId: GetScaleLockerLayouts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/ScaleLocker/{locationId}/{lockerId}
+  method: put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ScaleLocker/{locationId}/{lockerId}/firm
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ScaleLocker/{locationId}/{lockerId}/state
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/ScaleLocker/{locationId}/{lockerId}/leds
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Scales/shelves
+  method: get
+  operationId: Shelf layouts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Services
+  method: get
+  operationId: Services list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Services/available
+  method: get
+  operationId: Available services list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Subscriptions
+  method: get
+  operationId: Subscriptions list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Subscriptions/start
+  method: post
+  operationId: Start subscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Subscriptions/finish
+  method: post
+  operationId: Finish subscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Subscriptions/{serviceCode}/start
+  method: post
+  operationId: Start subscription by code
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Subscriptions/{serviceCode}/end
+  method: post
+  operationId: End subscription by code
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UniqueItemStatuses
+  method: get
+  operationId: Get unique item statuses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UniqueItemStatuses
+  method: post
+  operationId: Create unique item status
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UniqueItemStatuses/{id}
+  method: get
+  operationId: Get unique item status
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UniqueItemStatuses/{id}
+  method: put
+  operationId: Update unique item status
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UniqueItemStatuses/{id}
+  method: delete
+  operationId: Delete unique item status
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UnitConversions
+  method: get
+  operationId: GetUnitConversions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UnitConversions
+  method: post
+  operationId: CreateUnitConversions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UnitConversions/missing/{itemId}
+  method: get
+  operationId: GetItemMissingUnitConversions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UnitConversions/{unitConversionId}
+  method: get
+  operationId: GetUnitConversion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UnitConversions/{unitConversionId}
+  method: put
+  operationId: UpdateUnitConversion
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UnitConversions/{unitConversionId}
+  method: delete
+  operationId: DeleteUnitConversion
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Units
+  method: get
+  operationId: GetUnits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Units
+  method: post
+  operationId: Create unit
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Units/{unitId}
+  method: get
+  operationId: GetUnit
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Units/{unitId}
+  method: put
+  operationId: UpdateUnit
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Units/{unitId}
+  method: delete
+  operationId: DeleteUnit
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Units/SortedByUsage
+  method: get
+  operationId: GetUnitsByUsage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Units/validate
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Units/validate
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles
+  method: get
+  operationId: GetUserGroups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UserProfiles
+  method: post
+  operationId: CreateUserGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/{profileId}
+  method: get
+  operationId: GetUserGroupDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UserProfiles/{profileId}
+  method: put
+  operationId: UpdateUserGroupDetails
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/{profileId}
+  method: delete
+  operationId: DeleteUserGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/properties
+  method: get
+  operationId: GetAllUsedUserProfileProperties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UserProfiles/{profileId}/users
+  method: get
+  operationId: GetUserGroupUsers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UserProfiles/{profileId}/users
+  method: post
+  operationId: AddUserToUserGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/{profileId}/locations/available
+  method: get
+  operationId: GetAvailableLocationsForUserGroup
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UserProfiles/{profileId}/locations
+  method: get
+  operationId: GetUserGroupLocations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/UserProfiles/{profileId}/locations
+  method: post
+  operationId: SaveUserGroupLocation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/{profileId}/locations/{locationId}
+  method: delete
+  operationId: DeleteUserGroupLocation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/{profileId}/locations/{locationId}/operations
+  method: post
+  operationId: CreateUserGroupLocationOperation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/UserProfiles/{profileId}/locations/{locationId}/operations/{operationId}
+  method: delete
+  operationId: DeleteUserGroupLocationOperation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/info
+  method: get
+  operationId: Get UserInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Users
+  method: get
+  operationId: Users list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Users
+  method: post
+  operationId: Create user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/{userId}
+  method: get
+  operationId: Get user details by userid
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Users/{userId}
+  method: put
+  operationId: Update user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/{userId}
+  method: delete
+  operationId: Delete user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/{username}
+  method: get
+  operationId: Get user details by username
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Users/properties
+  method: get
+  operationId: Get all user properties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Users/definedProperties
+  method: get
+  operationId: Get defined properties for users
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/Users/definedProperties
+  method: post
+  operationId: Create user defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/definedProperties/{id}
+  method: put
+  operationId: Update user defined property with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/definedProperties/{id}
+  method: delete
+  operationId: Delete user defined propety with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/definedProperties/bulk
+  method: post
+  operationId: Create or update user defined propeties with parameters
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/change-password
+  method: post
+  operationId: Change user password
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/{userId}/nfcid
+  method: post
+  operationId: Create or update users NFCID
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/{userId}/reset-mfa
+  method: post
+  operationId: User can reconfigure new authenticator
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/Users/bulk
+  method: post
+  operationId: Bulk insert users
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/Users/{userId}/password-reset-email
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/WMSItemLocationParams
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSItemLocationParams
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/{paramId}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSItemLocationParams/bulk
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/{itemParamsId}
+  method: put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/{itemParamsId}
+  method: delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/bulk/delete
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/{locationId}/{wmsLocationId}/barcodes
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/{locationId}/{wmsLocationId}/barcodes
+  method: delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSItemLocationParams/{locationId}/download/xlsx/label
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSItemLocationParams/download/xlsx
+  method: get
+  operationId: Get location items in excel
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSLocations/{locationId}/areas
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSLocations/{locationId}/areas
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/areas/{areaId}
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSLocations/{locationId}/areas/{areaId}
+  method: put
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/areas/{areaId}
+  method: delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/areas/cabinet/attach
+  method: post
+  operationId: Attach WMS location to cabinet
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/addresses
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSLocations/{locationId}/addresses
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/addresses/bulk
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/addresses/{wmsLocationId}
+  method: delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/addresses/generate
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/{locationId}/addresses/delete
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/WMSLocations/validate
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.common
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/WMSLocations/validate
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - io.common
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/Auth/login
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/Auth/logout
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/Auth/status
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Consumption
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Dimensions/Users
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Dimensions/Locations
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Dimensions/Operations
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Dimensions/Items/properties
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Dimensions/Users/properties
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Dimensions/Accounts
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Gravity/bins/state
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/ItemQuantities/onhand
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Metadata/Dimensions
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Questions/tools/status
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Questions/user/tools
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Questions/items/consumption
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Replenishment
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Replenishment/order
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Replenishment/orderlines
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Scans
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Scans/my
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Scans/anonymous
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Scans/count
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Scans/badscans
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Sessions
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Sessions/empty
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/UniqueItems/tools
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/UniqueItems/rent
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/UniqueItems/statuses
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/Users/all
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - io.reporting
+    token:
+      max-ttl: 3600
+    audit: none

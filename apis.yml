@@ -1,25 +1,686 @@
 aid: invendor
 name: Invendor
-description: Invendor is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Invendor is a smart industrial vending and vendor-managed inventory (VMI)
+  platform for industrial distributors and manufacturers, combining
+  weight-sensing (Gravity) and scan-based (Capture) smart cabinets, a Storeroom
+  mobile app, and cloud warehouse software to automate tool and consumable
+  replenishment across customer locations. Invendor (formerly Scanbro, a
+  Techstars company based in Tallinn, Estonia) exposes two public OAS3 REST APIs
+  - a Common API for managing accounts, items, locations, operations, orders,
+  users, and devices, and a Reporting API for scans, consumption, replenishment,
+  and unique-item status data - both secured with OAuth2 (authorization code)
+  through the identity.scanbro.com identity server.
 url: https://raw.githubusercontent.com/api-evangelist/invendor/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://invendor.com/wp-content/uploads/2026/06/invendor-social-image.jpg
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Inventory Management
+- Vendor Managed Inventory
+- Industrial Vending
+- Supply Chain
+- Warehouse Management
+- Asset Tracking
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: invendor:invendor-accounts-api
+  name: Invendor Accounts API
+  description: The Accounts API from Invendor — 15 operation(s) for accounts.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-accounts-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-auth-api
+  name: Invendor Auth API
+  description: The Auth API from Invendor — 3 operation(s) for auth.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-auth-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-barcodes-api
+  name: Invendor Barcodes API
+  description: The Barcodes API from Invendor — 1 operation(s) for barcodes.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Barcodes
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-barcodes-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-consumption-api
+  name: Invendor Consumption API
+  description: The Consumption API from Invendor — 1 operation(s) for consumption.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Consumption
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-consumption-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-datajobs-api
+  name: Invendor DataJobs API
+  description: The DataJobs API from Invendor — 2 operation(s) for datajobs.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - DataJobs
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-datajobs-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-devices-api
+  name: Invendor Devices API
+  description: The Devices API from Invendor — 10 operation(s) for devices.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-devices-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-dimensions-api
+  name: Invendor Dimensions API
+  description: The Dimensions API from Invendor — 12 operation(s) for dimensions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Dimensions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-dimensions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-dimensionvalues-api
+  name: Invendor DimensionValues API
+  description: The DimensionValues API from Invendor — 5 operation(s) for dimensionvalues.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - DimensionValues
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-dimensionvalues-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-doors-api
+  name: Invendor Doors API
+  description: The Doors API from Invendor — 1 operation(s) for doors.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Doors
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-doors-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-dynamicscancontent-api
+  name: Invendor DynamicScanContent API
+  description: The DynamicScanContent API from Invendor — 2 operation(s) for dynamicscancontent.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - DynamicScanContent
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-dynamicscancontent-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-extendedproperties-api
+  name: Invendor ExtendedProperties API
+  description: The ExtendedProperties API from Invendor — 3 operation(s) for extendedproperties.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - ExtendedProperties
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-extendedproperties-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-flagtypes-api
+  name: Invendor FlagTypes API
+  description: The FlagTypes API from Invendor — 2 operation(s) for flagtypes.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - FlagTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-flagtypes-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-globalsettings-api
+  name: Invendor GlobalSettings API
+  description: The GlobalSettings API from Invendor — 6 operation(s) for globalsettings.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - GlobalSettings
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-globalsettings-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-gravity-api
+  name: Invendor Gravity API
+  description: The Gravity API from Invendor — 1 operation(s) for gravity.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Gravity
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-gravity-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-itemquantities-api
+  name: Invendor ItemQuantities API
+  description: The ItemQuantities API from Invendor — 3 operation(s) for itemquantities.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - ItemQuantities
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-itemquantities-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-items-api
+  name: Invendor Items API
+  description: The Items API from Invendor — 25 operation(s) for items.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-items-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-itemtransactions-api
+  name: Invendor ItemTransactions API
+  description: The ItemTransactions API from Invendor — 1 operation(s) for itemtransactions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - ItemTransactions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-itemtransactions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-journals-api
+  name: Invendor Journals API
+  description: The Journals API from Invendor — 10 operation(s) for journals.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Journals
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-journals-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-locations-api
+  name: Invendor Locations API
+  description: The Locations API from Invendor — 21 operation(s) for locations.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-locations-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-metadata-api
+  name: Invendor Metadata API
+  description: The Metadata API from Invendor — 1 operation(s) for metadata.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-metadata-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-operationdimgroups-api
+  name: Invendor OperationDimGroups API
+  description: The OperationDimGroups API from Invendor — 2 operation(s) for operationdimgroups.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - OperationDimGroups
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-operationdimgroups-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-operations-api
+  name: Invendor Operations API
+  description: The Operations API from Invendor — 18 operation(s) for operations.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-operations-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-orders-api
+  name: Invendor Orders API
+  description: The Orders API from Invendor — 15 operation(s) for orders.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-orders-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-questiondefinitions-api
+  name: Invendor QuestionDefinitions API
+  description: The QuestionDefinitions API from Invendor — 2 operation(s) for questiondefinitions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - QuestionDefinitions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-questiondefinitions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-questions-api
+  name: Invendor Questions API
+  description: The Questions API from Invendor — 3 operation(s) for questions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-questions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-replenishment-api
+  name: Invendor Replenishment API
+  description: The Replenishment API from Invendor — 3 operation(s) for replenishment.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Replenishment
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-replenishment-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-reports-api
+  name: Invendor Reports API
+  description: The Reports API from Invendor — 5 operation(s) for reports.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-reports-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-roles-api
+  name: Invendor Roles API
+  description: The Roles API from Invendor — 1 operation(s) for roles.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-roles-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-scalelocker-api
+  name: Invendor ScaleLocker API
+  description: The ScaleLocker API from Invendor — 5 operation(s) for scalelocker.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - ScaleLocker
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-scalelocker-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-scales-api
+  name: Invendor Scales API
+  description: The Scales API from Invendor — 1 operation(s) for scales.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Scales
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-scales-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-scans-api
+  name: Invendor Scans API
+  description: The Scans API from Invendor — 5 operation(s) for scans.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Scans
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-scans-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-services-api
+  name: Invendor Services API
+  description: The Services API from Invendor — 2 operation(s) for services.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Services
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-services-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-sessions-api
+  name: Invendor Sessions API
+  description: The Sessions API from Invendor — 2 operation(s) for sessions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-sessions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-subscriptions-api
+  name: Invendor Subscriptions API
+  description: The Subscriptions API from Invendor — 5 operation(s) for subscriptions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-subscriptions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-uniqueitems-api
+  name: Invendor UniqueItems API
+  description: The UniqueItems API from Invendor — 3 operation(s) for uniqueitems.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - UniqueItems
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-uniqueitems-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-uniqueitemstatuses-api
+  name: Invendor UniqueItemStatuses API
+  description: The UniqueItemStatuses API from Invendor — 2 operation(s) for uniqueitemstatuses.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - UniqueItemStatuses
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-uniqueitemstatuses-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-unitconversions-api
+  name: Invendor UnitConversions API
+  description: The UnitConversions API from Invendor — 3 operation(s) for unitconversions.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - UnitConversions
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-unitconversions-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-units-api
+  name: Invendor Units API
+  description: The Units API from Invendor — 4 operation(s) for units.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Units
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-units-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-userprofiles-api
+  name: Invendor UserProfiles API
+  description: The UserProfiles API from Invendor — 9 operation(s) for userprofiles.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - UserProfiles
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-userprofiles-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-users-api
+  name: Invendor Users API
+  description: The Users API from Invendor — 14 operation(s) for users.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-users-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-wmsitemlocationparams-api
+  name: Invendor WMSItemLocationParams API
+  description: The WMSItemLocationParams API from Invendor — 8 operation(s) for wmsitemlocationparams.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - WMSItemLocationParams
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-wmsitemlocationparams-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-wmslocations-api
+  name: Invendor WMSLocations API
+  description: The WMSLocations API from Invendor — 9 operation(s) for wmslocations.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - WMSLocations
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-wmslocations-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
 common:
+- type: AgenticAccess
+  url: agentic-access/invendor-agentic-access.yml
+- type: DomainSecurity
+  url: security/invendor-domain-security.yml
+- type: OAuthScopes
+  url: scopes/invendor-scopes.yml
+- type: Authentication
+  url: authentication/invendor-authentication.yml
+- type: Conventions
+  url: conventions/invendor-conventions.yml
+- type: ErrorCatalog
+  url: errors/invendor-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/invendor-lifecycle.yml
+- type: Conformance
+  url: conformance/invendor-conformance.yml
+- type: DataModel
+  url: data-model/invendor-data-model.yml
+- type: MCPServer
+  url: mcp/invendor-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/invendor-well-known.yml
+- type: LLMsTxt
+  url: llms/invendor-llms.txt
+- type: Documentation
+  url: https://invendor.com/integrations/
+- type: Blog
+  url: https://invendor.com/invendor-blog/
+- type: Support
+  url: https://invendor.com/contact/
+- type: SignUp
+  url: https://invendor.com/start-your-free-trial/
+- type: Login
+  url: https://portal.invendor.com/
+- type: TermsOfService
+  url: https://invendor.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://invendor.com/privacy-policy/
 - type: Website
   url: https://invendor.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

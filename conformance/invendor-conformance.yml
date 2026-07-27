@@ -1,0 +1,40 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/*, well-known/invendor-openid-configuration.json
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OpenAPI securitySchemes declares OAuth2 authorizationCode flow (identity.scanbro.com)
+- id: oidc
+  conforms: true
+  evidence: identity.scanbro.com publishes /.well-known/openid-configuration
+- id: rfc7807-problem-details
+  conforms: true
+  evidence: 4xx responses reference ProblemDetails/ApiErrorResponse (type/title/status/detail/instance)
+    as application/json
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: RFC 7807 shape but not served as application/problem+json
+- id: openapi-3
+  conforms: true
+  evidence: both APIs publish OpenAPI 3.0.1 at /swagger/v1/swagger.json
+- id: oauth2-token-exchange
+  conforms: true
+  evidence: identity server advertises urn:ietf:params:oauth:grant-type:token-exchange
+- id: mfa-totp
+  conforms: true
+  evidence: identity server advertises urn:io:params:oauth:grant-type:mfa-totp; Users
+    API exposes reset-mfa
+- id: pagination
+  conforms: true
+  evidence: list operations expose Page / PageSize query parameters
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+- id: odata
+  conforms: false
+- id: fapi
+  conforms: false
+- id: json-api
+  conforms: false

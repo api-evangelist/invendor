@@ -1,0 +1,54 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json
+format: rfc7807
+envelope:
+  media_type: application/json
+  schemas:
+  - ProblemDetails
+  - ApiErrorResponse
+  fields:
+  - type
+  - title
+  - status
+  - detail
+  - instance
+note: Errors are returned as ASP.NET Core ProblemDetails / ApiErrorResponse (RFC 7807
+  shape, served as application/json rather than application/problem+json). Derived
+  from OpenAPI 4xx/5xx responses; no separate published error-code registry was found.
+problems:
+- status: 400
+  title: Bad Request
+  schema: ProblemDetails
+  occurrences: 337
+  example_operation: openapi/invendor-common-openapi-original.json#My account details
+- status: 401
+  title: Unauthorized
+  schema: null
+  occurrences: 349
+  example_operation: openapi/invendor-common-openapi-original.json#My account details
+- status: 403
+  title: Forbidden
+  schema: null
+  occurrences: 347
+  example_operation: openapi/invendor-common-openapi-original.json#My account details
+- status: 404
+  title: Not Found
+  schema: ApiErrorResponse
+  occurrences: 17
+  example_operation: openapi/invendor-common-openapi-original.json#DownloadDataJobResult
+- status: 409
+  title: Conflict
+  schema: ApiErrorResponse
+  occurrences: 5
+  example_operation: openapi/invendor-common-openapi-original.json#DownloadDataJobResult
+- status: 410
+  title: Gone
+  schema: ApiErrorResponse
+  occurrences: 1
+  example_operation: openapi/invendor-common-openapi-original.json#DownloadDataJobResult
+- status: 422
+  title: Unprocessable Entity
+  schema: ApiErrorResponse
+  occurrences: 24
+  example_operation: openapi/invendor-common-openapi-original.json#Create account

@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v1
+  common_api_base: https://api.invendor.com/v1
+  reporting_api_base: https://reporting.invendor.com/api/v1
+  docs: https://invendor.com/integrations/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation/sunset policy or RFC 8594 header support was found.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+note: >-
+  No public status page (invendor.statuspage.io 302-redirects to the StatusPage
+  marketing site, i.e. not a live registered page), no dated changelog page, and
+  no deprecation policy were found. Versioning is URI-path v1 on both APIs. No
+  operations are flagged deprecated in either OpenAPI document.

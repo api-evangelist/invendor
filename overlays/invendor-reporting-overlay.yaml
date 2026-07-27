@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Invendor Reporting API
+  version: 1.0.0
+extends: openapi/invendor-reporting-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-api-provider: Invendor (Scanbro OÜ)
+    x-auth-server: https://identity.scanbro.com/
+- target: $
+  update:
+    servers:
+    - url: https://reporting.invendor.com
+      description: Production

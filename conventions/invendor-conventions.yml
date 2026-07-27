@@ -1,0 +1,49 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json, well-known/invendor-openid-configuration.json
+authentication:
+  style: oauth2
+  flow: authorizationCode
+  bearer: true
+  authorization_url: https://identity.scanbro.com/connect/authorize
+  token_url: https://identity.scanbro.com/connect/token
+  scopes:
+    - io.common
+    - io.reporting
+  additional_grants:
+    - client_credentials
+    - password
+    - refresh_token
+    - urn:ietf:params:oauth:grant-type:token-exchange
+    - urn:io:params:oauth:grant-type:mfa-totp
+  see: authentication/invendor-authentication.yml
+idempotency:
+  supported: false
+  note: No Idempotency-Key header/parameter is documented or present in either OpenAPI document.
+pagination:
+  style: page-number
+  params:
+    - Page
+    - PageSize
+  note: List operations accept Page and PageSize query parameters.
+versioning:
+  style: uri-path
+  current: v1
+  see: lifecycle/invendor-lifecycle.yml
+request_tracing:
+  request_id_header: null
+error_envelope:
+  media_type: application/json
+  shape: rfc7807
+  schemas:
+    - ProblemDetails
+    - ApiErrorResponse
+  see: errors/invendor-problem-types.yml
+rate_limiting:
+  signaled: false
+  note: No rate-limit response headers are declared in the OpenAPI documents.
+bulk_operations:
+  supported: true
+  note: >-
+    Many resources expose bulk upsert endpoints (e.g. /v1/Items/bulk,
+    /v1/Items/altitems/bulk, /v1/Users/bulk, /v1/Items/definedProperties/bulk).
