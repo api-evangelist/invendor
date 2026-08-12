@@ -637,6 +637,8 @@ apis:
   - type: APIReference
     url: https://reporting.invendor.com/swagger/index.html
 common:
+- type: Overlay
+  url: overlays/invendor-common-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/invendor-agentic-access.yml
 - type: DomainSecurity
