@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IO.Common Accounts Subscriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+      "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Subscriptions list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Subscriptions",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Start subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Subscriptions/start",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Finish subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Subscriptions/finish",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Start subscription by code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Subscriptions/:serviceCode/start",
+            "params": [
+              {
+                "name": "serviceCode",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "End subscription by code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Subscriptions/:serviceCode/end",
+            "params": [
+              {
+                "name": "serviceCode",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,703 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IO.Common Accounts Users API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+      "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns user info of a current user (authenticated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Users/info",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns user info of a current user (authenticated)"
+        },
+        {
+          "info": {
+            "name": "Returns all users based on the request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Users",
+            "params": [
+              {
+                "name": "ShowOnlyNotConfirmed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Filter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortColumn",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Sortable columns: id, username, firstName, lastName, fullName, profileName, email."
+        },
+        {
+          "info": {
+            "name": "Creates a new user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new user"
+        },
+        {
+          "info": {
+            "name": "Retruns user details by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retruns user details by id"
+        },
+        {
+          "info": {
+            "name": "Update user details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update user details"
+        },
+        {
+          "info": {
+            "name": "Delete user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/Users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete user"
+        },
+        {
+          "info": {
+            "name": "Returns user details by username",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns user details by username"
+        },
+        {
+          "info": {
+            "name": "Returns the list of all the properties added to the user groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Users/properties",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the list of all the properties added to the user groups"
+        },
+        {
+          "info": {
+            "name": "Get the defined properties for users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Users/definedProperties",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the defined properties for users"
+        },
+        {
+          "info": {
+            "name": "Create new user property with parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/definedProperties",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create new user property with parameters"
+        },
+        {
+          "info": {
+            "name": "Update existing user property with parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/Users/definedProperties/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Property parameter Id"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update existing user property with parameters"
+        },
+        {
+          "info": {
+            "name": "Delete existing user property with parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/Users/definedProperties/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Property parameter Id"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete existing user property with parameters"
+        },
+        {
+          "info": {
+            "name": "Bulk upsert/delete user properties with parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/definedProperties/bulk",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Bulk upsert/delete user properties with parameters"
+        },
+        {
+          "info": {
+            "name": "Change user password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/change-password",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Change user password"
+        },
+        {
+          "info": {
+            "name": "Create or update user NFCID. (This operation allows to change users \"OWN\" NFCID)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/:userId/nfcid",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User id"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create or update user NFCID. (This operation allows to change users \"OWN\" NFCID)"
+        },
+        {
+          "info": {
+            "name": "Reset MFA, User can reconfigure new authenticator app",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/:userId/reset-mfa",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "Identity user id"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Reset MFA, User can reconfigure new authenticator app"
+        },
+        {
+          "info": {
+            "name": "Bulk insert group users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/bulk",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Bulk insert group users"
+        },
+        {
+          "info": {
+            "name": "Generate a user password reset link and send an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/Users/:userId/password-reset-email",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "redirectUrl",
+                "value": "",
+                "type": "query",
+                "description": "Optional redirect URL after password reset (defaults to Portal)"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generate a user password reset link and send an email"
+        },
+        {
+          "info": {
+            "name": "Get all tenant users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Users/all",
+            "params": [
+              {
+                "name": "AccountId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all tenant users"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

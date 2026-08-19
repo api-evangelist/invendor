@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IO.Common Accounts DynamicScanContent API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+      "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DynamicScanContent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of all possible field datasoruces for dynamic content configuration\r\nCurrenlty are supported Item.Code, Barcode.Unit and all Item properties defined on items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/DynamicScanContent/datasources",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get list of all possible field datasoruces for dynamic content configuration\r\nCurrenlty are supported Item.Code, Barcode.Unit and all Item properties defined on items"
+        },
+        {
+          "info": {
+            "name": "Get list of all possible field datasoruces for dynamic content configuration for selected operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/DynamicScanContent/datasources/:operationId",
+            "params": [
+              {
+                "name": "operationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get list of all possible field datasoruces for dynamic content configuration for selected operation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

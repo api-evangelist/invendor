@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IO.Common Accounts Replenishment API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+      "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Replenishment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get replenishment data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Replenishment",
+            "params": [
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendorAccountId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get replenishment data"
+        },
+        {
+          "info": {
+            "name": "Get replenishment order - for current state of inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Replenishment/order",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendorAccountId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get replenishment order - for current state of inventory"
+        },
+        {
+          "info": {
+            "name": "Returns order lines for selected location, vendor and up to defined order and/or line status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/Replenishment/orderlines",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderStatus",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lineStatus",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns order lines for selected location, vendor and up to defined order and/or line status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IO.Common Accounts Services API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+      "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Services the current tenant currently subscribes to. Each returned service\r\ncarries only the tenant's own active subscriptions on its\r\n`Subscriptions` navigation. This is the list to populate\r\npickers like the new-location services dropdown.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Services",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Services the current tenant currently subscribes to. Each returned service\r\ncarries only the tenant's own active subscriptions on its\r\n`Subscriptions` navigation. This is the list to populate\r\npickers like the new-location services dropdown."
+        },
+        {
+          "info": {
+            "name": "Full system catalog of services. Each service includes the current\r\ntenant's own active subscriptions (filtered `Subscriptions` navigation),\r\nso a subscribe-to-service UI can render every catalog entry plus a\r\n\"subscribed?\" indicator in one round-trip.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/Services/available",
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Full system catalog of services. Each service includes the current\r\ntenant's own active subscriptions (filtered `Subscriptions` navigation),\r\nso a subscribe-to-service UI can render every catalog entry plus a\r\n\"subscribed?\" indicator in one round-trip."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

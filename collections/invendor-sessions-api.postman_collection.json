@@ -1,0 +1,814 @@
+{
+  "item": [
+    {
+      "id": "7bb6b3ea-a7e9-4c09-baad-7c55de8e31e4",
+      "name": "Sessions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "51f0ed02-ef37-433b-8d11-3d5af3813029",
+          "name": "Get all the sessions in defined period",
+          "request": {
+            "name": "Get all the sessions in defined period",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "operationName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchTerm",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "af4ceb96-4ef5-48ba-88fd-fc741d31153b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sessionId\": 4086,\n    \"locationId\": 5827,\n    \"sessionTypeId\": 267,\n    \"userId\": 6315,\n    \"user\": \"string\",\n    \"userFirstName\": \"string\",\n    \"userLastName\": \"string\",\n    \"userFullName\": \"string\",\n    \"userGroupName\": \"string\",\n    \"companyName\": \"string\",\n    \"location\": \"string\",\n    \"operation\": \"string\",\n    \"serverDateTime\": \"2016-01-01T18:40:47.173Z\",\n    \"closeDateTime\": \"2002-08-10T09:53:30.994Z\",\n    \"openDateTime\": \"2017-08-27T11:03:11.638Z\",\n    \"durationSec\": 6026.864986590466,\n    \"numberOfScans\": 6950,\n    \"scanEvents\": [\n      {\n        \"scanId\": 6590,\n        \"sessionId\": 9362,\n        \"itemId\": 1675,\n        \"locationId\": 4722,\n        \"sessionTypeId\": 4880,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 3052.149636055739,\n        \"expectedQuantity\": 3155.375891117762,\n        \"firmedQuantity\": 1281.4926216093347,\n        \"scanDate\": \"1985-08-25\",\n        \"scanDateTime\": \"1970-12-07T11:55:47.523Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 512,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 8356\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 6328\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"scanId\": 6555,\n        \"sessionId\": 7219,\n        \"itemId\": 2439,\n        \"locationId\": 7291,\n        \"sessionTypeId\": 175,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 2379.2958380125197,\n        \"expectedQuantity\": 2242.501063875886,\n        \"firmedQuantity\": 4174.193006453821,\n        \"scanDate\": \"1970-06-09\",\n        \"scanDateTime\": \"2016-10-31T16:27:23.584Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 9310,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 3532\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 7918\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"metadata\": [\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 4363\n      },\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 2067\n      }\n    ]\n  },\n  {\n    \"sessionId\": 1436,\n    \"locationId\": 2642,\n    \"sessionTypeId\": 6889,\n    \"userId\": 7537,\n    \"user\": \"string\",\n    \"userFirstName\": \"string\",\n    \"userLastName\": \"string\",\n    \"userFullName\": \"string\",\n    \"userGroupName\": \"string\",\n    \"companyName\": \"string\",\n    \"location\": \"string\",\n    \"operation\": \"string\",\n    \"serverDateTime\": \"1996-02-07T09:25:41.067Z\",\n    \"closeDateTime\": \"2008-11-18T09:57:32.550Z\",\n    \"openDateTime\": \"1999-07-08T09:33:34.524Z\",\n    \"durationSec\": 2689.4679068994988,\n    \"numberOfScans\": 8528,\n    \"scanEvents\": [\n      {\n        \"scanId\": 6588,\n        \"sessionId\": 1832,\n        \"itemId\": 43,\n        \"locationId\": 8395,\n        \"sessionTypeId\": 5598,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 7474.6794663831415,\n        \"expectedQuantity\": 1803.4141243744416,\n        \"firmedQuantity\": 6009.508389815407,\n        \"scanDate\": \"1956-06-21\",\n        \"scanDateTime\": \"1983-04-02T12:11:15.402Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 6129,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 2474\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 2227\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"scanId\": 5373,\n        \"sessionId\": 1891,\n        \"itemId\": 6770,\n        \"locationId\": 8655,\n        \"sessionTypeId\": 7662,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 7372.959250031513,\n        \"expectedQuantity\": 9794.921823170109,\n        \"firmedQuantity\": 5999.676224061428,\n        \"scanDate\": \"2024-09-20\",\n        \"scanDateTime\": \"1979-11-26T21:47:27.640Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 7024,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 3884\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 769\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"metadata\": [\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 2494\n      },\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 5960\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d7e4c3b-e48e-4597-9196-a5aa29a5d23c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebb1a041-2909-4982-9cf3-b04844cb5d9f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "adcaedb7-7257-46f1-b9f8-6c799c014e76",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20888686-91e8-4f8a-a3ef-723a5c80bd03",
+          "name": "Get all the empty sessions in defined period. Empty sessions are sessions without any scans.",
+          "request": {
+            "name": "Get all the empty sessions in defined period. Empty sessions are sessions without any scans.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Sessions",
+                "empty"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "accountId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "operationName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "searchTerm",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6cb40d63-a1a5-44e7-b4b1-e6167682c146",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions",
+                    "empty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sessionId\": 7368,\n    \"locationId\": 7195,\n    \"sessionTypeId\": 9575,\n    \"userId\": 3887,\n    \"user\": \"string\",\n    \"userFirstName\": \"string\",\n    \"userLastName\": \"string\",\n    \"userFullName\": \"string\",\n    \"userGroupName\": \"string\",\n    \"companyName\": \"string\",\n    \"location\": \"string\",\n    \"operation\": \"string\",\n    \"serverDateTime\": \"1979-05-18T09:00:39.820Z\",\n    \"closeDateTime\": \"1980-10-31T06:25:25.164Z\",\n    \"openDateTime\": \"1968-06-29T05:33:19.806Z\",\n    \"durationSec\": 6987.904893066229,\n    \"numberOfScans\": 4816,\n    \"scanEvents\": [\n      {\n        \"scanId\": 5784,\n        \"sessionId\": 561,\n        \"itemId\": 3425,\n        \"locationId\": 5218,\n        \"sessionTypeId\": 6002,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 1883.2389501192026,\n        \"expectedQuantity\": 4681.655177611276,\n        \"firmedQuantity\": 3944.9606528120794,\n        \"scanDate\": \"1981-04-30\",\n        \"scanDateTime\": \"1962-11-02T10:26:43.485Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 8763,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 7842\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 9612\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"scanId\": 6512,\n        \"sessionId\": 9166,\n        \"itemId\": 3590,\n        \"locationId\": 3259,\n        \"sessionTypeId\": 2238,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 2540.1883856098516,\n        \"expectedQuantity\": 4424.782032706263,\n        \"firmedQuantity\": 7626.165778831021,\n        \"scanDate\": \"1958-06-23\",\n        \"scanDateTime\": \"2019-11-20T04:24:18.677Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 9242,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 6550\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 4436\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"metadata\": [\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 3728\n      },\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 7414\n      }\n    ]\n  },\n  {\n    \"sessionId\": 241,\n    \"locationId\": 5874,\n    \"sessionTypeId\": 2506,\n    \"userId\": 355,\n    \"user\": \"string\",\n    \"userFirstName\": \"string\",\n    \"userLastName\": \"string\",\n    \"userFullName\": \"string\",\n    \"userGroupName\": \"string\",\n    \"companyName\": \"string\",\n    \"location\": \"string\",\n    \"operation\": \"string\",\n    \"serverDateTime\": \"1984-02-08T11:25:43.820Z\",\n    \"closeDateTime\": \"2005-10-27T20:17:08.376Z\",\n    \"openDateTime\": \"1978-07-09T23:14:44.265Z\",\n    \"durationSec\": 7288.3636104052175,\n    \"numberOfScans\": 4613,\n    \"scanEvents\": [\n      {\n        \"scanId\": 4421,\n        \"sessionId\": 5941,\n        \"itemId\": 8447,\n        \"locationId\": 5570,\n        \"sessionTypeId\": 9423,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 3243.571180879269,\n        \"expectedQuantity\": 6253.339288999372,\n        \"firmedQuantity\": 8651.713587385228,\n        \"scanDate\": \"1981-02-17\",\n        \"scanDateTime\": \"2010-06-27T22:27:04.410Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 7056,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 355\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 3508\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"scanId\": 5469,\n        \"sessionId\": 7403,\n        \"itemId\": 311,\n        \"locationId\": 6634,\n        \"sessionTypeId\": 3654,\n        \"scannedData\": \"string\",\n        \"unit\": \"string\",\n        \"quantity\": 1754.6326772626996,\n        \"expectedQuantity\": 8980.789853750526,\n        \"firmedQuantity\": 2378.7641504543676,\n        \"scanDate\": \"2023-11-05\",\n        \"scanDateTime\": \"1954-06-19T05:52:02.871Z\",\n        \"itemName\": \"string\",\n        \"itemCode\": \"string\",\n        \"altCode\": \"string\",\n        \"altName\": \"string\",\n        \"vendor\": \"string\",\n        \"itemUnit\": \"string\",\n        \"userId\": 9438,\n        \"user\": \"string\",\n        \"userFirstName\": \"string\",\n        \"userLastName\": \"string\",\n        \"userFullName\": \"string\",\n        \"userGroupName\": \"string\",\n        \"companyName\": \"string\",\n        \"location\": \"string\",\n        \"operation\": \"string\",\n        \"operationType\": \"string\",\n        \"metadata\": [\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 9525\n          },\n          {\n            \"name\": \"string\",\n            \"shortName\": \"string\",\n            \"value\": \"string\",\n            \"dimensionId\": 8210\n          }\n        ],\n        \"itemProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ],\n        \"userProperties\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"metadata\": [\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 5476\n      },\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 478\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45fc270f-0ce2-48d2-9593-4a5ac3c31cd7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions",
+                    "empty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "921c0f02-5b5b-4893-87e6-476ef2d29c2a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions",
+                    "empty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77e3518f-5436-4176-8eb1-54bc5546cc60",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Sessions",
+                    "empty"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchTerm",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "io.common"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.scanbro.com/connect/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://identity.scanbro.com/connect/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bb913ff3-a363-45c6-8a7d-aa4aaec8395b",
+    "name": "IO.Common Accounts Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

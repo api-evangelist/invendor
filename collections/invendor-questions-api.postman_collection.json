@@ -1,0 +1,881 @@
+{
+  "item": [
+    {
+      "id": "7393aab1-2bb1-45f3-9f9c-7a8da5165e4e",
+      "name": "Questions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "13fab53d-28b8-42a0-aef2-bf9bd6414264",
+          "name": "Get tools status by barcode",
+          "request": {
+            "name": "Get tools status by barcode",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Questions",
+                "tools",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "barcode",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "21774f18-3a52-45bd-8083-916c12fbe6ca",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "tools",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"itemId\": 4684,\n  \"itemCode\": \"string\",\n  \"itemName\": \"string\",\n  \"imageUrl\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationId\": 8313,\n  \"location\": \"string\",\n  \"vendor\": \"string\",\n  \"metadata\": [\n    {\n      \"name\": \"string\",\n      \"shortName\": \"string\",\n      \"value\": \"string\",\n      \"dimensionId\": 5407\n    },\n    {\n      \"name\": \"string\",\n      \"shortName\": \"string\",\n      \"value\": \"string\",\n      \"dimensionId\": 8705\n    }\n  ],\n  \"sessionId\": 3796,\n  \"scanEventId\": 9969,\n  \"datetime\": \"1949-01-11T10:23:46.305Z\",\n  \"returnDatetime\": \"1964-11-18T13:27:09.956Z\",\n  \"operationId\": 4447,\n  \"operation\": \"string\",\n  \"status\": \"string\",\n  \"itemType\": \"string\",\n  \"currentUserId\": 6197,\n  \"currentUser\": \"string\",\n  \"currentUserFirstName\": \"string\",\n  \"currentUserLastName\": \"string\",\n  \"currentUserFullName\": \"string\",\n  \"previousUserId\": 2345,\n  \"previousUser\": \"string\",\n  \"previousUserFirstName\": \"string\",\n  \"previousUserLastName\": \"string\",\n  \"previousUserFullName\": \"string\",\n  \"itemProperties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c578751c-2dc9-4feb-b376-ef659a9e2250",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "tools",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fb86541-8fdf-4bc3-97de-176a3ba8c32b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "tools",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdeea258-0fd1-4c2a-a884-43eb6ec0ddc5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "tools",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e20048a-073e-4e72-ac0b-310085ca26ef",
+          "name": "Get all tools that are in statuses provided",
+          "request": {
+            "name": "Get all tools that are in statuses provided",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Questions",
+                "user",
+                "tools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e2a49de-ff69-43d2-9c50-63e98289b8d9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "user",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"itemId\": 1975,\n    \"itemCode\": \"string\",\n    \"itemName\": \"string\",\n    \"imageUrl\": [\n      \"string\",\n      \"string\"\n    ],\n    \"locationId\": 8880,\n    \"location\": \"string\",\n    \"vendor\": \"string\",\n    \"metadata\": [\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 3737\n      },\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 6168\n      }\n    ],\n    \"sessionId\": 2944,\n    \"scanEventId\": 1018,\n    \"datetime\": \"1967-08-25T08:32:13.639Z\",\n    \"returnDatetime\": \"1989-01-05T08:52:22.781Z\",\n    \"operationId\": 1518,\n    \"operation\": \"string\",\n    \"status\": \"string\",\n    \"itemType\": \"string\",\n    \"currentUserId\": 5983,\n    \"currentUser\": \"string\",\n    \"currentUserFirstName\": \"string\",\n    \"currentUserLastName\": \"string\",\n    \"currentUserFullName\": \"string\",\n    \"previousUserId\": 650,\n    \"previousUser\": \"string\",\n    \"previousUserFirstName\": \"string\",\n    \"previousUserLastName\": \"string\",\n    \"previousUserFullName\": \"string\",\n    \"itemProperties\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  },\n  {\n    \"itemId\": 1975,\n    \"itemCode\": \"string\",\n    \"itemName\": \"string\",\n    \"imageUrl\": [\n      \"string\",\n      \"string\"\n    ],\n    \"locationId\": 7183,\n    \"location\": \"string\",\n    \"vendor\": \"string\",\n    \"metadata\": [\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 4257\n      },\n      {\n        \"name\": \"string\",\n        \"shortName\": \"string\",\n        \"value\": \"string\",\n        \"dimensionId\": 7542\n      }\n    ],\n    \"sessionId\": 9684,\n    \"scanEventId\": 6550,\n    \"datetime\": \"2009-12-22T10:35:23.510Z\",\n    \"returnDatetime\": \"1960-04-05T15:21:44.498Z\",\n    \"operationId\": 658,\n    \"operation\": \"string\",\n    \"status\": \"string\",\n    \"itemType\": \"string\",\n    \"currentUserId\": 4041,\n    \"currentUser\": \"string\",\n    \"currentUserFirstName\": \"string\",\n    \"currentUserLastName\": \"string\",\n    \"currentUserFullName\": \"string\",\n    \"previousUserId\": 8618,\n    \"previousUser\": \"string\",\n    \"previousUserFirstName\": \"string\",\n    \"previousUserLastName\": \"string\",\n    \"previousUserFullName\": \"string\",\n    \"itemProperties\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "037493c2-38ac-41e8-a35f-6738e02fe0bd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "user",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87681cf8-018c-4dbf-baa6-5a690629c5e3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "user",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a9f69c0-9010-4b0b-add0-d03edc58dd53",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "user",
+                    "tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90837308-ba0b-4eca-ace8-9b59bd33447d",
+          "name": "Get item consumption by barcode in location",
+          "request": {
+            "name": "Get item consumption by barcode in location",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "Questions",
+                "items",
+                "consumption"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "barcode",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d8309865-2e62-405b-8c03-7897b18bceb4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "items",
+                    "consumption"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"itemId\": 2702,\n  \"itemCode\": \"string\",\n  \"itemName\": \"string\",\n  \"imageUrl\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationId\": 4388,\n  \"location\": \"string\",\n  \"vendor\": \"string\",\n  \"metadata\": [\n    {\n      \"name\": \"string\",\n      \"shortName\": \"string\",\n      \"value\": \"string\",\n      \"dimensionId\": 1046\n    },\n    {\n      \"name\": \"string\",\n      \"shortName\": \"string\",\n      \"value\": \"string\",\n      \"dimensionId\": 4305\n    }\n  ],\n  \"sessionId\": 9618,\n  \"scanEventId\": 9392,\n  \"datetime\": \"2019-07-17T12:13:22.077Z\",\n  \"returnDatetime\": \"1992-09-20T02:51:43.296Z\",\n  \"operationId\": 9399,\n  \"operation\": \"string\",\n  \"status\": \"string\",\n  \"itemType\": \"string\",\n  \"currentUserId\": 7191,\n  \"currentUser\": \"string\",\n  \"currentUserFirstName\": \"string\",\n  \"currentUserLastName\": \"string\",\n  \"currentUserFullName\": \"string\",\n  \"previousUserId\": 5391,\n  \"previousUser\": \"string\",\n  \"previousUserFirstName\": \"string\",\n  \"previousUserLastName\": \"string\",\n  \"previousUserFullName\": \"string\",\n  \"itemProperties\": [\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"key\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68e9208b-e61e-4285-9ecd-ce716d761ad4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "items",
+                    "consumption"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bb5594e-5b04-47ea-a2e9-0847ea4f5aed",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "items",
+                    "consumption"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58950a83-9afb-42d5-8120-586713a8a2e8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "Questions",
+                    "items",
+                    "consumption"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "barcode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "io.common"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.scanbro.com/connect/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://identity.scanbro.com/connect/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cd3bd7d7-3c6c-4780-8769-08f3434903ea",
+    "name": "IO.Common Accounts Questions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,554 @@
+{
+  "item": [
+    {
+      "id": "e065b443-dce4-43b2-a88b-714c215504b9",
+      "name": "Services",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e9ab283c-9ffd-4fa5-9c88-956f0a5de096",
+          "name": "Services the current tenant currently subscribes to. Each returned service\r\ncarries only the tenant's own active subscriptions on its\r\n`Subscriptions` navigation. This is the list to populate\r\npickers like the new-location services dropdown.",
+          "request": {
+            "name": "Services the current tenant currently subscribes to. Each returned service\r\ncarries only the tenant's own active subscriptions on its\r\n`Subscriptions` navigation. This is the list to populate\r\npickers like the new-location services dropdown.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "Services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Account",
+                  "value": "<int>",
+                  "description": "Account"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7fdacca4-d11a-4ba3-b440-deaa691e15bf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ae64c677-1423-accb-0987-59105d361b20\",\n    \"code\": \"string\",\n    \"name\": \"string\",\n    \"subscriptions\": [\n      {\n        \"id\": \"dae1723c-a5bd-d422-f1de-7e22498d57fe\",\n        \"domainEvents\": [\n          {\n            \"id\": \"1dde1ce1-d824-761b-698d-3c30ad3565e6\",\n            \"occurredOn\": \"1965-03-17T13:37:05.088Z\"\n          },\n          {\n            \"id\": \"08238bad-539a-b593-02ef-0f48748ddd80\",\n            \"occurredOn\": \"2024-07-25T15:07:22.046Z\"\n          }\n        ],\n        \"createdOn\": \"1948-05-23T14:31:00.296Z\",\n        \"modifiedOn\": \"1973-05-22T23:17:57.800Z\",\n        \"tenantId\": \"be6cec9d-c035-79c6-32da-95a03b7839d8\",\n        \"serviceId\": \"9bd00338-1f58-2eac-4681-f90e5405aa1b\",\n        \"startDate\": \"1949-03-25T07:44:59.967Z\",\n        \"endDate\": \"1972-12-14T17:43:42.290Z\",\n        \"ended\": false,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      },\n      {\n        \"id\": \"2eb48449-258d-0c9f-e9a2-7381bcac0056\",\n        \"domainEvents\": [\n          {\n            \"id\": \"68ae5ab7-f8c9-f448-c692-eddf6d907257\",\n            \"occurredOn\": \"1947-12-09T01:33:26.703Z\"\n          },\n          {\n            \"id\": \"1fb609bd-4100-8ec3-4909-862a8e5546a9\",\n            \"occurredOn\": \"1951-02-11T12:06:15.120Z\"\n          }\n        ],\n        \"createdOn\": \"1975-07-16T11:09:24.706Z\",\n        \"modifiedOn\": \"1960-02-23T03:50:39.181Z\",\n        \"tenantId\": \"90c0aa4c-99bf-5871-7ce8-fa8862c650fc\",\n        \"serviceId\": \"ce93a8de-4915-517f-93a0-cc514ff9e6a2\",\n        \"startDate\": \"1982-10-27T06:44:43.077Z\",\n        \"endDate\": \"2009-10-06T13:14:13.713Z\",\n        \"ended\": true,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      }\n    ]\n  },\n  {\n    \"id\": \"fcd3f047-22b3-de87-e371-7bb2be11997e\",\n    \"code\": \"string\",\n    \"name\": \"string\",\n    \"subscriptions\": [\n      {\n        \"id\": \"268bb993-1c32-480b-404f-ae6a807e03be\",\n        \"domainEvents\": [\n          {\n            \"id\": \"2fd6601e-aca5-2b8e-02f1-4ca28d36ff37\",\n            \"occurredOn\": \"1977-05-13T01:01:47.815Z\"\n          },\n          {\n            \"id\": \"1fd731a2-21c6-84b1-14aa-bc7a9560d042\",\n            \"occurredOn\": \"2007-11-27T09:15:37.593Z\"\n          }\n        ],\n        \"createdOn\": \"1947-05-16T21:09:44.056Z\",\n        \"modifiedOn\": \"2000-02-04T19:59:20.792Z\",\n        \"tenantId\": \"3ced237b-4950-c0bd-52c0-22cd19e4909a\",\n        \"serviceId\": \"afb3d40c-88f6-3cdc-853d-6a85b37c1c07\",\n        \"startDate\": \"1971-12-15T02:43:35.875Z\",\n        \"endDate\": \"1974-05-19T16:58:38.982Z\",\n        \"ended\": true,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      },\n      {\n        \"id\": \"87885ab0-107e-83a8-7fa9-ab27c1f43f12\",\n        \"domainEvents\": [\n          {\n            \"id\": \"239d36d5-117c-7808-3dc9-4803e3918a9b\",\n            \"occurredOn\": \"2020-04-04T08:52:43.602Z\"\n          },\n          {\n            \"id\": \"3049d043-0be5-46ed-c457-172da10184ec\",\n            \"occurredOn\": \"1974-11-24T10:40:19.401Z\"\n          }\n        ],\n        \"createdOn\": \"1977-02-10T08:27:31.623Z\",\n        \"modifiedOn\": \"1988-12-11T18:21:06.333Z\",\n        \"tenantId\": \"3a6024f4-7325-cdce-ca71-55cf21ca27f8\",\n        \"serviceId\": \"8030bd67-beb8-aec3-b69a-179e25ba2a21\",\n        \"startDate\": \"1956-03-14T15:06:01.693Z\",\n        \"endDate\": \"2013-05-24T11:43:01.162Z\",\n        \"ended\": false,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4073ab16-ede1-4b48-bbbf-c85c81886678",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7659,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e4a9484-58c2-48e8-9a83-ab65304f8601",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "68236286-50d5-4a3f-a751-de9cdd2a6048",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00dc6827-3b94-4af1-b009-4143aa2d651e",
+          "name": "Full system catalog of services. Each service includes the current\r\ntenant's own active subscriptions (filtered `Subscriptions` navigation),\r\nso a subscribe-to-service UI can render every catalog entry plus a\r\n\"subscribed?\" indicator in one round-trip.",
+          "request": {
+            "name": "Full system catalog of services. Each service includes the current\r\ntenant's own active subscriptions (filtered `Subscriptions` navigation),\r\nso a subscribe-to-service UI can render every catalog entry plus a\r\n\"subscribed?\" indicator in one round-trip.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "Services",
+                "available"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Account",
+                  "value": "<int>",
+                  "description": "Account"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "io.common"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://identity.scanbro.com/connect/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://identity.scanbro.com/connect/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b5dd5f33-1fd7-4bcc-8f32-2b4c1f5f3821",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"2fc31ad8-6706-a1a9-5d40-effaa2e6a653\",\n    \"code\": \"string\",\n    \"name\": \"string\",\n    \"subscriptions\": [\n      {\n        \"id\": \"c6be456c-66cf-c54e-dc77-21cbcfee49cf\",\n        \"domainEvents\": [\n          {\n            \"id\": \"23d317a9-2ac7-dadc-6096-41ee1686d53f\",\n            \"occurredOn\": \"2017-05-19T07:35:37.923Z\"\n          },\n          {\n            \"id\": \"c54eff43-44c1-9b9a-ac7e-4dc94b7ecca1\",\n            \"occurredOn\": \"1997-03-01T05:56:49.280Z\"\n          }\n        ],\n        \"createdOn\": \"2005-07-08T05:54:04.805Z\",\n        \"modifiedOn\": \"1995-12-09T03:47:13.224Z\",\n        \"tenantId\": \"ef0bd558-e5f7-89d7-9a48-3e114ffa61cc\",\n        \"serviceId\": \"52c959fd-4797-0fbd-7a2f-2dbf9d6d84d7\",\n        \"startDate\": \"1998-10-10T11:41:54.067Z\",\n        \"endDate\": \"1965-12-13T20:33:32.376Z\",\n        \"ended\": false,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      },\n      {\n        \"id\": \"8bf982af-3ac2-a411-78f4-38b5cc0c68d0\",\n        \"domainEvents\": [\n          {\n            \"id\": \"62d3f44c-a3c2-b98a-b53c-680c922f3e2d\",\n            \"occurredOn\": \"1947-07-21T08:08:46.245Z\"\n          },\n          {\n            \"id\": \"43ce82a3-7f66-c9af-d147-3b5fd1b829fb\",\n            \"occurredOn\": \"1973-11-19T09:25:51.098Z\"\n          }\n        ],\n        \"createdOn\": \"2007-10-29T03:43:40.327Z\",\n        \"modifiedOn\": \"1959-12-11T05:45:55.720Z\",\n        \"tenantId\": \"af7eff8c-dae1-06d0-2496-a51548983a03\",\n        \"serviceId\": \"ef302080-db07-a5df-f8ef-76f37785dee6\",\n        \"startDate\": \"2001-07-21T10:37:24.525Z\",\n        \"endDate\": \"2017-08-11T00:34:57.703Z\",\n        \"ended\": true,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      }\n    ]\n  },\n  {\n    \"id\": \"0cd85550-9ab5-d45e-ba4b-466a61388f92\",\n    \"code\": \"string\",\n    \"name\": \"string\",\n    \"subscriptions\": [\n      {\n        \"id\": \"81380ad5-618e-8bbf-8318-4a5420d92c6f\",\n        \"domainEvents\": [\n          {\n            \"id\": \"ccb2119d-268e-8c05-5775-971f8a00db22\",\n            \"occurredOn\": \"1997-05-12T01:53:56.511Z\"\n          },\n          {\n            \"id\": \"41dafee4-e5c5-9e98-e182-8ce395debcb5\",\n            \"occurredOn\": \"1961-03-13T00:01:57.031Z\"\n          }\n        ],\n        \"createdOn\": \"1986-06-25T14:29:24.774Z\",\n        \"modifiedOn\": \"1987-05-07T18:54:20.314Z\",\n        \"tenantId\": \"5ff8fabd-769d-2683-71c6-68bf1cfe90f5\",\n        \"serviceId\": \"58c4b9bb-e5d6-2f19-a855-d6036d9cbf1e\",\n        \"startDate\": \"1958-11-22T08:25:57.138Z\",\n        \"endDate\": \"1968-10-14T22:34:40.868Z\",\n        \"ended\": true,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      },\n      {\n        \"id\": \"3faf4d6a-d206-9590-f42c-b5a9b75350cc\",\n        \"domainEvents\": [\n          {\n            \"id\": \"648d8eed-97bf-4290-89e8-c899651dcd4e\",\n            \"occurredOn\": \"1951-09-04T03:47:34.139Z\"\n          },\n          {\n            \"id\": \"8bfed3bb-e274-b32c-8507-b07e7178d446\",\n            \"occurredOn\": \"1980-04-05T13:35:01.441Z\"\n          }\n        ],\n        \"createdOn\": \"1954-06-21T20:51:59.869Z\",\n        \"modifiedOn\": \"2019-11-08T18:59:22.107Z\",\n        \"tenantId\": \"19f256c2-06a8-85e7-a4fe-b83a99cca4e7\",\n        \"serviceId\": \"951006d8-5080-22ac-a833-55a163b94569\",\n        \"startDate\": \"2017-09-15T01:48:09.304Z\",\n        \"endDate\": \"2000-04-10T04:16:45.157Z\",\n        \"ended\": false,\n        \"service\": {\n          \"value\": \"<Circular reference to #/components/schemas/Service detected>\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6583530b-8cb5-4cfb-b337-838b3355f336",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7659,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f17baa8-b4fa-4f31-b80b-fdcb95c8d73f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4dff547-d52a-47ba-a2b4-31f7751d370b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "Services",
+                    "available"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Account",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "io.common"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.scanbro.com/connect/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://identity.scanbro.com/connect/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8c38be1-3638-4ac2-bb84-7bf2c5f22ad1",
+    "name": "IO.Common Accounts Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

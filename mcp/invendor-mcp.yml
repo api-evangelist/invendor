@@ -2,9 +2,8 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/invendor-common-openapi-original.json, openapi/invendor-reporting-openapi-original.json
-note: Candidate MCP tool surface derived one-per-operation from the Invendor Common
-  + Reporting OpenAPI. No official Invendor MCP server was found published as of this
-  run.
+note: Candidate MCP tool surface derived one-per-operation from the Invendor Common + Reporting OpenAPI.
+  No official Invendor MCP server was found published as of this run.
 server:
   name: invendor
   transport: http
@@ -21,8 +20,8 @@ tools:
   description: Accounts list
   source_operation: openapi/invendor-common-openapi-original.json#Accounts list
 - name: create_account
-  description: "Creates a new account. Profiles and users must be created separately\r\
-    \ using POST /api/profiles and POST /api/users, then linked via\r POST /api/accounts/{accountId}/profiles."
+  description: "Creates a new account. Profiles and users must be created separately\r using POST /api/profiles\
+    \ and POST /api/users, then linked via\r POST /api/accounts/{accountId}/profiles."
   source_operation: openapi/invendor-common-openapi-original.json#Create account
 - name: account_details
   description: Returns the detailed info of an account
@@ -31,25 +30,22 @@ tools:
   description: Update account
   source_operation: openapi/invendor-common-openapi-original.json#Update account
 - name: delete_account
-  description: Deletes an account. NB! Will disable all the related Groups, Users,
-    Locations, Operations, Dimensions!
+  description: Deletes an account. NB! Will disable all the related Groups, Users, Locations, Operations,
+    Dimensions!
   source_operation: openapi/invendor-common-openapi-original.json#Delete account
 - name: create_account_from_invitation
   description: Create account from invitation
-  source_operation: openapi/invendor-common-openapi-original.json#Create account from
-    invitation
+  source_operation: openapi/invendor-common-openapi-original.json#Create account from invitation
 - name: create_account_linked_settings_from_invitation
   description: Create account linked settings from invitation
-  source_operation: openapi/invendor-common-openapi-original.json#Create account linked
-    settings from invitation
+  source_operation: openapi/invendor-common-openapi-original.json#Create account linked settings from
+    invitation
 - name: update_linked_account_locations_mapping
   description: Update linked account locations mapping
-  source_operation: openapi/invendor-common-openapi-original.json#Update linked account
-    locations mapping
+  source_operation: openapi/invendor-common-openapi-original.json#Update linked account locations mapping
 - name: update_linked_account_operations_mapping
   description: Update linked account operations mapping
-  source_operation: openapi/invendor-common-openapi-original.json#Update linked account
-    operations mapping
+  source_operation: openapi/invendor-common-openapi-original.json#Update linked account operations mapping
 - name: add_related_profile
   description: Add group to account. Enables group to access account
   source_operation: openapi/invendor-common-openapi-original.json#Add related profile
@@ -61,20 +57,17 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Account vendors
 - name: client_accepts_vendor_invitation
   description: Get data from the inviter's tenant regarding account
-  source_operation: openapi/invendor-common-openapi-original.json#Client accepts vendor
-    invitation
+  source_operation: openapi/invendor-common-openapi-original.json#Client accepts vendor invitation
 - name: vendor_invitation
   description: Inviter creates an invitation
   source_operation: openapi/invendor-common-openapi-original.json#Vendor invitation
 - name: account_s_clients_tenants
   description: Get all tenants linked to account
-  source_operation: openapi/invendor-common-openapi-original.json#Account's clients'
-    tenants
+  source_operation: openapi/invendor-common-openapi-original.json#Account's clients' tenants
 - name: validate_linked_account_configuration
-  description: "Validate that a linked (vendor) account is fully configured for cross-tenant\
-    \ session\r replication, and report exactly which pieces are missing."
-  source_operation: openapi/invendor-common-openapi-original.json#Validate linked
-    account configuration
+  description: "Validate that a linked (vendor) account is fully configured for cross-tenant session\r\
+    \ replication, and report exactly which pieces are missing."
+  source_operation: openapi/invendor-common-openapi-original.json#Validate linked account configuration
 - name: delete_account_integration
   description: Delete account invitation
   source_operation: openapi/invendor-common-openapi-original.json#Delete account integration
@@ -85,8 +78,7 @@ tools:
   description: Validates multiple account codes. Returns only invalid codes.
   source_operation: openapi/invendor-common-openapi-original.json#POST /v1/Accounts/validate
 - name: post_api_v1_auth_login
-  description: Login endpoint for Swagger - exchanges credentials for OAuth token
-    and sets cookie
+  description: Login endpoint for Swagger - exchanges credentials for OAuth token and sets cookie
   source_operation: openapi/invendor-common-openapi-original.json#POST /api/v1/Auth/login
 - name: post_api_v1_auth_logout
   description: Logout endpoint - clears authentication cookie
@@ -95,18 +87,17 @@ tools:
   description: Check authentication status
   source_operation: openapi/invendor-common-openapi-original.json#GET /api/v1/Auth/status
 - name: get_all_items_barcodes_for_scale_lockers
-  description: Get all items barcodes that has weight defined for scale locker. Filter
-    is applied on Barcode, ItemCode and ItemName.
-  source_operation: openapi/invendor-common-openapi-original.json#Get all items barcodes
-    for scale lockers
+  description: Get all items barcodes that has weight defined for scale locker. Filter is applied on Barcode,
+    ItemCode and ItemName.
+  source_operation: openapi/invendor-common-openapi-original.json#Get all items barcodes for scale lockers
 - name: getdatajobs
-  description: "Get all data-transfer jobs (import and export) created by the logged-in\
-    \ user.\r Pass direction to filter to one direction; omit it to return both."
+  description: "Get all data-transfer jobs (import and export) created by the logged-in user.\r Pass direction\
+    \ to filter to one direction; omit it to return both."
   source_operation: openapi/invendor-common-openapi-original.json#GetDataJobs
 - name: downloaddatajobresult
-  description: "Download the result xlsx of a completed export job owned by the logged-in\
-    \ user. Returns 404 if the\r job is not the caller's, 409 if it has not finished,\
-    \ and 410 if its result has expired / been reaped."
+  description: "Download the result xlsx of a completed export job owned by the logged-in user. Returns\
+    \ 404 if the\r job is not the caller's, 409 if it has not finished, and 410 if its result has expired\
+    \ / been reaped."
   source_operation: openapi/invendor-common-openapi-original.json#DownloadDataJobResult
 - name: device_commands
   description: Returns list of available device commands
@@ -119,23 +110,19 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Device details
 - name: update_tenant_device_information
   description: Update tenant device information
-  source_operation: openapi/invendor-common-openapi-original.json#Update tenant device
-    information
+  source_operation: openapi/invendor-common-openapi-original.json#Update tenant device information
 - name: delete_tenant_device
   description: Delete tenant device
   source_operation: openapi/invendor-common-openapi-original.json#Delete tenant device
 - name: send_command_to_the_device
   description: Send FireBase command to the device
-  source_operation: openapi/invendor-common-openapi-original.json#Send command to
-    the device
+  source_operation: openapi/invendor-common-openapi-original.json#Send command to the device
 - name: sync_location_users_in_related_devices
   description: Notifies all devices in the location to sync users
-  source_operation: openapi/invendor-common-openapi-original.json#Sync location users
-    in related devices
+  source_operation: openapi/invendor-common-openapi-original.json#Sync location users in related devices
 - name: device_heartbeats_list
   description: Returns list of device heartbeats
-  source_operation: openapi/invendor-common-openapi-original.json#Device heartbeats
-    list
+  source_operation: openapi/invendor-common-openapi-original.json#Device heartbeats list
 - name: device_events_list
   description: Returns list of device events
   source_operation: openapi/invendor-common-openapi-original.json#Device events list
@@ -146,8 +133,7 @@ tools:
   description: Authorise dedicated device to aquire new secret
   source_operation: openapi/invendor-common-openapi-original.json#POST /v1/Devices/{deviceId}/regen
 - name: free_cabinets_list
-  description: Returns list of free cabinets for the tenant, optionally filtered by
-    cabinet type
+  description: Returns list of free cabinets for the tenant, optionally filtered by cabinet type
   source_operation: openapi/invendor-common-openapi-original.json#Free cabinets list
 - name: getdimensionslist
   description: Get dimensions list
@@ -175,12 +161,10 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#GetAllUsedDimensionValueProperties
 - name: account_dimensions_parameters
   description: Get dimensions' parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Account dimensions
-    parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Account dimensions parameters
 - name: account_dimensions_parameters_2
   description: Create or update dimension parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Account dimensions
-    parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Account dimensions parameters
 - name: get_dimension_values
   description: Get dimensions values
   source_operation: openapi/invendor-common-openapi-original.json#Get dimension values
@@ -212,38 +196,31 @@ tools:
   description: Get doors list
   source_operation: openapi/invendor-common-openapi-original.json#Get doors list
 - name: dynamiccontentfielddatasources
-  description: "Get list of all possible field datasoruces for dynamic content configuration\r\
-    \ Currenlty are supported Item.Code, Barcode.Unit and all Item properties defined\
-    \ on items"
+  description: "Get list of all possible field datasoruces for dynamic content configuration\r Currenlty\
+    \ are supported Item.Code, Barcode.Unit and all Item properties defined on items"
   source_operation: openapi/invendor-common-openapi-original.json#DynamicContentFieldDatasources
 - name: operationdynamiccontentfielddatasources
-  description: Get list of all possible field datasoruces for dynamic content configuration
-    for selected operation
+  description: Get list of all possible field datasoruces for dynamic content configuration for selected
+    operation
   source_operation: openapi/invendor-common-openapi-original.json#OperationDynamicContentFieldDatasources
 - name: get_global_extended_properties
   description: Get global extended properties that are not attached to any object
-  source_operation: openapi/invendor-common-openapi-original.json#Get global extended
-    properties
+  source_operation: openapi/invendor-common-openapi-original.json#Get global extended properties
 - name: get_extended_properties_for_the_object
   description: Get extended properties for an extendable object
-  source_operation: openapi/invendor-common-openapi-original.json#Get extended properties
-    for the object
+  source_operation: openapi/invendor-common-openapi-original.json#Get extended properties for the object
 - name: create_extended_property_for_the_object
   description: Create an extended property for an extendable object
-  source_operation: openapi/invendor-common-openapi-original.json#Create extended
-    property for the object
+  source_operation: openapi/invendor-common-openapi-original.json#Create extended property for the object
 - name: update_extended_property_for_the_object
   description: Update an extended property for an extendable object
-  source_operation: openapi/invendor-common-openapi-original.json#Update extended
-    property for the object
+  source_operation: openapi/invendor-common-openapi-original.json#Update extended property for the object
 - name: delete_extended_property_for_the_object
   description: Delete an extended property for an extendable object
-  source_operation: openapi/invendor-common-openapi-original.json#Delete extended
-    property for the object
+  source_operation: openapi/invendor-common-openapi-original.json#Delete extended property for the object
 - name: get_flag_types
-  description: "Get a paged list of flag types visible to the current account: global\
-    \ rows plus\r the caller's own. Tenant-primary / admin callers (no account context)\
-    \ see all rows."
+  description: "Get a paged list of flag types visible to the current account: global rows plus\r the\
+    \ caller's own. Tenant-primary / admin callers (no account context) see all rows."
   source_operation: openapi/invendor-common-openapi-original.json#Get flag types
 - name: create_flag_type
   description: Create a new flag type.
@@ -255,24 +232,21 @@ tools:
   description: Update an existing flag type. `AccountId` is immutable.
   source_operation: openapi/invendor-common-openapi-original.json#Update flag type
 - name: delete_flag_type
-  description: "Soft-delete a flag type. Blocked if any active `ItemFlag` or any\r\
-    \ `OperationFlag` config row references it."
+  description: "Soft-delete a flag type. Blocked if any active `ItemFlag` or any\r `OperationFlag` config\
+    \ row references it."
   source_operation: openapi/invendor-common-openapi-original.json#Delete flag type
 - name: get_global_settings_types_list
   description: Get all global settings types
-  source_operation: openapi/invendor-common-openapi-original.json#Get global settings
-    types list
+  source_operation: openapi/invendor-common-openapi-original.json#Get global settings types list
 - name: get_global_settings_list
   description: Get all existing global settings
-  source_operation: openapi/invendor-common-openapi-original.json#Get global settings
-    list
+  source_operation: openapi/invendor-common-openapi-original.json#Get global settings list
 - name: create_global_setting
   description: Create a new global setting
   source_operation: openapi/invendor-common-openapi-original.json#Create global setting
 - name: get_a_global_setting_by_it_s_id
   description: Get a global setting by id
-  source_operation: openapi/invendor-common-openapi-original.json#Get a global setting
-    by it's id
+  source_operation: openapi/invendor-common-openapi-original.json#Get a global setting by it's id
 - name: change_global_setting
   description: Change the value of a global setting
   source_operation: openapi/invendor-common-openapi-original.json#Change global setting
@@ -281,8 +255,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Delete global setting
 - name: bulk_update_global_settings
   description: Update multiple global settings with new values and types
-  source_operation: openapi/invendor-common-openapi-original.json#Bulk update global
-    settings
+  source_operation: openapi/invendor-common-openapi-original.json#Bulk update global settings
 - name: get_tenant_logo
   description: Get tenant logo URL
   source_operation: openapi/invendor-common-openapi-original.json#Get tenant logo
@@ -291,8 +264,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Upload tenant logo
 - name: update_tenant_logo_url
   description: Update tenant logo URL
-  source_operation: openapi/invendor-common-openapi-original.json#Update tenant logo
-    URL
+  source_operation: openapi/invendor-common-openapi-original.json#Update tenant logo URL
 - name: get_v1_itemquantities
   description: Get item quantities for defined criteria
   source_operation: openapi/invendor-common-openapi-original.json#GET /v1/ItemQuantities
@@ -346,30 +318,25 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#GetAllUsedItemProperties
 - name: get_defined_properties_for_items
   description: Get the defined properties for items
-  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties
-    for items
+  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties for items
 - name: create_item_defined_property_with_parameters
   description: Create new item property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create item defined
-    property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create item defined property with parameters
 - name: update_item_defined_property_with_parameters
   description: Update existing item property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Update item defined
-    property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Update item defined property with parameters
 - name: delete_item_defined_propety_with_parameters
   description: Delete existing item property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Delete item defined
-    propety with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Delete item defined propety with parameters
 - name: create_or_update_item_defined_propeties_with_parameters
   description: Bulk upsert/delete item properties with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create or update
-    item defined propeties with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create or update item defined propeties
+    with parameters
 - name: bulkupsertitem
-  description: "Bulk upsert items masterdata.\r Accepts a JSON array of items. Items\
-    \ are matched by `code` — existing items are updated, new ones are created.\r\
-    \ Items missing `code` or `name` are silently skipped; validate your payload before\
-    \ sending.\r Unit identifiers (`inventUnitId`, barcode `unit`) are normalised\
-    \ to lowercase and auto-created if they do not exist.\r The server processes large\
+  description: "Bulk upsert items masterdata.\r Accepts a JSON array of items. Items are matched by `code`\
+    \ — existing items are updated, new ones are created.\r Items missing `code` or `name` are silently\
+    \ skipped; validate your payload before sending.\r Unit identifiers (`inventUnitId`, barcode `unit`)\
+    \ are normalised to lowercase and auto-created if they do not exist.\r The server processes large\
     \ arrays in internal batches of 5 000 items. Endpoint timeout is 5 minutes."
   source_operation: openapi/invendor-common-openapi-original.json#BulkUpsertItem
 - name: getitemsexcel
@@ -415,22 +382,20 @@ tools:
   description: Validates multiple item codes. Returns only invalid codes.
   source_operation: openapi/invendor-common-openapi-original.json#POST /v1/Items/validate
 - name: bulkupsertitemfile
-  description: Queue a bulk item import from a CSV or Excel file. Returns a job ID
-    to poll for status.
+  description: Queue a bulk item import from a CSV or Excel file. Returns a job ID to poll for status.
   source_operation: openapi/invendor-common-openapi-original.json#BulkUpsertItemFile
 - name: getitemflags
-  description: "Get the active flags raised on an item. Cleared flags excluded.\r\
-    \ Visibility-filtered: tenant-primary callers see all rows; others see global\r\
-    \ flags plus those scoped to their own account. Returns an empty list if the\r\
-    \ `UNIQUE_ITEMS` feature is not enabled."
+  description: "Get the active flags raised on an item. Cleared flags excluded.\r Visibility-filtered:\
+    \ tenant-primary callers see all rows; others see global\r flags plus those scoped to their own account.\
+    \ Returns an empty list if the\r `UNIQUE_ITEMS` feature is not enabled."
   source_operation: openapi/invendor-common-openapi-original.json#GetItemFlags
 - name: raiseitemflag
-  description: "Manually raise a flag on an item under the caller's account scope.\r\
-    \ Idempotent: a duplicate raise of the same active flag is a no-op."
+  description: "Manually raise a flag on an item under the caller's account scope.\r Idempotent: a duplicate\
+    \ raise of the same active flag is a no-op."
   source_operation: openapi/invendor-common-openapi-original.json#RaiseItemFlag
 - name: clearitemflag
-  description: "Manually clear a flag on an item under the caller's account scope.\r\
-    \ Idempotent: clearing a non-active flag is a no-op (returns 204)."
+  description: "Manually clear a flag on an item under the caller's account scope.\r Idempotent: clearing\
+    \ a non-active flag is a no-op (returns 204)."
   source_operation: openapi/invendor-common-openapi-original.json#ClearItemFlag
 - name: get_v1_itemtransactions
   description: Get item transaction for defined criteria
@@ -442,8 +407,8 @@ tools:
   description: Returns journal details by journalId
   source_operation: openapi/invendor-common-openapi-original.json#GetJournalById
 - name: updatejournaldetails
-  description: Updates journal details. Description is always updated. Date, OperationId
-    and LocationId are updated only if journal has no lines.
+  description: Updates journal details. Description is always updated. Date, OperationId and LocationId
+    are updated only if journal has no lines.
   source_operation: openapi/invendor-common-openapi-original.json#UpdateJournalDetails
 - name: addjournalline
   description: Adds new line to journal (Not allowed for counting journal)
@@ -489,27 +454,22 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Get locations details
 - name: update_locations_details
   description: Update location details
-  source_operation: openapi/invendor-common-openapi-original.json#Update locations
-    details
+  source_operation: openapi/invendor-common-openapi-original.json#Update locations details
 - name: delete_location
   description: Delete location
   source_operation: openapi/invendor-common-openapi-original.json#Delete location
 - name: get_location_order_notification_settings
   description: Get order notification settings for location (buyer side)
-  source_operation: openapi/invendor-common-openapi-original.json#Get location order
-    notification settings
+  source_operation: openapi/invendor-common-openapi-original.json#Get location order notification settings
 - name: update_location_order_notification_settings
   description: Update order notification settings for location (buyer side)
-  source_operation: openapi/invendor-common-openapi-original.json#Update location
-    order notification settings
+  source_operation: openapi/invendor-common-openapi-original.json#Update location order notification settings
 - name: get_vendor_order_notification_settings
   description: Get order notification settings for a vendor account at this location
-  source_operation: openapi/invendor-common-openapi-original.json#Get vendor order
-    notification settings
+  source_operation: openapi/invendor-common-openapi-original.json#Get vendor order notification settings
 - name: update_vendor_order_notification_settings
   description: Update order notification settings for a vendor account at this location
-  source_operation: openapi/invendor-common-openapi-original.json#Update vendor order
-    notification settings
+  source_operation: openapi/invendor-common-openapi-original.json#Update vendor order notification settings
 - name: get_location_vendors
   description: Get all vendor accounts for a location
   source_operation: openapi/invendor-common-openapi-original.json#Get location vendors
@@ -518,23 +478,19 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Add vendor to location
 - name: update_vendor_notification_settings
   description: Update vendor order notification settings
-  source_operation: openapi/invendor-common-openapi-original.json#Update vendor notification
-    settings
+  source_operation: openapi/invendor-common-openapi-original.json#Update vendor notification settings
 - name: remove_vendor_from_location
   description: Remove vendor account from location
-  source_operation: openapi/invendor-common-openapi-original.json#Remove vendor from
-    location
+  source_operation: openapi/invendor-common-openapi-original.json#Remove vendor from location
 - name: get_location_customers
   description: Get all customer accounts for a location
   source_operation: openapi/invendor-common-openapi-original.json#Get location customers
 - name: upsert_location_customers
   description: Upsert customer accounts for a location
-  source_operation: openapi/invendor-common-openapi-original.json#Upsert location
-    customers
+  source_operation: openapi/invendor-common-openapi-original.json#Upsert location customers
 - name: user_groups_for_user_in_selected_location
   description: Get location groups related to current user
-  source_operation: openapi/invendor-common-openapi-original.json#User groups for
-    user in selected location
+  source_operation: openapi/invendor-common-openapi-original.json#User groups for user in selected location
 - name: locationdeviceslist
   description: Returns all devices linked to the location
   source_operation: openapi/invendor-common-openapi-original.json#LocationDevicesList
@@ -543,8 +499,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Add location device
 - name: remove_location_device
   description: Unlink device to the location
-  source_operation: openapi/invendor-common-openapi-original.json#Remove location
-    device
+  source_operation: openapi/invendor-common-openapi-original.json#Remove location device
 - name: getlocationlocks
   description: Returns all area locks in the location
   source_operation: openapi/invendor-common-openapi-original.json#GetLocationLocks
@@ -559,24 +514,23 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#GetAllUsedLocationProperties
 - name: get_defined_properties_for_locations
   description: Get the defined properties for locations
-  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties
-    for locations
+  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties for locations
 - name: create_location_defined_property_with_parameters
   description: Create new location property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create location
-    defined property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create location defined property with
+    parameters
 - name: update_location_defined_property_with_parameters
   description: Update existing location property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Update location
-    defined property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Update location defined property with
+    parameters
 - name: delete_location_defined_propety_with_parameters
   description: Delete existing location property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Delete location
-    defined propety with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Delete location defined propety with
+    parameters
 - name: create_or_update_location_defined_propeties_with_parameters
   description: Bulk upsert/delete location properties with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create or update
-    location defined propeties with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create or update location defined propeties
+    with parameters
 - name: getalltenants
   description: Get the list of all external tenants related to this location
   source_operation: openapi/invendor-common-openapi-original.json#GetAllTenants
@@ -584,31 +538,25 @@ tools:
   description: Get company locations
   source_operation: openapi/invendor-common-openapi-original.json#Get account locations
 - name: get_operation_dimension_groups
-  description: Get list of operation dimension groups. Used for grouping metadata
-    for different validation rule groups
-  source_operation: openapi/invendor-common-openapi-original.json#Get operation dimension
-    groups
+  description: Get list of operation dimension groups. Used for grouping metadata for different validation
+    rule groups
+  source_operation: openapi/invendor-common-openapi-original.json#Get operation dimension groups
 - name: create_operation_dimension_group
   description: Create operation metadata (dimension) group
-  source_operation: openapi/invendor-common-openapi-original.json#Create operation
-    dimension group
+  source_operation: openapi/invendor-common-openapi-original.json#Create operation dimension group
 - name: get_operation_dimension_group
-  description: Get operation dimension group. Used for grouping metadata for different
-    validation rule groups
-  source_operation: openapi/invendor-common-openapi-original.json#Get operation dimension
-    group
+  description: Get operation dimension group. Used for grouping metadata for different validation rule
+    groups
+  source_operation: openapi/invendor-common-openapi-original.json#Get operation dimension group
 - name: update_operation_dimension_group
   description: Update operation metadata (dimension) group
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    dimension group
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation dimension group
 - name: delete_operation_dimension_group
   description: Delete operation metadata (dimension) group
-  source_operation: openapi/invendor-common-openapi-original.json#Delete operation
-    dimension group
+  source_operation: openapi/invendor-common-openapi-original.json#Delete operation dimension group
 - name: get_generic_operation_types
   description: Get list of possible generic operation types
-  source_operation: openapi/invendor-common-openapi-original.json#Get generic operation
-    types
+  source_operation: openapi/invendor-common-openapi-original.json#Get generic operation types
 - name: get_operations_list
   description: Get all the available operations for an account
   source_operation: openapi/invendor-common-openapi-original.json#Get operations list
@@ -620,8 +568,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Get operation details
 - name: update_operation_details
   description: Update operation details
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    details
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation details
 - name: delete_operation
   description: Delete operation
   source_operation: openapi/invendor-common-openapi-original.json#Delete operation
@@ -630,62 +577,53 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#GetAllUsedOperationProperties
 - name: get_defined_properties_for_operations
   description: Get the defined properties for operations
-  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties
-    for operations
+  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties for operations
 - name: create_operation_defined_property_with_parameters
   description: Create new operation property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create operation
-    defined property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create operation defined property with
+    parameters
 - name: update_operation_defined_property_with_parameters
   description: Update existing operation property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    defined property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation defined property with
+    parameters
 - name: delete_operation_defined_propety_with_parameters
   description: Delete existing operation property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Delete operation
-    defined propety with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Delete operation defined propety with
+    parameters
 - name: create_or_update_operation_defined_propeties_with_parameters
   description: Bulk upsert/delete operation properties with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create or update
-    operation defined propeties with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create or update operation defined propeties
+    with parameters
 - name: create_extended_operation
   description: Create account specific extended operation from base operation.
-  source_operation: openapi/invendor-common-openapi-original.json#Create extended
-    operation
+  source_operation: openapi/invendor-common-openapi-original.json#Create extended operation
 - name: update_operation_unique_item_statuses
   description: Update the Issue / Receive unique-item status assignments for an operation.
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    unique-item statuses
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation unique-item statuses
 - name: update_operation_flags_bulk_replace
-  description: "Bulk-replace the per-operation flag configuration. PUT semantics:\
-    \ the body\r lists every desired `(FlagTypeId, FlagActionType)` tuple; missing\
-    \ rows\r are deleted, new rows are added, intersections are kept untouched. Rejects\r\
-    \ any payload that declares both `Raise` and `Clear` for the same\r `FlagTypeId`.\
-    \ Feature-gated on `\"UNIQUE_ITEMS\"`."
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    flags (bulk replace)
+  description: "Bulk-replace the per-operation flag configuration. PUT semantics: the body\r lists every\
+    \ desired `(FlagTypeId, FlagActionType)` tuple; missing rows\r are deleted, new rows are added, intersections\
+    \ are kept untouched. Rejects\r any payload that declares both `Raise` and `Clear` for the same\r\
+    \ `FlagTypeId`. Feature-gated on `\"UNIQUE_ITEMS\"`."
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation flags (bulk replace)
 - name: get_operation_dimensions
   description: Get operation dimensions
   source_operation: openapi/invendor-common-openapi-original.json#Get operation dimensions
 - name: create_operation_dimensions
   description: Add operation dimension
-  source_operation: openapi/invendor-common-openapi-original.json#Create operation
-    dimensions
+  source_operation: openapi/invendor-common-openapi-original.json#Create operation dimensions
 - name: update_operation_dimensions_bulk
   description: Bulk update operation dimensions
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    dimensions (bulk)
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation dimensions (bulk)
 - name: getallusedoperationdimproperties
   description: Get the list of all the properties added to operations
   source_operation: openapi/invendor-common-openapi-original.json#GetAllUsedOperationDimProperties
 - name: update_operation_dimension
   description: Update operation dimension
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    dimension
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation dimension
 - name: remove_operation_dimensions
   description: Remove operation dimension
-  source_operation: openapi/invendor-common-openapi-original.json#Remove operation
-    dimensions
+  source_operation: openapi/invendor-common-openapi-original.json#Remove operation dimensions
 - name: get_operation_questions
   description: Get operation questons
   source_operation: openapi/invendor-common-openapi-original.json#Get operation questions
@@ -694,36 +632,29 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Add operation questions
 - name: bulk_update_operation_questions
   description: Bulk update operation questions
-  source_operation: openapi/invendor-common-openapi-original.json#Bulk update operation
-    questions
+  source_operation: openapi/invendor-common-openapi-original.json#Bulk update operation questions
 - name: update_operation_questions
   description: Update selected question
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    questions
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation questions
 - name: delete_operation_question
   description: Delete question
-  source_operation: openapi/invendor-common-openapi-original.json#Delete operation
-    question
+  source_operation: openapi/invendor-common-openapi-original.json#Delete operation question
 - name: get_operation_scan_card
   description: Get operation scan card layout
-  source_operation: openapi/invendor-common-openapi-original.json#Get operation scan
-    card
+  source_operation: openapi/invendor-common-openapi-original.json#Get operation scan card
 - name: update_operation_scan_card
   description: Update operation scan card layout
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    scan card
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation scan card
 - name: get_operation_scan_line
   description: Get operation scan line layout
-  source_operation: openapi/invendor-common-openapi-original.json#Get operation scan
-    line
+  source_operation: openapi/invendor-common-openapi-original.json#Get operation scan line
 - name: update_operation_scan_line
   description: Update operation scan line layout
-  source_operation: openapi/invendor-common-openapi-original.json#Update operation
-    scan line
+  source_operation: openapi/invendor-common-openapi-original.json#Update operation scan line
 - name: user_groups_locations_where_operation_is_used
   description: Get the user groups and locations where operation is set
-  source_operation: openapi/invendor-common-openapi-original.json#User groups / locations
-    where operation is used
+  source_operation: openapi/invendor-common-openapi-original.json#User groups / locations where operation
+    is used
 - name: getallorders
   description: GetAllOrders
   source_operation: openapi/invendor-common-openapi-original.json#GetAllOrders
@@ -789,8 +720,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Question
 - name: update_question_definition
   description: Update question definition
-  source_operation: openapi/invendor-common-openapi-original.json#Update question
-    definition
+  source_operation: openapi/invendor-common-openapi-original.json#Update question definition
 - name: delete_question
   description: Delete question definition
   source_operation: openapi/invendor-common-openapi-original.json#Delete question
@@ -804,10 +734,9 @@ tools:
   description: Returns the saved report view payload by viewId
   source_operation: openapi/invendor-common-openapi-original.json#Get report view
 - name: available_report_targets
-  description: "Returns the users, groups and accounts available as report state targets\
-    \ for the calling user,\r based on their group's account relationships."
-  source_operation: openapi/invendor-common-openapi-original.json#Available report
-    targets
+  description: "Returns the users, groups and accounts available as report state targets for the calling\
+    \ user,\r based on their group's account relationships."
+  source_operation: openapi/invendor-common-openapi-original.json#Available report targets
 - name: set_default_report
   description: To set users default report state
   source_operation: openapi/invendor-common-openapi-original.json#Set default report
@@ -822,8 +751,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Roles list
 - name: get_all_lockers_in_location
   description: Get location scale lockers
-  source_operation: openapi/invendor-common-openapi-original.json#Get all lockers
-    in location
+  source_operation: openapi/invendor-common-openapi-original.json#Get all lockers in location
 - name: getscalelockerlayouts
   description: Get defined locker configuration in defined location
   source_operation: openapi/invendor-common-openapi-original.json#GetScaleLockerLayouts
@@ -843,18 +771,15 @@ tools:
   description: Shelf layouts
   source_operation: openapi/invendor-common-openapi-original.json#Shelf layouts
 - name: services_list
-  description: "Services the current tenant currently subscribes to. Each returned\
-    \ service\r carries only the tenant's own active subscriptions on its\r `Subscriptions`\
-    \ navigation. This is the list to populate\r pickers like the new-location services\
-    \ dropdown."
+  description: "Services the current tenant currently subscribes to. Each returned service\r carries only\
+    \ the tenant's own active subscriptions on its\r `Subscriptions` navigation. This is the list to populate\r\
+    \ pickers like the new-location services dropdown."
   source_operation: openapi/invendor-common-openapi-original.json#Services list
 - name: available_services_list
-  description: "Full system catalog of services. Each service includes the current\r\
-    \ tenant's own active subscriptions (filtered `Subscriptions` navigation),\r so\
-    \ a subscribe-to-service UI can render every catalog entry plus a\r \"subscribed?\"\
-    \ indicator in one round-trip."
-  source_operation: openapi/invendor-common-openapi-original.json#Available services
-    list
+  description: "Full system catalog of services. Each service includes the current\r tenant's own active\
+    \ subscriptions (filtered `Subscriptions` navigation),\r so a subscribe-to-service UI can render every\
+    \ catalog entry plus a\r \"subscribed?\" indicator in one round-trip."
+  source_operation: openapi/invendor-common-openapi-original.json#Available services list
 - name: subscriptions_list
   description: Subscriptions list
   source_operation: openapi/invendor-common-openapi-original.json#Subscriptions list
@@ -866,35 +791,27 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Finish subscription
 - name: start_subscription_by_code
   description: Start subscription by code
-  source_operation: openapi/invendor-common-openapi-original.json#Start subscription
-    by code
+  source_operation: openapi/invendor-common-openapi-original.json#Start subscription by code
 - name: end_subscription_by_code
   description: End subscription by code
-  source_operation: openapi/invendor-common-openapi-original.json#End subscription
-    by code
+  source_operation: openapi/invendor-common-openapi-original.json#End subscription by code
 - name: get_unique_item_statuses
-  description: "Get a paged list of unique item statuses visible to the current account:\r\
-    \ global rows plus the caller's own. Tenant-primary / admin callers\r (no account\
-    \ context) see all rows."
-  source_operation: openapi/invendor-common-openapi-original.json#Get unique item
-    statuses
+  description: "Get a paged list of unique item statuses visible to the current account:\r global rows\
+    \ plus the caller's own. Tenant-primary / admin callers\r (no account context) see all rows."
+  source_operation: openapi/invendor-common-openapi-original.json#Get unique item statuses
 - name: create_unique_item_status
   description: Create a new unique item status.
-  source_operation: openapi/invendor-common-openapi-original.json#Create unique item
-    status
+  source_operation: openapi/invendor-common-openapi-original.json#Create unique item status
 - name: get_unique_item_status
   description: Get a single unique item status by id.
-  source_operation: openapi/invendor-common-openapi-original.json#Get unique item
-    status
+  source_operation: openapi/invendor-common-openapi-original.json#Get unique item status
 - name: update_unique_item_status
   description: Update an existing unique item status. `AccountId` is immutable.
-  source_operation: openapi/invendor-common-openapi-original.json#Update unique item
-    status
+  source_operation: openapi/invendor-common-openapi-original.json#Update unique item status
 - name: delete_unique_item_status
-  description: "Soft-delete a unique item status. Blocked if any active `Operation`\r\
-    \ references the status via `IssueItemStatusId` or `ReceiveItemStatusId`."
-  source_operation: openapi/invendor-common-openapi-original.json#Delete unique item
-    status
+  description: "Soft-delete a unique item status. Blocked if any active `Operation`\r references the status\
+    \ via `IssueItemStatusId` or `ReceiveItemStatusId`."
+  source_operation: openapi/invendor-common-openapi-original.json#Delete unique item status
 - name: getunitconversions
   description: Get all unit conversions
   source_operation: openapi/invendor-common-openapi-original.json#GetUnitConversions
@@ -990,8 +907,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Create user
 - name: get_user_details_by_userid
   description: Retruns user details by id
-  source_operation: openapi/invendor-common-openapi-original.json#Get user details
-    by userid
+  source_operation: openapi/invendor-common-openapi-original.json#Get user details by userid
 - name: update_user
   description: Update user details
   source_operation: openapi/invendor-common-openapi-original.json#Update user
@@ -1000,43 +916,35 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#Delete user
 - name: get_user_details_by_username
   description: Returns user details by username
-  source_operation: openapi/invendor-common-openapi-original.json#Get user details
-    by username
+  source_operation: openapi/invendor-common-openapi-original.json#Get user details by username
 - name: get_all_user_properties
   description: Returns the list of all the properties added to the user groups
   source_operation: openapi/invendor-common-openapi-original.json#Get all user properties
 - name: get_defined_properties_for_users
   description: Get the defined properties for users
-  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties
-    for users
+  source_operation: openapi/invendor-common-openapi-original.json#Get defined properties for users
 - name: create_user_defined_property_with_parameters
   description: Create new user property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create user defined
-    property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create user defined property with parameters
 - name: update_user_defined_property_with_parameters
   description: Update existing user property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Update user defined
-    property with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Update user defined property with parameters
 - name: delete_user_defined_propety_with_parameters
   description: Delete existing user property with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Delete user defined
-    propety with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Delete user defined propety with parameters
 - name: create_or_update_user_defined_propeties_with_parameters
   description: Bulk upsert/delete user properties with parameters
-  source_operation: openapi/invendor-common-openapi-original.json#Create or update
-    user defined propeties with parameters
+  source_operation: openapi/invendor-common-openapi-original.json#Create or update user defined propeties
+    with parameters
 - name: change_user_password
   description: Change user password
   source_operation: openapi/invendor-common-openapi-original.json#Change user password
 - name: create_or_update_users_nfcid
-  description: Create or update user NFCID. (This operation allows to change users
-    "OWN" NFCID)
-  source_operation: openapi/invendor-common-openapi-original.json#Create or update
-    users NFCID
+  description: Create or update user NFCID. (This operation allows to change users "OWN" NFCID)
+  source_operation: openapi/invendor-common-openapi-original.json#Create or update users NFCID
 - name: user_can_reconfigure_new_authenticator
   description: Reset MFA, User can reconfigure new authenticator app
-  source_operation: openapi/invendor-common-openapi-original.json#User can reconfigure
-    new authenticator
+  source_operation: openapi/invendor-common-openapi-original.json#User can reconfigure new authenticator
 - name: bulk_insert_users
   description: Bulk insert group users
   source_operation: openapi/invendor-common-openapi-original.json#Bulk insert users
@@ -1062,8 +970,8 @@ tools:
   description: Delete item location parameters
   source_operation: openapi/invendor-common-openapi-original.json#DELETE /v1/WMSItemLocationParams/{itemParamsId}
 - name: post_v1_wmsitemlocationparams_bulk_delete
-  description: "Bulk delete item location parameters. Deletes records that can be\
-    \ deleted\r and returns a list of items that could not be deleted."
+  description: "Bulk delete item location parameters. Deletes records that can be deleted\r and returns\
+    \ a list of items that could not be deleted."
   source_operation: openapi/invendor-common-openapi-original.json#POST /v1/WMSItemLocationParams/bulk/delete
 - name: post_v1_wmsitemlocationparams_locationid_wmslocationid_barcodes
   description: Add barcode to item location parameters.
@@ -1076,14 +984,12 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#GET /v1/WMSItemLocationParams/{locationId}/download/xlsx/label
 - name: get_location_items_in_excel
   description: Get all location items in excel
-  source_operation: openapi/invendor-common-openapi-original.json#Get location items
-    in excel
+  source_operation: openapi/invendor-common-openapi-original.json#Get location items in excel
 - name: get_v1_wmslocations_locationid_areas
   description: Get all location areas
   source_operation: openapi/invendor-common-openapi-original.json#GET /v1/WMSLocations/{locationId}/areas
 - name: post_v1_wmslocations_locationid_areas
-  description: Create new area for location. (All the lockers etc must be defined
-    as areas)
+  description: Create new area for location. (All the lockers etc must be defined as areas)
   source_operation: openapi/invendor-common-openapi-original.json#POST /v1/WMSLocations/{locationId}/areas
 - name: get_v1_wmslocations_locationid_areas_areaid
   description: Get location area details
@@ -1096,8 +1002,7 @@ tools:
   source_operation: openapi/invendor-common-openapi-original.json#DELETE /v1/WMSLocations/{locationId}/areas/{areaId}
 - name: attach_wms_location_to_cabinet
   description: Attach WMS location to cabinet
-  source_operation: openapi/invendor-common-openapi-original.json#Attach WMS location
-    to cabinet
+  source_operation: openapi/invendor-common-openapi-original.json#Attach WMS location to cabinet
 - name: get_v1_wmslocations_locationid_addresses
   description: Get location wms addresses
   source_operation: openapi/invendor-common-openapi-original.json#GET /v1/WMSLocations/{locationId}/addresses
@@ -1120,12 +1025,10 @@ tools:
   description: Validates whether a single WMS location ID exists for a given location
   source_operation: openapi/invendor-common-openapi-original.json#GET /v1/WMSLocations/validate
 - name: post_v1_wmslocations_validate
-  description: Validates multiple WMS location IDs for a given location. Returns only
-    invalid IDs.
+  description: Validates multiple WMS location IDs for a given location. Returns only invalid IDs.
   source_operation: openapi/invendor-common-openapi-original.json#POST /v1/WMSLocations/validate
 - name: post_api_v1_auth_login_2
-  description: Login endpoint for Swagger - exchanges credentials for OAuth token
-    and sets cookie
+  description: Login endpoint for Swagger - exchanges credentials for OAuth token and sets cookie
   source_operation: openapi/invendor-reporting-openapi-original.json#POST /api/v1/Auth/login
 - name: post_api_v1_auth_logout_2
   description: Logout endpoint - clears authentication cookie
@@ -1179,23 +1082,22 @@ tools:
   description: Get replenishment order - for current state of inventory
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Replenishment/order
 - name: get_api_v1_replenishment_orderlines
-  description: Returns order lines for selected location, vendor and up to defined
-    order and/or line status
+  description: Returns order lines for selected location, vendor and up to defined order and/or line status
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Replenishment/orderlines
 - name: get_api_v1_scans
-  description: "Get scan events. When dateFrom is not provided, it defaults to 3 months\
-    \ before the\r current date; dateTo defaults to the current date."
+  description: "Get scan events. When dateFrom is not provided, it defaults to 3 months before the\r current\
+    \ date; dateTo defaults to the current date."
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Scans
 - name: get_api_v1_scans_my
-  description: "Get user's scan events. When dateFrom is not provided, it defaults\
-    \ to 7 days before\r the current date; dateTo defaults to the current date."
+  description: "Get user's scan events. When dateFrom is not provided, it defaults to 7 days before\r\
+    \ the current date; dateTo defaults to the current date."
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Scans/my
 - name: get_api_v1_scans_anonymous
   description: Get anonymous scan events
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Scans/anonymous
 - name: get_api_v1_scans_count
-  description: Returns scans count by location, operation for selected period. Max
-    period is 30 days, defaults to 7 days.
+  description: Returns scans count by location, operation for selected period. Max period is 30 days,
+    defaults to 7 days.
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Scans/count
 - name: get_api_v1_scans_badscans
   description: Get bad scan events
@@ -1204,8 +1106,7 @@ tools:
   description: Get all the sessions in defined period
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Sessions
 - name: get_api_v1_sessions_empty
-  description: Get all the empty sessions in defined period. Empty sessions are sessions
-    without any scans.
+  description: Get all the empty sessions in defined period. Empty sessions are sessions without any scans.
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Sessions/empty
 - name: get_api_v1_uniqueitems_tools
   description: Get status of all the tools in the system for defined period
@@ -1214,9 +1115,14 @@ tools:
   description: Get status of all the rent items in the system for defined period
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/UniqueItems/rent
 - name: get_api_v1_uniqueitems_statuses
-  description: Get the current status snapshot for every unique item, scoped to caller's
-    accessible locations.
+  description: Get the current status snapshot for every unique item, scoped to caller's accessible locations.
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/UniqueItems/statuses
 - name: get_api_v1_users_all
   description: Get all tenant users
   source_operation: openapi/invendor-reporting-openapi-original.json#GET /api/v1/Users/all
+deployment:
+  mode: none
+  verified: derived
+  tools: 353
+  checked: '2026-08-12'
+  source: catalog MCP census

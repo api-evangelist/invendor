@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IO.Common Accounts ItemQuantities API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+      "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ItemQuantities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get item quantities for defined criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/ItemQuantities",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "Limit warehouse"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "query",
+                "description": "Limit item"
+              },
+              {
+                "name": "wmsLocationId",
+                "value": "",
+                "type": "query",
+                "description": "Limit location address"
+              },
+              {
+                "name": "itemBatch",
+                "value": "",
+                "type": "query",
+                "description": "Limit batch"
+              },
+              {
+                "name": "Filter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortColumn",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "showZero",
+                "value": "",
+                "type": "query",
+                "description": "Flag to include positions with 0 qtys"
+              },
+              {
+                "name": "showOnlyIlpOnHand",
+                "value": "",
+                "type": "query",
+                "description": "Flag to exclude positions that are not set in location items parameters list"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get item quantities for defined criteria"
+        },
+        {
+          "info": {
+            "name": "Get the stock value for location items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/ItemQuantities/stockValue",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter location ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "query",
+                "description": "Filter itemId"
+              },
+              {
+                "name": "wmsLocationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter location address"
+              },
+              {
+                "name": "itemBatch",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Filter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortColumn",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "showZero",
+                "value": "",
+                "type": "query",
+                "description": "Flag to include positions with 0 qtys"
+              },
+              {
+                "name": "showOnlyIlpOnHand",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "Account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the stock value for location items"
+        },
+        {
+          "info": {
+            "name": "Get locations' stock on-hand quantities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/ItemQuantities/onhand",
+            "params": [
+              {
+                "name": "item",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://identity.scanbro.com/connect/authorize",
+              "accessTokenUrl": "https://identity.scanbro.com/connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get locations' stock on-hand quantities"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
