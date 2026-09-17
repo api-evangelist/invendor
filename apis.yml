@@ -120,22 +120,6 @@ apis:
     url: https://api.invendor.com/swagger/index.html
   - type: APIReference
     url: https://reporting.invendor.com/swagger/index.html
-- aid: invendor:invendor-datajobs-api
-  name: Invendor DataJobs API
-  description: The DataJobs API from Invendor — 2 operation(s) for datajobs.
-  humanURL: https://api.invendor.com/swagger/index.html
-  baseURL: https://api.invendor.com
-  tags:
-  - Data jobs
-  tags_raw:
-  - DataJobs
-  properties:
-  - type: OpenAPI
-    url: openapi/invendor-datajobs-api-openapi.yml
-  - type: APIReference
-    url: https://api.invendor.com/swagger/index.html
-  - type: APIReference
-    url: https://reporting.invendor.com/swagger/index.html
 - aid: invendor:invendor-devices-api
   name: Invendor Devices API
   description: The Devices API from Invendor — 10 operation(s) for devices.
@@ -230,22 +214,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/invendor-flagtypes-api-openapi.yml
-  - type: APIReference
-    url: https://api.invendor.com/swagger/index.html
-  - type: APIReference
-    url: https://reporting.invendor.com/swagger/index.html
-- aid: invendor:invendor-globalsettings-api
-  name: Invendor GlobalSettings API
-  description: The GlobalSettings API from Invendor — 6 operation(s) for globalsettings.
-  humanURL: https://api.invendor.com/swagger/index.html
-  baseURL: https://api.invendor.com
-  tags:
-  - Global Settings
-  tags_raw:
-  - GlobalSettings
-  properties:
-  - type: OpenAPI
-    url: openapi/invendor-globalsettings-api-openapi.yml
   - type: APIReference
     url: https://api.invendor.com/swagger/index.html
   - type: APIReference
@@ -607,22 +575,6 @@ apis:
     url: https://api.invendor.com/swagger/index.html
   - type: APIReference
     url: https://reporting.invendor.com/swagger/index.html
-- aid: invendor:invendor-userprofiles-api
-  name: Invendor UserProfiles API
-  description: The UserProfiles API from Invendor — 9 operation(s) for userprofiles.
-  humanURL: https://api.invendor.com/swagger/index.html
-  baseURL: https://api.invendor.com
-  tags:
-  - User Profiles
-  tags_raw:
-  - UserProfiles
-  properties:
-  - type: OpenAPI
-    url: openapi/invendor-userprofiles-api-openapi.yml
-  - type: APIReference
-    url: https://api.invendor.com/swagger/index.html
-  - type: APIReference
-    url: https://reporting.invendor.com/swagger/index.html
 - aid: invendor:invendor-users-api
   name: Invendor Users API
   description: The Users API from Invendor — 14 operation(s) for users.
@@ -663,6 +615,48 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/invendor-wmslocations-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-data-jobs-api
+  name: Invendor Data jobs API
+  description: The Data jobs API from Invendor — 2 operation(s) for data jobs.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Data jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-data-jobs-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-global-settings-api
+  name: Invendor Global Settings API
+  description: The Global Settings API from Invendor — 6 operation(s) for global settings.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - Global Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-global-settings-api-openapi.yml
+  - type: APIReference
+    url: https://api.invendor.com/swagger/index.html
+  - type: APIReference
+    url: https://reporting.invendor.com/swagger/index.html
+- aid: invendor:invendor-user-profiles-api
+  name: Invendor User Profiles API
+  description: The User Profiles API from Invendor — 9 operation(s) for user profiles.
+  humanURL: https://api.invendor.com/swagger/index.html
+  baseURL: https://api.invendor.com
+  tags:
+  - User Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/invendor-user-profiles-api-openapi.yml
   - type: APIReference
     url: https://api.invendor.com/swagger/index.html
   - type: APIReference
