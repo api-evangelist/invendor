@@ -296,6 +296,8 @@ apis:
   humanURL: https://api.invendor.com/swagger/index.html
   baseURL: https://api.invendor.com
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
