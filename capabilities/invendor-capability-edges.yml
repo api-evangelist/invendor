@@ -44,7 +44,8 @@ edges:
   reason: Starting and ending tenant subscriptions to services is subscription lifecycle management; spans
     provisioning and termination so L1 only.
 - tag: UserProfiles
-  spec_file: invendor-userprofiles-api-openapi.yml
+  spec_file: invendor-user-profiles-api-openapi.yml
+  reanchored_from: invendor-userprofiles-api-openapi.yml
   capability_id: BC-620.20
   capability_id_l1: BC-620
   capability_name: Identity & Access Management
