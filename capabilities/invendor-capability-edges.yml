@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 5
+edge_count: 10
 edges:
 - tag: Replenishment
   spec_file: invendor-replenishment-api-openapi.yml
@@ -33,6 +33,49 @@ edges:
   reason: Reports on-hand stock quantities and stock value by location across the VMI network — plainly
     inventory stock visibility. L1 Inventory Management is clear; the operations are read-only quantity
     queries so no single L2 (stock levels vs accuracy vs allocation) is named.
+- tag: Users
+  spec_file: invendor-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /v1/Users  Create user  Creates a new user; schemas ChangeUserPasswordRequest, UpdateUsersNFCIDRequest,
+    UserProfileAccountResponse
+  reason: User account lifecycle, credentials (password, NFC badge ID) and profile/account assignment
+    for platform users — Identity & Access Management, not HR employee records.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: ItemTransactions
+  spec_file: invendor-itemtransactions-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.78
+  evidence: Get item transaction for defined criteria; schemas InventTransResponse, StatusIssue, StatusReceipt
+  reason: Inventory transaction (issue/receipt) history with inventory dimensions — stock movement records
+    within inventory management. Only one read operation, so no narrower sub-capability is claimed.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: Orders
+  spec_file: invendor-orders-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.72
+  evidence: POST /v1/Orders/purchase  CreatePurchaseOrder; POST /v1/Orders/{orderId}/confirm  ConfirmOrder;
+    POST /v1/Orders/{orderId}/ship  ShipOrder; POST /v1/Orders/{orderId}/receive  ReceiveOrder
+  reason: Full purchase/replenishment order lifecycle with lines, confirm, ship and receive — purchase
+    order creation and execution. Some ambiguity as replenishment orders also touch inventory replenishment,
+    hence moderate confidence.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: Roles
+  spec_file: invendor-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /v1/Roles  Roles list  Returns roles that authorized user can assign to other users
+  reason: Role catalogue for assigning permissions to users is access management; single read-only endpoint
+    limits confidence.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Subscriptions
   spec_file: invendor-subscriptions-api-openapi.yml
   capability_id: BC-4240
@@ -65,3 +108,15 @@ edges:
   reason: Despite the accounting-sounding tag, the journals here are inventory counting, correction and
     confirmation journals with inventory dimensions (InventDimResponse) — i.e. cycle counting and stock
     discrepancy correction, which is Inventory Accuracy Management, not General Ledger.
+- tag: UniqueItems
+  spec_file: invendor-uniqueitems-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.7
+  evidence: GET /api/v1/UniqueItems/tools — "Get status of all the tools in the system for defined period";
+    "current status snapshot for every unique item, scoped to caller's accessible locations"
+  reason: Tracks the status and location of individually serialised tools and rental items across customer
+    locations, which is stock/asset tracking within Inventory Management. No single L2 is precisely named
+    by the operations.
+  recovered_from: sweep-20260829T005356Z-edges.json
