@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts DynamicScanContent API
+  title: IO.Common Dynamic Scan Content API
   version: '1.0'
 security:
 - OAuth2: []
@@ -11,7 +11,7 @@ paths:
     get:
       tags:
       - DynamicScanContent
-      summary: "Get list of all possible field datasoruces for dynamic content configuration\r\nCurrenlty are supported Item.Code, Barcode.Unit and all Item properties defined on items"
+      summary: Get list of all possible field datasoruces for dynamic content configuration…
       operationId: DynamicContentFieldDatasources
       parameters:
       - name: Account
@@ -46,7 +46,7 @@ paths:
     get:
       tags:
       - DynamicScanContent
-      summary: Get list of all possible field datasoruces for dynamic content configuration for selected operation
+      summary: Get list of all possible field datasoruces for dynamic content configuration…
       operationId: OperationDynamicContentFieldDatasources
       parameters:
       - name: operationId
@@ -85,6 +85,42 @@ paths:
         - io.common
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    DynamicFieldDataSource:
+      type: object
+      properties:
+        valueSource:
+          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
+        displayName:
+          type:
+          - string
+          - 'null'
+        key:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     DynamicFieldValueSourceEnum:
       enum:
       - 0
@@ -95,37 +131,6 @@ components:
       - 5
       type: integer
       format: int32
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    DynamicFieldDataSource:
-      type: object
-      properties:
-        valueSource:
-          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
-        displayName:
-          type: string
-          nullable: true
-        key:
-          type: string
-          nullable: true
-      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

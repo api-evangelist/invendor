@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Questions API
+  title: IO.Reports Questions API
   version: '1.0'
-security:
-- OAuth2: []
 tags:
 - name: Questions
 paths:
@@ -37,6 +35,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1QuestionsToolsStatus
+      x-operation-id-source: derived
   /api/v1/Questions/user/tools:
     get:
       tags:
@@ -71,6 +71,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1QuestionsUserTools
+      x-operation-id-source: derived
   /api/v1/Questions/items/consumption:
     get:
       tags:
@@ -106,52 +108,19 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1QuestionsItemsConsumption
+      x-operation-id-source: derived
 components:
   schemas:
-    MetadataDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-        dimensionId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    PropertyDTO:
-      type: object
-      properties:
-        key:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
       additionalProperties: false
     ItemStatusRowDTO:
       type: object
@@ -160,30 +129,36 @@ components:
           type: integer
           format: int32
         itemCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         imageUrl:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         locationId:
           type: integer
           format: int32
         location:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         vendor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         metadata:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/MetadataDTO'
-          nullable: true
         sessionId:
           type: integer
           format: int32
@@ -194,57 +169,114 @@ components:
           type: string
           format: date-time
         returnDatetime:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         operationId:
           type: integer
           format: int32
         operation:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currentUserId:
           type: integer
           format: int32
         currentUser:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currentUserFirstName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currentUserLastName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currentUserFullName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         previousUserId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         previousUser:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         previousUserFirstName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         previousUserLastName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         previousUserFullName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemProperties:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PropertyDTO'
-          nullable: true
+      additionalProperties: false
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    MetadataDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        dimensionId:
+          type: integer
+          format: int32
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -254,4 +286,4 @@ components:
           authorizationUrl: https://identity.scanbro.com/connect/authorize
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
-            io.common: default scope
+            io.reporting: default scope

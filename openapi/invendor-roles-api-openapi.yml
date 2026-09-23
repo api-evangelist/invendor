@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Roles API
+  title: IO.Common Roles API
   version: '1.0'
 security:
 - OAuth2: []
@@ -44,24 +44,27 @@ paths:
         - io.common
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

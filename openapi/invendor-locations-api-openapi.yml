@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Locations API
+  title: IO.Common Locations API
   version: '1.0'
 security:
 - OAuth2: []
@@ -1495,705 +1495,6 @@ paths:
         - io.common
 components:
   schemas:
-    LocationResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/LocationType'
-        accountCode:
-          type: string
-          nullable: true
-        accountName:
-          type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        consumptionType:
-          $ref: '#/components/schemas/LocationConsumptionType'
-      additionalProperties: false
-    IDomainEvent:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        occurredOn:
-          type: string
-          format: date-time
-          readOnly: true
-      additionalProperties: false
-    CreateDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UpdateLocationDetailsRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        coordinates:
-          type: string
-          nullable: true
-        isCabinet:
-          type: boolean
-        isScale:
-          type: boolean
-        isLock:
-          type: boolean
-        hasDedicatedDevice:
-          type: boolean
-        ioid:
-          type: string
-          nullable: true
-        disableSubmitConfirmation:
-          type: boolean
-        anonymousDefaultOperationId:
-          type: integer
-          format: int32
-        defaultReceptionOperationId:
-          type: integer
-          format: int32
-        notificationsEnabled:
-          type: boolean
-        notificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        orderNotificationsEnabled:
-          type: boolean
-        orderNotificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        consumptionType:
-          $ref: '#/components/schemas/LocationConsumptionType'
-      additionalProperties: false
-    ClientTenantResponse:
-      type: object
-      properties:
-        tenantId:
-          type: string
-          format: uuid
-        name:
-          type: string
-          nullable: true
-        accountId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DeviceEvent:
-      type: object
-      properties:
-        deviceId:
-          type: string
-          format: uuid
-          readOnly: true
-        name:
-          type: string
-          nullable: true
-          readOnly: true
-        content:
-          type: string
-          nullable: true
-          readOnly: true
-        received:
-          type: string
-          format: date-time
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    DeviceEventNotification:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        deviceId:
-          type: string
-          format: uuid
-        eventName:
-          type: string
-          nullable: true
-        eventContent:
-          type: string
-          nullable: true
-        receivers:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationsReceiver'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    CreateLocationRequest:
-      type: object
-      properties:
-        subscriptionId:
-          type: string
-          format: uuid
-        ownerAccountId:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        coordinates:
-          type: string
-          nullable: true
-        isCabinet:
-          type: boolean
-        isScale:
-          type: boolean
-        isLock:
-          type: boolean
-        hasDedicatedDevice:
-          type: boolean
-        ioid:
-          type: string
-          nullable: true
-        anonymousDefaultOperationId:
-          type: integer
-          format: int32
-        defaultReceptionOperationId:
-          type: integer
-          format: int32
-        supplierAccounts:
-          uniqueItems: true
-          type: array
-          items:
-            type: integer
-            format: int32
-          nullable: true
-        partnerAccounts:
-          uniqueItems: true
-          type: array
-          items:
-            type: integer
-            format: int32
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-      additionalProperties: false
-    TenantDevice:
-      type: object
-      properties:
-        tenantId:
-          type: string
-          format: uuid
-        deviceId:
-          type: string
-          format: uuid
-        device:
-          $ref: '#/components/schemas/Device'
-      additionalProperties: false
-    DeviceSIMStatus:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        iccid:
-          maxLength: 21
-          minLength: 0
-          type: string
-          nullable: true
-        dataLimit:
-          type: number
-          format: double
-        dataUsage:
-          type: number
-          format: double
-        statusDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    Device:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        createdOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        name:
-          type: string
-          nullable: true
-          readOnly: true
-        token:
-          type: string
-          nullable: true
-          readOnly: true
-        iccid:
-          type: string
-          nullable: true
-          readOnly: true
-        dedicatedDeviceId:
-          type: string
-          format: uuid
-          nullable: true
-          readOnly: true
-        sbNumber:
-          type: string
-          nullable: true
-          readOnly: true
-        ioid:
-          type: string
-          nullable: true
-          readOnly: true
-        externalId:
-          type: string
-          nullable: true
-          readOnly: true
-        isDeleted:
-          type: boolean
-          readOnly: true
-        type:
-          $ref: '#/components/schemas/DeviceType'
-        deletedOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        deviceTenants:
-          type: array
-          items:
-            $ref: '#/components/schemas/TenantDevice'
-          nullable: true
-          readOnly: true
-        deviceEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceEvent'
-          nullable: true
-          readOnly: true
-        deviceHeartbeats:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceHeartbeat'
-          nullable: true
-          readOnly: true
-        deviceEventNotifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceEventNotification'
-          nullable: true
-          readOnly: true
-        deviceRegistrationStates:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceRegistrationState'
-          nullable: true
-          readOnly: true
-        deviceSIMStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceSIMStatus'
-          nullable: true
-          readOnly: true
-        deviceShelfStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceShelfStatus'
-          nullable: true
-          readOnly: true
-        cabinetProdData:
-          $ref: '#/components/schemas/CabinetProdData'
-        currentRegistrationState:
-          $ref: '#/components/schemas/DeviceRegistrationState'
-      additionalProperties: false
-    AreaLockResponse:
-      type: object
-      properties:
-        lockId:
-          type: string
-          nullable: true
-        index:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        wmsAreaId:
-          type: string
-          nullable: true
-        areaName:
-          type: string
-          nullable: true
-        ioid:
-          type: string
-          nullable: true
-        type:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DeviceRegistrationState:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        createdOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        pairingCode:
-          type: string
-          nullable: true
-        state:
-          $ref: '#/components/schemas/DevicePreRegistrationStatus'
-        tenantId:
-          type: string
-          format: uuid
-          nullable: true
-        deviceName:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AddLocationDeviceRequest:
-      type: object
-      properties:
-        deviceId:
-          type: string
-          format: uuid
-      additionalProperties: false
-    VendorAccountResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountId:
-          type: integer
-          format: int32
-        accountName:
-          type: string
-          nullable: true
-        accountCode:
-          type: string
-          nullable: true
-        orderNotificationsEnabled:
-          type: boolean
-        orderNotificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        attachmentStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderStatus'
-          nullable: true
-        attachmentFormat:
-          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
-      additionalProperties: false
-    CabinetProdData:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        batchNumber:
-          type: string
-          nullable: true
-          readOnly: true
-        verdinSN:
-          type: string
-          nullable: true
-          readOnly: true
-        cabinetType:
-          $ref: '#/components/schemas/CabinetType'
-        comment:
-          type: string
-          nullable: true
-          readOnly: true
-        region:
-          type: string
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    OrderNotificationSettingsRequest:
-      type: object
-      properties:
-        orderNotificationsEnabled:
-          type: boolean
-        orderNotificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        attachmentStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderStatus'
-          nullable: true
-        attachmentFormat:
-          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
-      additionalProperties: false
-    GetDefinedPropertyParametersResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        affinity:
-          $ref: '#/components/schemas/ExtendedPropertyAffinity'
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    DeviceShelfStatus:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        spineHWVer:
-          type: string
-          nullable: true
-        shelfHWVer:
-          type: string
-          nullable: true
-        pcbhwVer:
-          type: string
-          nullable: true
-        compartment:
-          type: integer
-          format: int32
-        slot:
-          type: integer
-          format: int32
-        binCount:
-          type: integer
-          format: int32
-        statusDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CabinetType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    OrderNotificationSettingsResponse:
-      type: object
-      properties:
-        orderNotificationsEnabled:
-          type: boolean
-        orderNotificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        attachmentStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderStatus'
-          nullable: true
-        attachmentFormat:
-          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
-      additionalProperties: false
-    DeviceHeartbeat:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        osVersion:
-          type: string
-          nullable: true
-        appVersion:
-          type: string
-          nullable: true
-        batteryPercentage:
-          type: integer
-          format: int32
-        batteryCurrentNow:
-          type: integer
-          format: int32
-        batteryCurrentAverage:
-          type: integer
-          format: int32
-        batteryVoltage:
-          type: integer
-          format: int32
-        batteryStatus:
-          type: string
-          nullable: true
-        unsentSessions:
-          type: integer
-          format: int32
-        unfinishedSessions:
-          type: integer
-          format: int32
-        received:
-          type: string
-          format: date-time
-        device:
-          $ref: '#/components/schemas/Device'
-        ioid:
-          type: string
-          nullable: true
-        userInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
-          nullable: true
-          readOnly: true
-        linkedDevices:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    DeviceType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      format: int32
     DeviceHeartbeatUserInfo:
       type: object
       properties:
@@ -2202,10 +1503,11 @@ components:
           format: int32
           readOnly: true
         domainEvents:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
           readOnly: true
         heartbeatId:
           type: integer
@@ -2223,172 +1525,12 @@ components:
           type: integer
           format: int32
         username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         deviceHeartbeat:
           $ref: '#/components/schemas/DeviceHeartbeat'
       additionalProperties: false
-    LocationType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    LocationDetailsResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/LocationType'
-        accountCode:
-          type: string
-          nullable: true
-        accountName:
-          type: string
-          nullable: true
-        createdOn:
-          type: string
-          format: date-time
-          nullable: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-        subscriptionId:
-          type: string
-          format: uuid
-        serviceId:
-          type: string
-          format: uuid
-        coordinates:
-          type: string
-          nullable: true
-        isCabinet:
-          type: boolean
-        isLock:
-          type: boolean
-        isScale:
-          type: boolean
-        hasDedicatedDevice:
-          type: boolean
-        disableSubmitConfirmation:
-          type: boolean
-        ioid:
-          type: string
-          nullable: true
-        anonymousDefaultOperation:
-          $ref: '#/components/schemas/OperationResponse'
-        defaultReceptionOperation:
-          $ref: '#/components/schemas/OperationResponse'
-        notificationsEnabled:
-          type: boolean
-        notificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        consumptionType:
-          $ref: '#/components/schemas/LocationConsumptionType'
-        orderNotificationsEnabled:
-          type: boolean
-        orderNotificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        definedProperties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DefinedPropertyValueDTO'
-          nullable: true
-      additionalProperties: false
-    OperationResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        parentId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/OperationType'
-        genericType:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LocationResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationResponse'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    LocationConsumptionType:
-      enum:
-      - 10
-      - 20
-      type: integer
-      format: int32
-    OperationType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      type: integer
-      format: int32
     UpdateDefinedPropertyParametersRequest:
       type: object
       properties:
@@ -2396,8 +1538,9 @@ components:
           type: integer
           format: int32
         key:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         showOnReports:
           type: boolean
         useAsFilter:
@@ -2405,38 +1548,11 @@ components:
         isRequired:
           type: boolean
         accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    LocationAreaLocksResponse:
-      type: object
-      properties:
-        wmsAreaId:
-          type: string
-          nullable: true
-        ioid:
-          type: string
-          nullable: true
-        locks:
-          type: array
-          items:
-            $ref: '#/components/schemas/AreaLockResponse'
-          nullable: true
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
       additionalProperties: false
-    OrderNotificationAttachmentFormat:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
     DevicePreRegistrationStatus:
       enum:
       - 0
@@ -2446,124 +1562,39 @@ components:
       - 4
       type: integer
       format: int32
-    AddVendorAccountRequest:
+    ClientTenantResponse:
       type: object
       properties:
-        accountId:
-          type: integer
-          format: int32
-        orderNotificationsEnabled:
-          type: boolean
-        orderNotificationReceivers:
-          type: array
-          items:
-            type: string
-          nullable: true
-        attachmentStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderStatus'
-          nullable: true
-        attachmentFormat:
-          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
-      additionalProperties: false
-    BulkUpsertDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          nullable: true
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    DeviceResponse:
-      type: object
-      properties:
-        id:
+        tenantId:
           type: string
           format: uuid
         name:
-          type: string
-          nullable: true
-        ioid:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/DeviceType'
-        token:
-          type: string
-          nullable: true
-        osVersion:
-          type: string
-          nullable: true
-        appVersion:
-          type: string
-          nullable: true
-        received:
-          type: string
-          format: date-time
-          nullable: true
-        batteryPercentage:
-          type: integer
-          format: int32
-          nullable: true
-        batteryStatus:
-          type: string
-          nullable: true
-        unsentSessions:
-          type: integer
-          format: int32
-          nullable: true
-        unfinishedSessions:
-          type: integer
-          format: int32
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        lastSeenSecAgo:
-          type: integer
-          format: int32
-          nullable: true
-        userInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
-          nullable: true
-        serialNumber:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UserProfileResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         accountId:
           type: integer
           format: int32
-          nullable: true
-        accountName:
-          type: string
-          nullable: true
-        mfaEnabled:
+      additionalProperties: false
+    OrderNotificationSettingsRequest:
+      type: object
+      properties:
+        orderNotificationsEnabled:
           type: boolean
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        attachmentStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
       additionalProperties: false
     CustomerAccountResponse:
       type: object
@@ -2575,11 +1606,146 @@ components:
           type: integer
           format: int32
         accountName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         accountCode:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    AddVendorAccountRequest:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        attachmentStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    TenantDevice:
+      type: object
+      properties:
+        tenantId:
           type: string
-          nullable: true
+          format: uuid
+        deviceId:
+          type: string
+          format: uuid
+        device:
+          $ref: '#/components/schemas/Device'
+      additionalProperties: false
+    LocationDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/LocationType'
+        accountCode:
+          type:
+          - string
+          - 'null'
+        accountName:
+          type:
+          - string
+          - 'null'
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        subscriptionId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        coordinates:
+          type:
+          - string
+          - 'null'
+        isCabinet:
+          type: boolean
+        isLock:
+          type: boolean
+        isScale:
+          type: boolean
+        hasDedicatedDevice:
+          type: boolean
+        disableSubmitConfirmation:
+          type: boolean
+        ioid:
+          type:
+          - string
+          - 'null'
+        anonymousDefaultOperation:
+          $ref: '#/components/schemas/OperationResponse'
+        defaultReceptionOperation:
+          $ref: '#/components/schemas/OperationResponse'
+        notificationsEnabled:
+          type: boolean
+        notificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        definedProperties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/DefinedPropertyValueDTO'
       additionalProperties: false
     ExtendedPropertyAffinity:
       enum:
@@ -2629,14 +1795,748 @@ components:
       - 401
       type: integer
       format: int32
+    UpdateLocationDetailsRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        coordinates:
+          type:
+          - string
+          - 'null'
+        isCabinet:
+          type: boolean
+        isScale:
+          type: boolean
+        isLock:
+          type: boolean
+        hasDedicatedDevice:
+          type: boolean
+        ioid:
+          type:
+          - string
+          - 'null'
+        disableSubmitConfirmation:
+          type: boolean
+        anonymousDefaultOperationId:
+          type: integer
+          format: int32
+        defaultReceptionOperationId:
+          type: integer
+          format: int32
+        notificationsEnabled:
+          type: boolean
+        notificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+      additionalProperties: false
+    LocationConsumptionType:
+      enum:
+      - 10
+      - 20
+      type: integer
+      format: int32
+    DeviceEvent:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        content:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        received:
+          type: string
+          format: date-time
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+      additionalProperties: false
+    AddLocationDeviceRequest:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    GetDefinedPropertyParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        affinity:
+          $ref: '#/components/schemas/ExtendedPropertyAffinity'
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    OrderNotificationAttachmentFormat:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrderNotificationSettingsResponse:
+      type: object
+      properties:
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        attachmentStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    IDomainEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        occurredOn:
+          type: string
+          format: date-time
+          readOnly: true
+      additionalProperties: false
+    DeviceHeartbeat:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        osVersion:
+          type:
+          - string
+          - 'null'
+        appVersion:
+          type:
+          - string
+          - 'null'
+        batteryPercentage:
+          type: integer
+          format: int32
+        batteryCurrentNow:
+          type: integer
+          format: int32
+        batteryCurrentAverage:
+          type: integer
+          format: int32
+        batteryVoltage:
+          type: integer
+          format: int32
+        batteryStatus:
+          type:
+          - string
+          - 'null'
+        unsentSessions:
+          type: integer
+          format: int32
+        unfinishedSessions:
+          type: integer
+          format: int32
+        received:
+          type: string
+          format: date-time
+        device:
+          $ref: '#/components/schemas/Device'
+        ioid:
+          type:
+          - string
+          - 'null'
+        userInfo:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
+          readOnly: true
+        linkedDevices:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    LocationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/LocationType'
+        accountCode:
+          type:
+          - string
+          - 'null'
+        accountName:
+          type:
+          - string
+          - 'null'
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        consumptionType:
+          $ref: '#/components/schemas/LocationConsumptionType'
+      additionalProperties: false
+    LocationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocationResponse'
+          readOnly: true
+      additionalProperties: false
+    CabinetType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    DeviceSIMStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        iccid:
+          maxLength: 21
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        dataLimit:
+          type: number
+          format: double
+        dataUsage:
+          type: number
+          format: double
+        statusDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accountName:
+          type:
+          - string
+          - 'null'
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    OperationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        parentId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DeviceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DeviceType'
+        token:
+          type:
+          - string
+          - 'null'
+        osVersion:
+          type:
+          - string
+          - 'null'
+        appVersion:
+          type:
+          - string
+          - 'null'
+        received:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        batteryPercentage:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        batteryStatus:
+          type:
+          - string
+          - 'null'
+        unsentSessions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        unfinishedSessions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        status:
+          type:
+          - string
+          - 'null'
+        lastSeenSecAgo:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        userInfo:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
+        serialNumber:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        token:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        iccid:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dedicatedDeviceId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          readOnly: true
+        sbNumber:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        ioid:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        externalId:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        isDeleted:
+          type: boolean
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/DeviceType'
+        deletedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        deviceTenants:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TenantDevice'
+          readOnly: true
+        deviceEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceEvent'
+          readOnly: true
+        deviceHeartbeats:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeat'
+          readOnly: true
+        deviceEventNotifications:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceEventNotification'
+          readOnly: true
+        deviceRegistrationStates:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceRegistrationState'
+          readOnly: true
+        deviceSIMStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceSIMStatus'
+          readOnly: true
+        deviceShelfStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceShelfStatus'
+          readOnly: true
+        cabinetProdData:
+          $ref: '#/components/schemas/CabinetProdData'
+        currentRegistrationState:
+          $ref: '#/components/schemas/DeviceRegistrationState'
+      additionalProperties: false
+    CabinetProdData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        batchNumber:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        verdinSN:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        cabinetType:
+          $ref: '#/components/schemas/CabinetType'
+        comment:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        region:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DeviceEventNotification:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        deviceId:
+          type: string
+          format: uuid
+        eventName:
+          type:
+          - string
+          - 'null'
+        eventContent:
+          type:
+          - string
+          - 'null'
+        receivers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NotificationsReceiver'
+          readOnly: true
+      additionalProperties: false
+    CreateLocationRequest:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          format: uuid
+        ownerAccountId:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        coordinates:
+          type:
+          - string
+          - 'null'
+        isCabinet:
+          type: boolean
+        isScale:
+          type: boolean
+        isLock:
+          type: boolean
+        hasDedicatedDevice:
+          type: boolean
+        ioid:
+          type:
+          - string
+          - 'null'
+        anonymousDefaultOperationId:
+          type: integer
+          format: int32
+        defaultReceptionOperationId:
+          type: integer
+          format: int32
+        supplierAccounts:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        partnerAccounts:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
       additionalProperties: false
     OrderStatus:
       enum:
@@ -2648,6 +2548,224 @@ components:
       - 5
       type: integer
       format: int32
+    DeviceShelfStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        spineHWVer:
+          type:
+          - string
+          - 'null'
+        shelfHWVer:
+          type:
+          - string
+          - 'null'
+        pcbhwVer:
+          type:
+          - string
+          - 'null'
+        compartment:
+          type: integer
+          format: int32
+        slot:
+          type: integer
+          format: int32
+        binCount:
+          type: integer
+          format: int32
+        statusDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    DeviceType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    CreateDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    AreaLockResponse:
+      type: object
+      properties:
+        lockId:
+          type:
+          - string
+          - 'null'
+        index:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        wmsAreaId:
+          type:
+          - string
+          - 'null'
+        areaName:
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    BulkUpsertDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    VendorAccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+        accountName:
+          type:
+          - string
+          - 'null'
+        accountCode:
+          type:
+          - string
+          - 'null'
+        orderNotificationsEnabled:
+          type: boolean
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        attachmentStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    LocationAreaLocksResponse:
+      type: object
+      properties:
+        wmsAreaId:
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+        locks:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AreaLockResponse'
+      additionalProperties: false
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
+    DefinedPropertyValueDTO:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+        isRequired:
+          type: boolean
+      additionalProperties: false
+    AreaLockRequest:
+      type: object
+      properties:
+        index:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        type:
+          type:
+          - string
+          - 'null'
+        args:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
     NotificationsReceiver:
       type: object
       properties:
@@ -2658,39 +2776,66 @@ components:
           type: integer
           format: int32
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         type:
           type: integer
           format: int32
         deviceEventNotification:
           $ref: '#/components/schemas/DeviceEventNotification'
       additionalProperties: false
-    DefinedPropertyValueDTO:
+    DeviceRegistrationState:
       type: object
       properties:
-        value:
-          type: string
-          nullable: true
-        isRequired:
-          type: boolean
-      additionalProperties: false
-    AreaLockRequest:
-      type: object
-      properties:
-        index:
+        id:
           type: integer
           format: int32
-          nullable: true
-        type:
-          type: string
-          nullable: true
-        args:
-          type: array
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
           items:
-            type: string
-          nullable: true
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        pairingCode:
+          type:
+          - string
+          - 'null'
+        state:
+          $ref: '#/components/schemas/DevicePreRegistrationStatus'
+        tenantId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        deviceName:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
+    LocationType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
   securitySchemes:
     OAuth2:
       type: oauth2

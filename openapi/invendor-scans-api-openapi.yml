@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Scans API
+  title: IO.Reports Scans API
   version: '1.0'
-security:
-- OAuth2: []
 tags:
 - name: Scans
 paths:
@@ -11,7 +9,7 @@ paths:
     get:
       tags:
       - Scans
-      summary: "Get scan events. When dateFrom is not provided, it defaults to 3 months before the\r\ncurrent date; dateTo defaults to the current date."
+      summary: Get scan events.
       parameters:
       - name: locationId
         in: query
@@ -83,11 +81,13 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1Scans
+      x-operation-id-source: derived
   /api/v1/Scans/my:
     get:
       tags:
       - Scans
-      summary: "Get user's scan events. When dateFrom is not provided, it defaults to 7 days before\r\nthe current date; dateTo defaults to the current date."
+      summary: Get user's scan events.
       parameters:
       - name: locationId
         in: query
@@ -154,6 +154,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1ScansMy
+      x-operation-id-source: derived
   /api/v1/Scans/anonymous:
     get:
       tags:
@@ -225,11 +227,13 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1ScansAnonymous
+      x-operation-id-source: derived
   /api/v1/Scans/count:
     get:
       tags:
       - Scans
-      summary: Returns scans count by location, operation for selected period. Max period is 30 days, defaults to 7 days.
+      summary: Returns scans count by location, operation for selected period.
       parameters:
       - name: locationId
         in: query
@@ -273,6 +277,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1ScansCount
+      x-operation-id-source: derived
   /api/v1/Scans/badscans:
     get:
       tags:
@@ -321,8 +327,162 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1ScansBadscans
+      x-operation-id-source: derived
 components:
   schemas:
+    LocationOperationDateScansDTO:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date-time
+        scans:
+          type: integer
+          format: int64
+        operationName:
+          type:
+          - string
+          - 'null'
+        locationName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ScanEventReportRowDTO:
+      type: object
+      properties:
+        scanId:
+          type: integer
+          format: int32
+        sessionId:
+          type: integer
+          format: int32
+        itemId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        sessionTypeId:
+          type: integer
+          format: int32
+        scannedData:
+          type:
+          - string
+          - 'null'
+        unit:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: number
+          format: double
+        expectedQuantity:
+          type: number
+          format: double
+        firmedQuantity:
+          type: number
+          format: double
+        scanDate:
+          type: string
+          format: date
+          readOnly: true
+        scanDateTime:
+          type: string
+          format: date-time
+        itemName:
+          type:
+          - string
+          - 'null'
+        itemCode:
+          type:
+          - string
+          - 'null'
+        altCode:
+          type:
+          - string
+          - 'null'
+        altName:
+          type:
+          - string
+          - 'null'
+        vendor:
+          type:
+          - string
+          - 'null'
+        itemUnit:
+          type:
+          - string
+          - 'null'
+        userId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        user:
+          type:
+          - string
+          - 'null'
+        userFirstName:
+          type:
+          - string
+          - 'null'
+        userLastName:
+          type:
+          - string
+          - 'null'
+        userFullName:
+          type:
+          - string
+          - 'null'
+        userGroupName:
+          type:
+          - string
+          - 'null'
+        companyName:
+          type:
+          - string
+          - 'null'
+        location:
+          type:
+          - string
+          - 'null'
+        operation:
+          type:
+          - string
+          - 'null'
+        operationType:
+          type:
+          - string
+          - 'null'
+        metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MetadataDTO'
+        itemProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+        userProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+      additionalProperties: false
     BadScanDto:
       type: object
       properties:
@@ -342,184 +502,110 @@ components:
           type: string
           format: date-time
         itemId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         itemName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         altCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         altName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         barcode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         quantity:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         expectedQuantity:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         confirmedQuantity:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         rawWeight:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         itemWeight:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         itemBinWeight:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         calculatedItemWeight:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         weightDiffPercent:
-          type: number
+          type:
+          - number
+          - 'null'
           format: double
-          nullable: true
         location:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         wmsLocationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         operation:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ScanEventReportRowDTO:
+    Error:
       type: object
       properties:
-        scanId:
-          type: integer
-          format: int32
-        sessionId:
-          type: integer
-          format: int32
-        itemId:
-          type: integer
-          format: int32
-          nullable: true
-        locationId:
-          type: integer
-          format: int32
-        sessionTypeId:
-          type: integer
-          format: int32
-        scannedData:
-          type: string
-          nullable: true
-        unit:
-          type: string
-          nullable: true
-        quantity:
-          type: number
-          format: double
-        expectedQuantity:
-          type: number
-          format: double
-        firmedQuantity:
-          type: number
-          format: double
-        scanDate:
-          type: string
-          format: date
-          readOnly: true
-        scanDateTime:
-          type: string
-          format: date-time
-        itemName:
-          type: string
-          nullable: true
-        itemCode:
-          type: string
-          nullable: true
-        altCode:
-          type: string
-          nullable: true
-        altName:
-          type: string
-          nullable: true
-        vendor:
-          type: string
-          nullable: true
-        itemUnit:
-          type: string
-          nullable: true
-        userId:
-          type: integer
-          format: int32
-          nullable: true
-        user:
-          type: string
-          nullable: true
-        userFirstName:
-          type: string
-          nullable: true
-        userLastName:
-          type: string
-          nullable: true
-        userFullName:
-          type: string
-          nullable: true
-        userGroupName:
-          type: string
-          nullable: true
-        companyName:
-          type: string
-          nullable: true
-        location:
-          type: string
-          nullable: true
-        operation:
-          type: string
-          nullable: true
-        operationType:
-          type: string
-          nullable: true
-        metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataDTO'
-          nullable: true
-        itemProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-          nullable: true
-        userProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-          nullable: true
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     MetadataDTO:
       type: object
       properties:
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         shortName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dimensionId:
           type: integer
           format: int32
@@ -528,43 +614,13 @@ components:
       type: object
       properties:
         key:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         value:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    LocationOperationDateScansDTO:
-      type: object
-      properties:
-        operationId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        date:
-          type: string
-          format: date-time
-        scans:
-          type: integer
-          format: int64
-        operationName:
-          type: string
-          nullable: true
-        locationName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -574,4 +630,4 @@ components:
           authorizationUrl: https://identity.scanbro.com/connect/authorize
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
-            io.common: default scope
+            io.reporting: default scope

@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts ItemTransactions API
+  title: IO.Common Item Transactions API
   version: '1.0'
 security:
 - OAuth2: []
@@ -83,6 +83,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1ItemTransactions
+      x-operation-id-source: derived
 components:
   schemas:
     InventDimResponse:
@@ -92,18 +94,56 @@ components:
           type: integer
           format: int32
         locationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        locationName:
+          type:
+          - string
+          - 'null'
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    InventTransResponse:
+      type: object
+      properties:
+        itemId:
           type: integer
           format: int32
-          nullable: true
-        locationName:
+        itemName:
+          type:
+          - string
+          - 'null'
+        itemCode:
+          type:
+          - string
+          - 'null'
+        statusIssue:
+          $ref: '#/components/schemas/StatusIssue'
+        statusReceipt:
+          $ref: '#/components/schemas/StatusReceipt'
+        transDate:
           type: string
-          nullable: true
-        wmsLocationId:
-          type: string
-          nullable: true
-        batchId:
-          type: string
-          nullable: true
+          format: date-time
+        refType:
+          type: integer
+          format: int32
+        operationName:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: number
+          format: double
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
     StatusIssue:
       enum:
@@ -125,11 +165,13 @@ components:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     InventTransResponsePagedResult:
       type: object
@@ -151,42 +193,12 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/InventTransResponse'
-          nullable: true
           readOnly: true
-      additionalProperties: false
-    InventTransResponse:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        itemName:
-          type: string
-          nullable: true
-        itemCode:
-          type: string
-          nullable: true
-        statusIssue:
-          $ref: '#/components/schemas/StatusIssue'
-        statusReceipt:
-          $ref: '#/components/schemas/StatusReceipt'
-        transDate:
-          type: string
-          format: date-time
-        refType:
-          type: integer
-          format: int32
-        operationName:
-          type: string
-          nullable: true
-        quantity:
-          type: number
-          format: double
-        inventDim:
-          $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
   securitySchemes:
     OAuth2:

@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts WMSLocations API
+  title: IO.Common WMS Locations API
   version: '1.0'
 security:
 - OAuth2: []
@@ -36,6 +36,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSLocationsByLocationIdAreas
+      x-operation-id-source: derived
     post:
       tags:
       - WMSLocations
@@ -89,6 +91,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSLocationsByLocationIdAreas
+      x-operation-id-source: derived
   /v1/WMSLocations/{locationId}/areas/{areaId}:
     get:
       tags:
@@ -125,6 +129,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSLocationsByLocationIdAreasByAreaId
+      x-operation-id-source: derived
     put:
       tags:
       - WMSLocations
@@ -181,6 +187,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: putV1WMSLocationsByLocationIdAreasByAreaId
+      x-operation-id-source: derived
     delete:
       tags:
       - WMSLocations
@@ -222,6 +230,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: deleteV1WMSLocationsByLocationIdAreasByAreaId
+      x-operation-id-source: derived
   /v1/WMSLocations/areas/cabinet/attach:
     post:
       tags:
@@ -352,10 +362,12 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSLocationsByLocationIdAddresses
+      x-operation-id-source: derived
     post:
       tags:
       - WMSLocations
-      summary: Create new wh address for area.
+      summary: Create new wh address for area
       parameters:
       - name: locationId
         in: path
@@ -401,11 +413,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSLocationsByLocationIdAddresses
+      x-operation-id-source: derived
   /v1/WMSLocations/{locationId}/addresses/bulk:
     post:
       tags:
       - WMSLocations
-      summary: Bulk insert of wh address for area.
+      summary: Bulk insert of wh address for area
       parameters:
       - name: locationId
         in: path
@@ -459,11 +473,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSLocationsByLocationIdAddressesBulk
+      x-operation-id-source: derived
   /v1/WMSLocations/{locationId}/addresses/{wmsLocationId}:
     delete:
       tags:
       - WMSLocations
-      summary: Delete wh address in a location by address.
+      summary: Delete wh address in a location by address
       parameters:
       - name: locationId
         in: path
@@ -500,6 +516,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: deleteV1WMSLocationsByLocationIdAddressesByWmsLocationId
+      x-operation-id-source: derived
   /v1/WMSLocations/{locationId}/addresses/generate:
     post:
       tags:
@@ -550,6 +568,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSLocationsByLocationIdAddressesGenerate
+      x-operation-id-source: derived
   /v1/WMSLocations/{locationId}/addresses/delete:
     post:
       tags:
@@ -600,6 +620,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSLocationsByLocationIdAddressesDelete
+      x-operation-id-source: derived
   /v1/WMSLocations/validate:
     get:
       tags:
@@ -641,10 +663,12 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSLocationsValidate
+      x-operation-id-source: derived
     post:
       tags:
       - WMSLocations
-      summary: Validates multiple WMS location IDs for a given location. Returns only invalid IDs.
+      summary: Validates multiple WMS location IDs for a given location.
       parameters:
       - name: Account
         in: query
@@ -688,115 +712,39 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSLocationsValidate
+      x-operation-id-source: derived
 components:
   schemas:
-    GenerateWMSLocationsRequest:
+    BinItem:
       type: object
       properties:
-        areaId:
-          type: integer
-          format: int32
-          nullable: true
-        rackCount:
-          type: integer
-          format: int32
-          nullable: true
-        shelfCount:
-          type: integer
-          format: int32
-          nullable: true
-        binCount:
-          type: integer
-          format: int32
-          nullable: true
-        addressFormat:
-          type: string
-          nullable: true
-        includeAllAreas:
+        barcode:
+          type:
+          - string
+          - 'null'
+        weight:
+          type: number
+          format: double
+        unit:
+          type:
+          - string
+          - 'null'
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        quantity:
+          type: number
+          format: double
+        itemCode:
+          type:
+          - string
+          - 'null'
+        itemName:
+          type:
+          - string
+          - 'null'
+        isWeightAdjusted:
           type: boolean
-          nullable: true
-      additionalProperties: false
-    Shelf:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
-        bins:
-          type: array
-          items:
-            $ref: '#/components/schemas/Bin'
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        slot:
-          type: integer
-          format: int32
-      additionalProperties: false
-    CreateWMSAreaRequest:
-      type: object
-      properties:
-        wmsAreaId:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/WMSAreaType'
-        compartments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Compartment'
-          nullable: true
-      additionalProperties: false
-    CreateAreaWMSLocationRequest:
-      type: object
-      properties:
-        wmsLocationId:
-          type: string
-          nullable: true
-        areaId:
-          type: integer
-          format: int32
-          nullable: true
-        rack:
-          type: integer
-          format: int32
-          nullable: true
-        shelf:
-          type: integer
-          format: int32
-          nullable: true
-        bin:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UpdateWMSAreaRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/WMSAreaType'
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
       additionalProperties: false
     WMSAreaType:
       enum:
@@ -805,6 +753,134 @@ components:
       - 2
       type: integer
       format: int32
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    CreateAreaWMSLocationRequest:
+      type: object
+      properties:
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        areaId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        rack:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        shelf:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        bin:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    BulkDeleteWMSLocationsRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        areaId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        wmsLocationIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Shelf:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        bins:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Bin'
+        code:
+          type:
+          - string
+          - 'null'
+        slot:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UpdateWMSAreaRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/WMSAreaType'
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    GenerateWMSLocationsRequest:
+      type: object
+      properties:
+        areaId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        rackCount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        shelfCount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        binCount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        addressFormat:
+          type:
+          - string
+          - 'null'
+        includeAllAreas:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
     AttachWmsLocationToCabinetRequest:
       type: object
       properties:
@@ -815,112 +891,6 @@ components:
           type: string
           format: uuid
       additionalProperties: false
-    BinItem:
-      type: object
-      properties:
-        barcode:
-          type: string
-          nullable: true
-        weight:
-          type: number
-          format: double
-        unit:
-          type: string
-          nullable: true
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-        quantity:
-          type: number
-          format: double
-        itemCode:
-          type: string
-          nullable: true
-        itemName:
-          type: string
-          nullable: true
-        isWeightAdjusted:
-          type: boolean
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    WeightType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    ValidateWmsLocationIdsRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        wmsLocationIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    CabinetLocationItemsParam:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        barcode:
-          type: string
-          nullable: true
-        weight:
-          type: number
-          format: double
-          nullable: true
-        unit:
-          type: string
-          nullable: true
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-        quantity:
-          type: number
-          format: double
-        itemCode:
-          type: string
-          nullable: true
-        itemName:
-          type: string
-          nullable: true
-        isWeightAdjusted:
-          type: boolean
-        bufferLevel:
-          type: number
-          format: double
-          nullable: true
-        minOrderQty:
-          type: number
-          format: double
-          nullable: true
-      additionalProperties: false
-    Bin:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
-        code:
-          type: string
-          nullable: true
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/BinItem'
-          nullable: true
-        itemParam:
-          $ref: '#/components/schemas/CabinetLocationItemsParam'
-      additionalProperties: false
     Compartment:
       type: object
       properties:
@@ -928,16 +898,33 @@ components:
           type: integer
           format: int32
         shelves:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Shelf'
-          nullable: true
         bins:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ShelfBinValueTuple'
-          nullable: true
           readOnly: true
+      additionalProperties: false
+    ShelfBinValueTuple:
+      type: object
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     WMSLocationResponse:
       type: object
@@ -946,60 +933,145 @@ components:
           type: integer
           format: int32
         wmsLocationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         areaId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         wmsAreaId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         wmsAreaType:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         rack:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         shelf:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         bin:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
-      additionalProperties: false
-    BulkDeleteWMSLocationsRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        areaId:
-          type: integer
-          format: int32
-          nullable: true
-        wmsLocationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          nullable: true
       additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
       additionalProperties: false
-    ShelfBinValueTuple:
+    CabinetLocationItemsParam:
       type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        barcode:
+          type:
+          - string
+          - 'null'
+        weight:
+          type:
+          - number
+          - 'null'
+          format: double
+        unit:
+          type:
+          - string
+          - 'null'
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        quantity:
+          type: number
+          format: double
+        itemCode:
+          type:
+          - string
+          - 'null'
+        itemName:
+          type:
+          - string
+          - 'null'
+        isWeightAdjusted:
+          type: boolean
+        bufferLevel:
+          type:
+          - number
+          - 'null'
+          format: double
+        minOrderQty:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+    ValidateWmsLocationIdsRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    CreateWMSAreaRequest:
+      type: object
+      properties:
+        wmsAreaId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/WMSAreaType'
+        compartments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Compartment'
+      additionalProperties: false
+    Bin:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        code:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BinItem'
+        itemParam:
+          $ref: '#/components/schemas/CabinetLocationItemsParam'
       additionalProperties: false
   securitySchemes:
     OAuth2:

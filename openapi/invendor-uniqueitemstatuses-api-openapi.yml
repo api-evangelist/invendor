@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts UniqueItemStatuses API
+  title: IO.Common Unique Item Statuses API
   version: '1.0'
 security:
 - OAuth2: []
@@ -11,7 +11,7 @@ paths:
     get:
       tags:
       - UniqueItemStatuses
-      summary: "Get a paged list of unique item statuses visible to the current account:\r\nglobal rows plus the caller's own. Tenant-primary / admin callers\r\n(no account context) see all rows."
+      summary: 'Get a paged list of unique item statuses visible to the current account: global…'
       operationId: Get unique item statuses
       parameters:
       - name: Filter
@@ -76,7 +76,7 @@ paths:
     post:
       tags:
       - UniqueItemStatuses
-      summary: Create a new unique item status.
+      summary: Create a new unique item status
       operationId: Create unique item status
       parameters:
       - name: Account
@@ -130,7 +130,7 @@ paths:
     get:
       tags:
       - UniqueItemStatuses
-      summary: Get a single unique item status by id.
+      summary: Get a single unique item status by id
       operationId: Get unique item status
       parameters:
       - name: id
@@ -175,7 +175,7 @@ paths:
     put:
       tags:
       - UniqueItemStatuses
-      summary: Update an existing unique item status. `AccountId` is immutable.
+      summary: Update an existing unique item status. `AccountId` is immutable
       operationId: Update unique item status
       parameters:
       - name: id
@@ -237,7 +237,7 @@ paths:
     delete:
       tags:
       - UniqueItemStatuses
-      summary: "Soft-delete a unique item status. Blocked if any active `Operation`\r\nreferences the status via `IssueItemStatusId` or `ReceiveItemStatusId`."
+      summary: Soft-delete a unique item status.
       operationId: Delete unique item status
       parameters:
       - name: id
@@ -284,6 +284,56 @@ components:
       - 2
       type: integer
       format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UniqueItemStatusResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    CreateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
     UniqueItemStatusResponsePagedResult:
       type: object
       properties:
@@ -304,83 +354,44 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/UniqueItemStatusResponse'
-          nullable: true
           readOnly: true
-      additionalProperties: false
-    UniqueItemStatusResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        createdOn:
-          type: string
-          format: date-time
-          nullable: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-      additionalProperties: false
-    CreateUniqueItemStatusRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UpdateUniqueItemStatusRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
       additionalProperties: false
     Error:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
+      additionalProperties: false
+    UpdateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
       additionalProperties: false
   securitySchemes:
     OAuth2:

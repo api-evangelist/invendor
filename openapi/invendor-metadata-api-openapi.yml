@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Metadata API
+  title: IO.Reports Metadata API
   version: '1.0'
-security:
-- OAuth2: []
 tags:
 - name: Metadata
 paths:
@@ -40,8 +38,22 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1MetadataDimensions
+      x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     DimensionType:
       enum:
       - 0
@@ -59,16 +71,6 @@ components:
       - 200
       type: integer
       format: int32
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
     MetadataDimensionDTO:
       type: object
       properties:
@@ -76,11 +78,13 @@ components:
           type: integer
           format: int32
         shortName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dimensionType:
           $ref: '#/components/schemas/DimensionType'
       additionalProperties: false
@@ -92,4 +96,4 @@ components:
           authorizationUrl: https://identity.scanbro.com/connect/authorize
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
-            io.common: default scope
+            io.reporting: default scope

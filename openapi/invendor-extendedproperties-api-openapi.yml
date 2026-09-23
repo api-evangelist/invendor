@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts ExtendedProperties API
+  title: IO.Common Extended Properties API
   version: '1.0'
 security:
 - OAuth2: []
@@ -308,6 +308,18 @@ paths:
         - io.common
 components:
   schemas:
+    CreateExtendedPropertyRequest:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ExtendedProperty:
       type: object
       properties:
@@ -317,21 +329,48 @@ components:
           type: integer
           format: int32
         key:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    CreateExtendedPropertyRequest:
+    UpdateExtendedPropertyRequest:
       type: object
       properties:
-        key:
-          type: string
-          nullable: true
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ExtendedPropertyPagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtendedProperty'
+          readOnly: true
       additionalProperties: false
     ExtendedPropertyAffinity:
       enum:
@@ -381,67 +420,39 @@ components:
       - 401
       type: integer
       format: int32
-    Door:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
     Error:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Door:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    UpdateExtendedPropertyRequest:
-      type: object
-      properties:
-        value:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ExtendedPropertyPagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtendedProperty'
-          nullable: true
-          readOnly: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

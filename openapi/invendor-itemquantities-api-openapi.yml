@@ -1,9 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts ItemQuantities API
+  title: Invendor Item Quantities API
   version: '1.0'
-security:
-- OAuth2: []
+  description: 'Operations tagged ItemQuantities across 2 of this provider''s published API definitions: invendor-common-openapi-original.json, invendor-reporting-openapi-original.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: ItemQuantities
 paths:
@@ -95,6 +94,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1ItemQuantities
+      x-operation-id-source: derived
   /v1/ItemQuantities/stockValue:
     get:
       tags:
@@ -183,6 +184,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1ItemQuantitiesStockValue
+      x-operation-id-source: derived
   /api/v1/ItemQuantities/onhand:
     get:
       tags:
@@ -225,6 +228,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1ItemQuantitiesOnhand
+      x-operation-id-source: derived
 components:
   schemas:
     InventDimResponse:
@@ -234,58 +239,95 @@ components:
           type: integer
           format: int32
         locationId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         locationName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         wmsLocationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         batchId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ItemQuantitiesDTO:
+    ItemQuantityGroupedResponse:
       type: object
       properties:
-        locationId:
-          type: integer
-          format: int32
-        location:
-          type: string
-          nullable: true
-        locationCompany:
-          type: string
-          nullable: true
         itemId:
           type: integer
           format: int32
-        item:
-          type: string
-          nullable: true
-        itemCode:
-          type: string
-          nullable: true
-        altItem:
-          type: string
-          nullable: true
-        altItemCode:
-          type: string
-          nullable: true
+        name:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        displayCode:
+          type:
+          - string
+          - 'null'
+        onOrder:
+          type: number
+          format: double
+        ordered:
+          type: number
+          format: double
         qty:
           type: number
           format: double
-        vendor:
-          type: string
-          nullable: true
-        whAddress:
-          type: string
-          nullable: true
-        batchId:
-          type: string
-          nullable: true
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ItemQuantityGroupedResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ItemQuantityGroupedResponse'
+          readOnly: true
       additionalProperties: false
     ItemQuantityResponse:
       type: object
@@ -294,17 +336,21 @@ components:
           type: integer
           format: int32
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         displayName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         displayCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         onOrder:
           type: number
           format: double
@@ -318,8 +364,9 @@ components:
           type: number
           format: double
         salesUnitId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         inventDim:
           $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
@@ -343,77 +390,61 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ItemQuantityResponse'
-          nullable: true
           readOnly: true
       additionalProperties: false
-    Error:
+    ItemQuantitiesDTO:
       type: object
       properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ItemQuantityGroupedResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
+        locationId:
           type: integer
           format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemQuantityGroupedResponse'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    ItemQuantityGroupedResponse:
-      type: object
-      properties:
+        location:
+          type:
+          - string
+          - 'null'
+        locationCompany:
+          type:
+          - string
+          - 'null'
         itemId:
           type: integer
           format: int32
-        name:
-          type: string
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        displayName:
-          type: string
-          nullable: true
-        displayCode:
-          type: string
-          nullable: true
-        onOrder:
-          type: number
-          format: double
-        ordered:
-          type: number
-          format: double
+        item:
+          type:
+          - string
+          - 'null'
+        itemCode:
+          type:
+          - string
+          - 'null'
+        altItem:
+          type:
+          - string
+          - 'null'
+        altItemCode:
+          type:
+          - string
+          - 'null'
         qty:
           type: number
           format: double
-        inventDim:
-          $ref: '#/components/schemas/InventDimResponse'
+        vendor:
+          type:
+          - string
+          - 'null'
+        whAddress:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -424,3 +455,6 @@ components:
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
             io.common: default scope
+x-refined-from:
+- invendor-common-openapi-original.json
+- invendor-reporting-openapi-original.json

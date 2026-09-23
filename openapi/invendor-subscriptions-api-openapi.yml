@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Subscriptions API
+  title: IO.Common Subscriptions API
   version: '1.0'
 security:
 - OAuth2: []
@@ -41,6 +41,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      summary: Subscriptions list
+      x-summary-source: derived
   /v1/Subscriptions/start:
     post:
       tags:
@@ -89,6 +91,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      summary: Start subscription
+      x-summary-source: derived
   /v1/Subscriptions/finish:
     post:
       tags:
@@ -137,6 +141,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      summary: Finish subscription
+      x-summary-source: derived
   /v1/Subscriptions/{serviceCode}/start:
     post:
       tags:
@@ -176,6 +182,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      summary: Start subscription by code
+      x-summary-source: derived
   /v1/Subscriptions/{serviceCode}/end:
     post:
       tags:
@@ -215,14 +223,53 @@ paths:
       security:
       - OAuth2:
         - io.common
+      summary: End subscription by code
+      x-summary-source: derived
 components:
   schemas:
-    EndSubscriptionRequest:
+    StartSubscriptionRequest:
       type: object
       properties:
-        subscriptionId:
+        serviceId:
           type: string
           format: uuid
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ServiceSubscription:
       type: object
@@ -237,65 +284,40 @@ components:
           type: string
           format: uuid
         startDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         endDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         ended:
           type: boolean
         serviceCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         serviceName:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
       additionalProperties: false
-    ProblemDetails:
+    EndSubscriptionRequest:
       type: object
       properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-      additionalProperties: {}
-    StartSubscriptionRequest:
-      type: object
-      properties:
-        serviceId:
+        subscriptionId:
           type: string
           format: uuid
       additionalProperties: false

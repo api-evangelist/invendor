@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Consumption API
+  title: IO.Reports Consumption API
   version: '1.0'
-security:
-- OAuth2: []
 tags:
 - name: Consumption
 paths:
@@ -71,52 +69,64 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1Consumption
+      x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
     ItemConsumptionDTO:
       type: object
       properties:
         itemId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         itemCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         altCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         altName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         locationId:
           type: integer
           format: int32
         locationName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         quantity:
           type: number
           format: double
         itemUnit:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         vendor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -126,4 +136,4 @@ components:
           authorizationUrl: https://identity.scanbro.com/connect/authorize
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
-            io.common: default scope
+            io.reporting: default scope

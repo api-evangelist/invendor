@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Units API
+  title: IO.Common Units API
   version: '1.0'
 security:
 - OAuth2: []
@@ -302,10 +302,12 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1UnitsValidate
+      x-operation-id-source: derived
     post:
       tags:
       - Units
-      summary: Validates multiple unit IDs. Returns only invalid IDs.
+      summary: Validates multiple unit IDs. Returns only invalid IDs
       parameters:
       - name: Account
         in: query
@@ -349,42 +351,81 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1UnitsValidate
+      x-operation-id-source: derived
 components:
   schemas:
-    StringResourceCreatedResponse:
+    UnitResponse:
       type: object
       properties:
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ValidateUnitIdsRequest:
-      type: object
-      properties:
-        unitIds:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
+        unitId:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
+      additionalProperties: false
+    UpdateUnitRequest:
+      type: object
+      properties:
+        text:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateUnitRequest:
+      type: object
+      properties:
+        unitId:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ValidateUnitIdsRequest:
+      type: object
+      properties:
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
       additionalProperties: false
     UnitResponsePagedResult:
       type: object
@@ -406,38 +447,12 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/UnitResponse'
-          nullable: true
           readOnly: true
-      additionalProperties: false
-    CreateUnitRequest:
-      type: object
-      properties:
-        unitId:
-          type: string
-          nullable: true
-        text:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UpdateUnitRequest:
-      type: object
-      properties:
-        text:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UnitResponse:
-      type: object
-      properties:
-        unitId:
-          type: string
-          nullable: true
-        text:
-          type: string
-          nullable: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

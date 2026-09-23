@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Devices API
+  title: IO.Common Devices API
   version: '1.0'
 security:
 - OAuth2: []
@@ -503,6 +503,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1DevicesDedicatedRegisterPre
+      x-operation-id-source: derived
   /v1/Devices/{deviceId}/regen:
     post:
       tags:
@@ -538,11 +540,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1DevicesByDeviceIdRegen
+      x-operation-id-source: derived
   /v1/Devices/free-cabinets:
     get:
       tags:
       - Devices
-      summary: Returns list of free cabinets for the tenant, optionally filtered by cabinet type
+      summary: Returns list of free cabinets for the tenant, optionally filtered by cabinet…
       operationId: Free cabinets list
       parameters:
       - name: tenantId
@@ -586,17 +590,80 @@ paths:
         - io.common
 components:
   schemas:
-    IDomainEvent:
+    DeviceHeartbeatUserInfo:
       type: object
       properties:
         id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        heartbeatId:
+          type: integer
+          format: int32
+        unfinishedScans:
+          type: integer
+          format: int32
+        unfinishedSessions:
+          type: integer
+          format: int32
+        unsentSessions:
+          type: integer
+          format: int32
+        unsentScans:
+          type: integer
+          format: int32
+        username:
+          type:
+          - string
+          - 'null'
+        deviceHeartbeat:
+          $ref: '#/components/schemas/DeviceHeartbeat'
+      additionalProperties: false
+    DevicePreRegistrationStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    TenantDevice:
+      type: object
+      properties:
+        tenantId:
           type: string
           format: uuid
-          readOnly: true
-        occurredOn:
+        deviceId:
+          type: string
+          format: uuid
+        device:
+          $ref: '#/components/schemas/Device'
+      additionalProperties: false
+    DeviceEventsResponse:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+        content:
+          type:
+          - string
+          - 'null'
+        received:
           type: string
           format: date-time
-          readOnly: true
       additionalProperties: false
     DeviceEvent:
       type: object
@@ -606,23 +673,68 @@ components:
           format: uuid
           readOnly: true
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
         content:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
         received:
           type: string
           format: date-time
           readOnly: true
         domainEvents:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
           readOnly: true
+      additionalProperties: false
+    DeviceUpdateRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        token:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DedicatedDevicePreRegistrationResponse:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          format: uuid
+        deviceName:
+          type:
+          - string
+          - 'null'
+        pairingCode:
+          type:
+          - string
+          - 'null'
+        serialNumber:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          deprecated: true
+      additionalProperties: false
+    DedicatedDevicePreRegistrationRequest:
+      required:
+      - deviceName
+      type: object
+      properties:
+        deviceName:
+          minLength: 1
+          type: string
       additionalProperties: false
     DeviceHeartbeatUserinfoResponse:
       type: object
@@ -643,323 +755,21 @@ components:
           type: integer
           format: int32
         username:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    DeviceEventNotification:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        deviceId:
-          type: string
-          format: uuid
-        eventName:
-          type: string
-          nullable: true
-        eventContent:
-          type: string
-          nullable: true
-        receivers:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationsReceiver'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    TenantDevice:
-      type: object
-      properties:
-        tenantId:
-          type: string
-          format: uuid
-        deviceId:
-          type: string
-          format: uuid
-        device:
-          $ref: '#/components/schemas/Device'
-      additionalProperties: false
-    DeviceSIMStatus:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        iccid:
-          maxLength: 21
-          minLength: 0
-          type: string
-          nullable: true
-        dataLimit:
-          type: number
-          format: double
-        dataUsage:
-          type: number
-          format: double
-        statusDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    Device:
+    IDomainEvent:
       type: object
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        createdOn:
+        occurredOn:
           type: string
           format: date-time
-          nullable: true
           readOnly: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        name:
-          type: string
-          nullable: true
-          readOnly: true
-        token:
-          type: string
-          nullable: true
-          readOnly: true
-        iccid:
-          type: string
-          nullable: true
-          readOnly: true
-        dedicatedDeviceId:
-          type: string
-          format: uuid
-          nullable: true
-          readOnly: true
-        sbNumber:
-          type: string
-          nullable: true
-          readOnly: true
-        ioid:
-          type: string
-          nullable: true
-          readOnly: true
-        externalId:
-          type: string
-          nullable: true
-          readOnly: true
-        isDeleted:
-          type: boolean
-          readOnly: true
-        type:
-          $ref: '#/components/schemas/DeviceType'
-        deletedOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        deviceTenants:
-          type: array
-          items:
-            $ref: '#/components/schemas/TenantDevice'
-          nullable: true
-          readOnly: true
-        deviceEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceEvent'
-          nullable: true
-          readOnly: true
-        deviceHeartbeats:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceHeartbeat'
-          nullable: true
-          readOnly: true
-        deviceEventNotifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceEventNotification'
-          nullable: true
-          readOnly: true
-        deviceRegistrationStates:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceRegistrationState'
-          nullable: true
-          readOnly: true
-        deviceSIMStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceSIMStatus'
-          nullable: true
-          readOnly: true
-        deviceShelfStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceShelfStatus'
-          nullable: true
-          readOnly: true
-        cabinetProdData:
-          $ref: '#/components/schemas/CabinetProdData'
-        currentRegistrationState:
-          $ref: '#/components/schemas/DeviceRegistrationState'
-      additionalProperties: false
-    DeviceRegistrationState:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        createdOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        pairingCode:
-          type: string
-          nullable: true
-        state:
-          $ref: '#/components/schemas/DevicePreRegistrationStatus'
-        tenantId:
-          type: string
-          format: uuid
-          nullable: true
-        deviceName:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CabinetProdData:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        batchNumber:
-          type: string
-          nullable: true
-          readOnly: true
-        verdinSN:
-          type: string
-          nullable: true
-          readOnly: true
-        cabinetType:
-          $ref: '#/components/schemas/CabinetType'
-        comment:
-          type: string
-          nullable: true
-          readOnly: true
-        region:
-          type: string
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    DeviceShelfStatus:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          readOnly: true
-        domainEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
-          readOnly: true
-        deviceId:
-          type: string
-          format: uuid
-        spineHWVer:
-          type: string
-          nullable: true
-        shelfHWVer:
-          type: string
-          nullable: true
-        pcbhwVer:
-          type: string
-          nullable: true
-        compartment:
-          type: integer
-          format: int32
-        slot:
-          type: integer
-          format: int32
-        binCount:
-          type: integer
-          format: int32
-        statusDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    SendDeviceCommandRequest:
-      type: object
-      properties:
-        command:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CabinetType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    DedicatedDevicePreRegistrationRequest:
-      required:
-      - deviceName
-      type: object
-      properties:
-        deviceName:
-          minLength: 1
-          type: string
       additionalProperties: false
     DeviceHeartbeat:
       type: object
@@ -969,20 +779,23 @@ components:
           format: int32
           readOnly: true
         domainEvents:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
           readOnly: true
         deviceId:
           type: string
           format: uuid
         osVersion:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         appVersion:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         batteryPercentage:
           type: integer
           format: int32
@@ -996,8 +809,9 @@ components:
           type: integer
           format: int32
         batteryStatus:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         unsentSessions:
           type: integer
           format: int32
@@ -1010,30 +824,30 @@ components:
         device:
           $ref: '#/components/schemas/Device'
         ioid:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userInfo:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
-          nullable: true
           readOnly: true
         linkedDevices:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
       additionalProperties: false
-    DeviceType:
+    CabinetType:
       enum:
       - 0
       - 1
-      - 2
-      - 3
-      - 4
       type: integer
       format: int32
-    DeviceHeartbeatUserInfo:
+    DeviceSIMStatus:
       type: object
       properties:
         id:
@@ -1041,49 +855,27 @@ components:
           format: int32
           readOnly: true
         domainEvents:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/IDomainEvent'
-          nullable: true
           readOnly: true
-        heartbeatId:
-          type: integer
-          format: int32
-        unfinishedScans:
-          type: integer
-          format: int32
-        unfinishedSessions:
-          type: integer
-          format: int32
-        unsentSessions:
-          type: integer
-          format: int32
-        unsentScans:
-          type: integer
-          format: int32
-        username:
+        iccid:
+          maxLength: 21
+          minLength: 0
+          type:
+          - string
+          - 'null'
+        dataLimit:
+          type: number
+          format: double
+        dataUsage:
+          type: number
+          format: double
+        statusDate:
           type: string
-          nullable: true
-        deviceHeartbeat:
-          $ref: '#/components/schemas/DeviceHeartbeat'
-      additionalProperties: false
-    DedicatedDevicePreRegistrationResponse:
-      type: object
-      properties:
-        deviceId:
-          type: string
-          format: uuid
-        deviceName:
-          type: string
-          nullable: true
-        pairingCode:
-          type: string
-          nullable: true
-        serialNumber:
-          type: string
-          nullable: true
-          readOnly: true
-          deprecated: true
+          format: date-time
       additionalProperties: false
     DeviceResponseIPagedResult:
       type: object
@@ -1105,27 +897,12 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DeviceResponse'
-          nullable: true
           readOnly: true
-      additionalProperties: false
-    DeviceEventsResponse:
-      type: object
-      properties:
-        deviceId:
-          type: string
-          format: uuid
-        name:
-          type: string
-          nullable: true
-        content:
-          type: string
-          nullable: true
-        received:
-          type: string
-          format: date-time
       additionalProperties: false
     ProvisioningCabinetResponse:
       type: object
@@ -1134,45 +911,379 @@ components:
           type: string
           format: uuid
         customerTenantId:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
         customerTenantName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         sbNumber:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         deviceName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         state:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         verdinSN:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         cabinetType:
           $ref: '#/components/schemas/CabinetType'
         comment:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         region:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    DeviceUpdateRequest:
+    DeviceResponse:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DeviceType'
         token:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        osVersion:
+          type:
+          - string
+          - 'null'
+        appVersion:
+          type:
+          - string
+          - 'null'
+        received:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        batteryPercentage:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        batteryStatus:
+          type:
+          - string
+          - 'null'
+        unsentSessions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        unfinishedSessions:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        status:
+          type:
+          - string
+          - 'null'
+        lastSeenSecAgo:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        userInfo:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
+        serialNumber:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    DevicePreRegistrationStatus:
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        token:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        iccid:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        dedicatedDeviceId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          readOnly: true
+        sbNumber:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        ioid:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        externalId:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        isDeleted:
+          type: boolean
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/DeviceType'
+        deletedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        deviceTenants:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TenantDevice'
+          readOnly: true
+        deviceEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceEvent'
+          readOnly: true
+        deviceHeartbeats:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceHeartbeat'
+          readOnly: true
+        deviceEventNotifications:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceEventNotification'
+          readOnly: true
+        deviceRegistrationStates:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceRegistrationState'
+          readOnly: true
+        deviceSIMStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceSIMStatus'
+          readOnly: true
+        deviceShelfStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceShelfStatus'
+          readOnly: true
+        cabinetProdData:
+          $ref: '#/components/schemas/CabinetProdData'
+        currentRegistrationState:
+          $ref: '#/components/schemas/DeviceRegistrationState'
+      additionalProperties: false
+    CabinetProdData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        batchNumber:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        verdinSN:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        cabinetType:
+          $ref: '#/components/schemas/CabinetType'
+        comment:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        region:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DeviceEventNotification:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        deviceId:
+          type: string
+          format: uuid
+        eventName:
+          type:
+          - string
+          - 'null'
+        eventContent:
+          type:
+          - string
+          - 'null'
+        receivers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NotificationsReceiver'
+          readOnly: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    SendDeviceCommandRequest:
+      type: object
+      properties:
+        command:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    DeviceShelfStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        spineHWVer:
+          type:
+          - string
+          - 'null'
+        shelfHWVer:
+          type:
+          - string
+          - 'null'
+        pcbhwVer:
+          type:
+          - string
+          - 'null'
+        compartment:
+          type: integer
+          format: int32
+        slot:
+          type: integer
+          format: int32
+        binCount:
+          type: integer
+          format: int32
+        statusDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    DeviceType:
       enum:
       - 0
       - 1
@@ -1181,73 +1292,6 @@ components:
       - 4
       type: integer
       format: int32
-    DeviceResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          nullable: true
-        ioid:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/DeviceType'
-        token:
-          type: string
-          nullable: true
-        osVersion:
-          type: string
-          nullable: true
-        appVersion:
-          type: string
-          nullable: true
-        received:
-          type: string
-          format: date-time
-          nullable: true
-        batteryPercentage:
-          type: integer
-          format: int32
-          nullable: true
-        batteryStatus:
-          type: string
-          nullable: true
-        unsentSessions:
-          type: integer
-          format: int32
-          nullable: true
-        unfinishedSessions:
-          type: integer
-          format: int32
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        lastSeenSecAgo:
-          type: integer
-          format: int32
-          nullable: true
-        userInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceHeartbeatUserInfo'
-          nullable: true
-        serialNumber:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
     DeviceHeartbeatResponse:
       type: object
       properties:
@@ -1258,11 +1302,13 @@ components:
           type: string
           format: uuid
         osVersion:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         appVersion:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         batteryPercentage:
           type: integer
           format: int32
@@ -1276,8 +1322,9 @@ components:
           type: integer
           format: int32
         batteryStatus:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         unsentSessions:
           type: integer
           format: int32
@@ -1285,16 +1332,18 @@ components:
           type: integer
           format: int32
         ioid:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         received:
           type: string
           format: date-time
         heartbeatUserInfo:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DeviceHeartbeatUserinfoResponse'
-          nullable: true
       additionalProperties: false
     NotificationsReceiver:
       type: object
@@ -1306,13 +1355,59 @@ components:
           type: integer
           format: int32
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         type:
           type: integer
           format: int32
         deviceEventNotification:
           $ref: '#/components/schemas/DeviceEventNotification'
+      additionalProperties: false
+    DeviceRegistrationState:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        domainEvents:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/IDomainEvent'
+          readOnly: true
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        deviceId:
+          type: string
+          format: uuid
+        pairingCode:
+          type:
+          - string
+          - 'null'
+        state:
+          $ref: '#/components/schemas/DevicePreRegistrationStatus'
+        tenantId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        deviceName:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

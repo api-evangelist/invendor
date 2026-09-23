@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts WMSItemLocationParams API
+  title: IO.Common WMS Item Location Params API
   version: '1.0'
 security:
 - OAuth2: []
@@ -78,6 +78,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSItemLocationParams
+      x-operation-id-source: derived
     post:
       tags:
       - WMSItemLocationParams
@@ -119,6 +121,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSItemLocationParams
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/{paramId}:
     get:
       tags:
@@ -157,6 +161,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSItemLocationParamsByParamId
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/bulk:
     post:
       tags:
@@ -207,6 +213,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSItemLocationParamsBulk
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/{itemParamsId}:
     put:
       tags:
@@ -255,6 +263,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: putV1WMSItemLocationParamsByItemParamsId
+      x-operation-id-source: derived
     delete:
       tags:
       - WMSItemLocationParams
@@ -288,11 +298,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: deleteV1WMSItemLocationParamsByItemParamsId
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/bulk/delete:
     post:
       tags:
       - WMSItemLocationParams
-      summary: "Bulk delete item location parameters. Deletes records that can be deleted\r\nand returns a list of items that could not be deleted."
+      summary: Bulk delete item location parameters.
       parameters:
       - name: Account
         in: query
@@ -337,11 +349,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSItemLocationParamsBulkDelete
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/{locationId}/{wmsLocationId}/barcodes:
     post:
       tags:
       - WMSItemLocationParams
-      summary: Add barcode to item location parameters.
+      summary: Add barcode to item location parameters
       parameters:
       - name: locationId
         in: path
@@ -396,10 +410,12 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1WMSItemLocationParamsByLocationIdByWmsLocationIdBarcodes
+      x-operation-id-source: derived
     delete:
       tags:
       - WMSItemLocationParams
-      summary: Remove item barcode from item location parameters.
+      summary: Remove item barcode from item location parameters
       parameters:
       - name: locationId
         in: path
@@ -444,6 +460,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: deleteV1WMSItemLocationParamsByLocationIdByWmsLocationIdBarcodes
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/{locationId}/download/xlsx/label:
     get:
       tags:
@@ -495,6 +513,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: getV1WMSItemLocationParamsByLocationIdDownloadXlsxLabel
+      x-operation-id-source: derived
   /v1/WMSItemLocationParams/download/xlsx:
     get:
       tags:
@@ -570,108 +590,6 @@ paths:
         - io.common
 components:
   schemas:
-    ItemLocationBarcodeResponse:
-      type: object
-      properties:
-        barcode:
-          type: string
-          nullable: true
-        unitId:
-          type: string
-          nullable: true
-        weight:
-          type: number
-          format: double
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-        isWeightAdjusted:
-          type: boolean
-      additionalProperties: false
-    BulkDeleteItemLocationParamsRequest:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: integer
-            format: int32
-          nullable: true
-      additionalProperties: false
-    ItemLocationParamsResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        itemId:
-          type: integer
-          format: int32
-        itemCode:
-          type: string
-          nullable: true
-        itemName:
-          type: string
-          nullable: true
-        inventDimId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        locationName:
-          type: string
-          nullable: true
-        wmsLocationId:
-          type: string
-          nullable: true
-        wmsAreaType:
-          type: integer
-          format: int32
-          nullable: true
-        bufferLevel:
-          type: number
-          format: double
-        minOrderQty:
-          type: number
-          format: double
-        orderUnitId:
-          type: string
-          nullable: true
-        minSalesQty:
-          type: number
-          format: double
-        salesUnitId:
-          type: string
-          nullable: true
-        dlvIntervalDays:
-          type: integer
-          format: int32
-        dlvDurationDays:
-          type: integer
-          format: int32
-        vendorAccountId:
-          type: integer
-          format: int32
-          nullable: true
-        vendorAccountName:
-          type: string
-          nullable: true
-        vendorAccountCode:
-          type: string
-          nullable: true
-        serviceLevel:
-          $ref: '#/components/schemas/IlpServiceLevel'
-        barcodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemLocationBarcodeResponse'
-          nullable: true
-        deL_Alternatives:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
     UpdateLocationsItemsParamsRequest:
       type: object
       properties:
@@ -679,8 +597,9 @@ components:
           type: integer
           format: int32
         wmsLocationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         bufferLevel:
           type: number
           format: double
@@ -688,14 +607,16 @@ components:
           type: number
           format: double
         orderUnitId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         minSalesQty:
           type: number
           format: double
         salesUnitId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dlvIntervalDays:
           type: integer
           format: int32
@@ -703,62 +624,76 @@ components:
           type: integer
           format: int32
         vendorAccountId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         serviceLevel:
           $ref: '#/components/schemas/IlpServiceLevel'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
       additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
         errors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Error'
-          nullable: true
       additionalProperties: false
-    BulkUpsertItemLocationItemsParamsRequest:
+    CreateLocationsItemsParamsRequest:
       type: object
       properties:
-        itemCode:
-          type: string
-          nullable: true
-        minOrderQty:
-          type: number
-          format: double
-        orderUnitId:
-          type: string
-          nullable: true
-        bufferLevel:
-          type: number
-          format: double
-        wmsLocationId:
-          type: string
-          nullable: true
-        vendorAccountId:
-          type: integer
-          format: int32
-          nullable: true
-        vendorAccountCode:
-          type: string
-          nullable: true
-        serviceLevel:
+        itemId:
           type: integer
           format: int32
         locationId:
           type: integer
           format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        bufferLevel:
+          type: number
+          format: double
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type:
+          - string
+          - 'null'
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type:
+          - string
+          - 'null'
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
+        vendorAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+      additionalProperties: false
+    AddBarcodeToItemLocationRequest:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+        weightType:
+          $ref: '#/components/schemas/WeightType'
       additionalProperties: false
     WeightType:
       enum:
@@ -774,27 +709,84 @@ components:
       - 100
       type: integer
       format: int32
-    AddBarcodeToItemLocationRequest:
+    BulkDeleteItemLocationParamsRequest:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ItemLocationBarcodeResponse:
       type: object
       properties:
         barcode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        unitId:
+          type:
+          - string
+          - 'null'
+        weight:
+          type: number
+          format: double
         weightType:
           $ref: '#/components/schemas/WeightType'
+        isWeightAdjusted:
+          type: boolean
       additionalProperties: false
-    CreateLocationsItemsParamsRequest:
+    ItemLocationParamsResponse:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type:
+          - string
+          - 'null'
+        itemName:
+          type:
+          - string
+          - 'null'
+        inventDimId:
           type: integer
           format: int32
         locationId:
           type: integer
           format: int32
+        locationName:
+          type:
+          - string
+          - 'null'
         wmsLocationId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+        wmsAreaType:
+          type:
+          - integer
+          - 'null'
+          format: int32
         bufferLevel:
           type: number
           format: double
@@ -802,14 +794,16 @@ components:
           type: number
           format: double
         orderUnitId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         minSalesQty:
           type: number
           format: double
         salesUnitId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dlvIntervalDays:
           type: integer
           format: int32
@@ -817,11 +811,69 @@ components:
           type: integer
           format: int32
         vendorAccountId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
+        vendorAccountName:
+          type:
+          - string
+          - 'null'
+        vendorAccountCode:
+          type:
+          - string
+          - 'null'
         serviceLevel:
           $ref: '#/components/schemas/IlpServiceLevel'
+        barcodes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ItemLocationBarcodeResponse'
+        deL_Alternatives:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    BulkUpsertItemLocationItemsParamsRequest:
+      type: object
+      properties:
+        itemCode:
+          type:
+          - string
+          - 'null'
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type:
+          - string
+          - 'null'
+        bufferLevel:
+          type: number
+          format: double
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        vendorAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        vendorAccountCode:
+          type:
+          - string
+          - 'null'
+        serviceLevel:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
       additionalProperties: false
   securitySchemes:
     OAuth2:

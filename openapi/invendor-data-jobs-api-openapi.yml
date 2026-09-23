@@ -1,17 +1,17 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts DataJobs API
+  title: IO.Common Data Jobs API
   version: '1.0'
 security:
 - OAuth2: []
 tags:
-- name: DataJobs
+- name: Data jobs
 paths:
   /v1/DataJobs:
     get:
       tags:
-      - DataJobs
-      summary: "Get all data-transfer jobs (import and export) created by the logged-in user.\r\nPass direction to filter to one direction; omit it to return both."
+      - Data jobs
+      summary: Get all data-transfer jobs (import and export) created by the logged-in user.
       operationId: GetDataJobs
       parameters:
       - name: Filter
@@ -63,8 +63,8 @@ paths:
   /v1/DataJobs/{jobId}/download:
     get:
       tags:
-      - DataJobs
-      summary: "Download the result xlsx of a completed export job owned by the logged-in user. Returns 404 if the\r\njob is not the caller's, 409 if it has not finished, and 410 if its result has expired / been reaped."
+      - Data jobs
+      summary: Download the result xlsx of a completed export job owned by the logged-in user.
       operationId: DownloadDataJobResult
       parameters:
       - name: jobId
@@ -114,76 +114,12 @@ paths:
         - io.common
 components:
   schemas:
-    BulkJobStatusResponse:
-      type: object
-      properties:
-        jobId:
-          type: string
-          format: uuid
-        jobType:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        fileName:
-          type: string
-          nullable: true
-        totalItems:
-          type: integer
-          format: int32
-        totalBatches:
-          type: integer
-          format: int32
-        processedBatches:
-          type: integer
-          format: int32
-        failedBatches:
-          type: integer
-          format: int32
-        errors:
-          type: array
-          items:
-            type: string
-          nullable: true
-        createdAt:
-          type: string
-          format: date-time
-        completedAt:
-          type: string
-          format: date-time
-          nullable: true
-        resultAvailable:
-          type: boolean
-        resultFileName:
-          type: string
-          nullable: true
-      additionalProperties: false
     BulkJobDirection:
       enum:
       - 0
       - 1
       type: integer
       format: int32
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
     BulkJobStatusResponsePagedResult:
       type: object
       properties:
@@ -204,11 +140,85 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/BulkJobStatusResponse'
-          nullable: true
           readOnly: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    BulkJobStatusResponse:
+      type: object
+      properties:
+        jobId:
+          type: string
+          format: uuid
+        jobType:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        fileName:
+          type:
+          - string
+          - 'null'
+        totalItems:
+          type: integer
+          format: int32
+        totalBatches:
+          type: integer
+          format: int32
+        processedBatches:
+          type: integer
+          format: int32
+        failedBatches:
+          type: integer
+          format: int32
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        resultAvailable:
+          type: boolean
+        resultFileName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
   securitySchemes:
     OAuth2:

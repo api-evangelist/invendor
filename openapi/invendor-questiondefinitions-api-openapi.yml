@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts QuestionDefinitions API
+  title: IO.Common Question Definitions API
   version: '1.0'
 security:
 - OAuth2: []
@@ -211,23 +211,6 @@ paths:
         - io.common
 components:
   schemas:
-    StringResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CreateQuestionDefinitionRequest:
-      type: object
-      properties:
-        questionId:
-          type: string
-          nullable: true
-        query:
-          type: string
-          nullable: true
-      additionalProperties: false
     QuestionDefResponsePagedResult:
       type: object
       properties:
@@ -248,50 +231,78 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/QuestionDefResponse'
-          nullable: true
           readOnly: true
+      additionalProperties: false
+    CreateQuestionDefinitionRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     QuestionDefResponse:
       type: object
       properties:
         questionId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         query:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     Error:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     UpdateQuestionDefRequest:
       type: object
       properties:
         questionId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         query:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
   securitySchemes:
     OAuth2:

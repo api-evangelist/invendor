@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts UnitConversions API
+  title: IO.Common Unit Conversions API
   version: '1.0'
 security:
 - OAuth2: []
@@ -306,6 +306,98 @@ paths:
         - io.common
 components:
   schemas:
+    UnitConversionResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnitConversionResponse'
+          readOnly: true
+      additionalProperties: false
+    ItemMissingUnitConversionResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        fromUnitId:
+          type:
+          - string
+          - 'null'
+        toUnitId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateUnitConversionRequest:
+      type: object
+      properties:
+        itemId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        fromUnitId:
+          type:
+          - string
+          - 'null'
+        toUnitId:
+          type:
+          - string
+          - 'null'
+        factor:
+          type: number
+          format: double
+        decimals:
+          type: integer
+          format: int32
+        roundOffType:
+          $ref: '#/components/schemas/RoundOffType'
+      additionalProperties: false
+    UnitConversionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        fromUnitId:
+          type:
+          - string
+          - 'null'
+        toUnitId:
+          type:
+          - string
+          - 'null'
+        factor:
+          type: number
+          format: double
+        decimals:
+          type: integer
+          format: int32
+        roundOffType:
+          $ref: '#/components/schemas/RoundOffType'
+        item:
+          $ref: '#/components/schemas/ItemResponseBase'
+      additionalProperties: false
     UpdateUnitConversionRequest:
       type: object
       properties:
@@ -317,6 +409,50 @@ components:
           format: int32
         roundOffType:
           $ref: '#/components/schemas/RoundOffType'
+      additionalProperties: false
+    RoundOffType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    ItemResponseBase:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     ItemMissingUnitConversionResponsePagedResult:
       type: object
@@ -338,134 +474,12 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ItemMissingUnitConversionResponse'
-          nullable: true
           readOnly: true
-      additionalProperties: false
-    UnitConversionResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnitConversionResponse'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
-    UnitConversionResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        fromUnitId:
-          type: string
-          nullable: true
-        toUnitId:
-          type: string
-          nullable: true
-        factor:
-          type: number
-          format: double
-        decimals:
-          type: integer
-          format: int32
-        roundOffType:
-          $ref: '#/components/schemas/RoundOffType'
-        item:
-          $ref: '#/components/schemas/ItemResponseBase'
-      additionalProperties: false
-    RoundOffType:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    CreateUnitConversionRequest:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-          nullable: true
-        fromUnitId:
-          type: string
-          nullable: true
-        toUnitId:
-          type: string
-          nullable: true
-        factor:
-          type: number
-          format: double
-        decimals:
-          type: integer
-          format: int32
-        roundOffType:
-          $ref: '#/components/schemas/RoundOffType'
-      additionalProperties: false
-    ItemResponseBase:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        code:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ItemMissingUnitConversionResponse:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        fromUnitId:
-          type: string
-          nullable: true
-        toUnitId:
-          type: string
-          nullable: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

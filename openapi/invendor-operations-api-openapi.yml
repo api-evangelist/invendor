@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Operations API
+  title: IO.Common Operations API
   version: '1.0'
 security:
 - OAuth2: []
@@ -530,7 +530,7 @@ paths:
     post:
       tags:
       - Operations
-      summary: Create account specific extended operation from base operation.
+      summary: Create account specific extended operation from base operation
       operationId: Create extended operation
       parameters:
       - name: Account
@@ -578,7 +578,7 @@ paths:
     put:
       tags:
       - Operations
-      summary: Update the Issue / Receive unique-item status assignments for an operation.
+      summary: Update the Issue / Receive unique-item status assignments for an operation
       operationId: Update operation unique-item statuses
       parameters:
       - name: operationId
@@ -635,7 +635,7 @@ paths:
     put:
       tags:
       - Operations
-      summary: "Bulk-replace the per-operation flag configuration. PUT semantics: the body\r\nlists every desired `(FlagTypeId, FlagActionType)` tuple; missing rows\r\nare deleted, new rows are added, intersections are kept untouched. Rejects\r\nany payload that declares both `Raise` and `Clear` for the same\r\n`FlagTypeId`. Feature-gated on `\"UNIQUE_ITEMS\"`."
+      summary: Bulk-replace the per-operation flag configuration.
       operationId: Update operation flags (bulk replace)
       parameters:
       - name: operationId
@@ -1511,233 +1511,29 @@ paths:
         - io.common
 components:
   schemas:
-    DynamicField:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        key:
-          type: string
-          nullable: true
-        valueSource:
-          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicFieldSegment'
-          nullable: true
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
-      additionalProperties: false
-    OperationDynamicContentResponse:
-      type: object
-      properties:
-        operationId:
-          type: integer
-          format: int32
-        slots:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicField'
-          nullable: true
-      additionalProperties: false
-    BulkUpdateOperationDimensionRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        operationId:
-          type: integer
-          format: int32
-        sortOrder:
-          type: integer
-          format: int32
-        dimensionGroupId:
-          type: integer
-          format: int32
-          nullable: true
-        isUniquenessIdentifier:
-          type: boolean
-        displayType:
-          type: string
-          nullable: true
-        itemType:
-          $ref: '#/components/schemas/ItemType'
-      additionalProperties: false
-    UniqueItemStatusResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        createdOn:
-          type: string
-          format: date-time
-          nullable: true
-        modifiedOn:
-          type: string
-          format: date-time
-          nullable: true
-      additionalProperties: false
-    CreateDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    DynamicFieldValueSourceEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
-    CreateOperationDimensionRequest:
-      type: object
-      properties:
-        dimensionId:
-          type: integer
-          format: int32
-        sortOrder:
-          type: integer
-          format: int32
-        dimensionGroupId:
-          type: integer
-          format: int32
-          nullable: true
-        affinity:
-          $ref: '#/components/schemas/SessionScanEventEnum'
-        isUniquenessIdentifier:
-          type: boolean
-        displayType:
-          type: string
-          nullable: true
-        dimAccountId:
-          type: integer
-          format: int32
-          nullable: true
-        itemType:
-          $ref: '#/components/schemas/ItemType'
-      additionalProperties: false
-    OrderType:
-      enum:
-      - 10
-      - 20
-      - 40
-      - 90
-      type: integer
-      format: int32
-    ItemCondition:
-      type: object
-      properties:
-        propertyKey:
-          type: string
-          nullable: true
-        propertyValue:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UpdateOperationQuestionRequest:
-      type: object
-      properties:
-        questionId:
-          type: string
-          nullable: true
-        questionText:
-          type: string
-          nullable: true
-        scope:
-          $ref: '#/components/schemas/SessionScanEventEnum'
-        entityType:
-          $ref: '#/components/schemas/IOEntity'
-      additionalProperties: false
-    SessionScanEventEnum:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
     CreateExtendedOperationRequest:
       type: object
       properties:
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
           maxLength: 512
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         properties:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: string
-          nullable: true
         parentId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
-      additionalProperties: false
-    OperationDimGroupResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        validationRule:
-          $ref: '#/components/schemas/ValidationRulesEnum'
-      additionalProperties: false
-    GetDefinedPropertyParametersResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        affinity:
-          $ref: '#/components/schemas/ExtendedPropertyAffinity'
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
       additionalProperties: false
     OperationUserGroupLocationsResponse:
       type: object
@@ -1746,270 +1542,23 @@ components:
           type: integer
           format: int32
         account:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userGroupId:
           type: integer
           format: int32
         userGroup:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         locationId:
           type: integer
           format: int32
         location:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    AddOperationQuestionRequest:
-      type: object
-      properties:
-        questionId:
-          type: string
-          nullable: true
-        questionText:
-          type: string
-          nullable: true
-        scope:
-          $ref: '#/components/schemas/SessionScanEventEnum'
-        entityType:
-          $ref: '#/components/schemas/IOEntity'
-      additionalProperties: false
-    ValidationRulesEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    OperationResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        parentId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/OperationType'
-        genericType:
-          type: string
-          nullable: true
-      additionalProperties: false
-    IOEntity:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      format: int32
-    UpdateOperationDetailsRequest:
-      type: object
-      properties:
-        parentId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          maxLength: 512
-          type: string
-          nullable: true
-        genericType:
-          type: string
-          nullable: true
-        allowedItemsScope:
-          type: string
-          nullable: true
-        weightsAdjustmentEnabled:
-          type: boolean
-        defaultWmsLocationsEnabled:
-          type: boolean
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        doors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Door'
-          nullable: true
-        autoPostJournal:
-          type: boolean
-      additionalProperties: false
-    DimensionType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 100
-      - 198
-      - 199
-      - 200
-      type: integer
-      format: int32
-    ItemType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    UpdateOperationUniqueItemStatusesRequest:
-      type: object
-      properties:
-        issueItemStatusId:
-          type: integer
-          format: int32
-          nullable: true
-        receiveItemStatusId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UpdateOperationDimensionRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        operationId:
-          type: integer
-          format: int32
-        sortOrder:
-          type: integer
-          format: int32
-        dimensionGroupId:
-          type: integer
-          format: int32
-          nullable: true
-        displayType:
-          type: string
-          nullable: true
-        isUniquenessIdentifier:
-          type: boolean
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        dimAccountId:
-          type: integer
-          format: int32
-          nullable: true
-        itemType:
-          $ref: '#/components/schemas/ItemType'
-      additionalProperties: false
-    OperationType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      type: integer
-      format: int32
-    OperationFlagItem:
-      type: object
-      properties:
-        flagTypeId:
-          type: integer
-          format: int32
-        flagActionType:
-          $ref: '#/components/schemas/FlagActionType'
-        name:
-          type: string
-          nullable: true
-        color:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UpdateDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DynamicFieldSegment:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-        entity:
-          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
-        key:
-          type: string
-          nullable: true
-        label:
-          type: string
-          nullable: true
-        textStyle:
-          $ref: '#/components/schemas/TextStyle'
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     OperationQuestionResponsePagedResult:
       type: object
@@ -2031,36 +1580,12 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OperationQuestionResponse'
-          nullable: true
           readOnly: true
-      additionalProperties: false
-    TextStyle:
-      type: object
-      properties:
-        style:
-          type: string
-          nullable: true
-        color:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OperationQuestionResponse:
-      type: object
-      properties:
-        operationId:
-          type: integer
-          format: int32
-        questionId:
-          type: string
-          nullable: true
-        questionText:
-          type: string
-          nullable: true
-        scope:
-          $ref: '#/components/schemas/SessionScanEventEnum'
       additionalProperties: false
     OperationDimensionResponse:
       type: object
@@ -2080,11 +1605,13 @@ components:
           type: integer
           format: int32
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         displayType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         type:
           $ref: '#/components/schemas/DimensionType'
         affinity:
@@ -2092,143 +1619,38 @@ components:
         isUniquenessIdentifier:
           type: boolean
         dimensionGroupId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         dimensionGroup:
           $ref: '#/components/schemas/OperationDimGroupResponse'
         properties:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: string
-          nullable: true
         dimAccountId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         itemType:
           $ref: '#/components/schemas/ItemType'
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    OperationDetailsResponse:
+    UpdateDefinedPropertyParametersRequest:
       type: object
       properties:
         id:
           type: integer
           format: int32
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        parentId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/OperationType'
-        genericType:
-          type: string
-          nullable: true
-        allowedItemsScope:
-          type: string
-          nullable: true
-        inventTransType:
-          type: string
-          nullable: true
-        parent:
-          $ref: '#/components/schemas/OperationDetailsResponse'
-        doors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Door'
-          nullable: true
-        defaultWmsLocationsEnabled:
-          type: boolean
-        weightsAdjustmentEnabled:
-          type: boolean
-        autoPostJournal:
-          type: boolean
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        definedProperties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DefinedPropertyValueDTO'
-          nullable: true
-        issueItemStatusId:
-          type: integer
-          format: int32
-          nullable: true
-        receiveItemStatusId:
-          type: integer
-          format: int32
-          nullable: true
-        issueItemStatus:
-          $ref: '#/components/schemas/UniqueItemStatusResponse'
-        receiveItemStatus:
-          $ref: '#/components/schemas/UniqueItemStatusResponse'
-        operationFlags:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationFlagItem'
-          nullable: true
-      additionalProperties: false
-    FlagActionType:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    UniqueItemGenericStatus:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    GenericOperationType:
-      type: object
-      properties:
-        value:
-          type: integer
-          format: int32
-          readOnly: true
-        name:
-          type: string
-          nullable: true
-          readOnly: true
-        transType:
-          type: string
-          nullable: true
-          readOnly: true
-        type:
-          $ref: '#/components/schemas/OperationType'
-        orderType:
-          $ref: '#/components/schemas/OrderType'
-        qtyCalcMode:
-          $ref: '#/components/schemas/QtyCalcMode'
-      additionalProperties: false
-    BulkUpsertDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          nullable: true
         key:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         showOnReports:
           type: boolean
         useAsFilter:
@@ -2236,109 +1658,64 @@ components:
         isRequired:
           type: boolean
         accountId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
       additionalProperties: false
-    QtyCalcMode:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    OperationDimensionResponsePagedResult:
+    CreateOperationDimensionRequest:
       type: object
       properties:
-        pageSize:
+        dimensionId:
           type: integer
           format: int32
-          readOnly: true
-        page:
+        sortOrder:
           type: integer
           format: int32
-          readOnly: true
-        totalCount:
-          type: integer
+        dimensionGroupId:
+          type:
+          - integer
+          - 'null'
           format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
+        affinity:
+          $ref: '#/components/schemas/SessionScanEventEnum'
+        isUniquenessIdentifier:
+          type: boolean
+        displayType:
+          type:
+          - string
+          - 'null'
+        dimAccountId:
+          type:
+          - integer
+          - 'null'
           format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationDimensionResponse'
-          nullable: true
-          readOnly: true
+        itemType:
+          $ref: '#/components/schemas/ItemType'
       additionalProperties: false
-    CreateBaseOperationRequest:
+    DynamicFieldSegment:
       type: object
       properties:
-        name:
-          type: string
-          nullable: true
-        description:
-          maxLength: 512
-          type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        genericType:
-          type: string
-          nullable: true
-        allowedItemsScope:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Door:
-      type: object
-      properties:
-        id:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    OperationResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationResponse'
-          nullable: true
-          readOnly: true
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        entity:
+          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
+        key:
+          type:
+          - string
+          - 'null'
+        label:
+          type:
+          - string
+          - 'null'
+        textStyle:
+          $ref: '#/components/schemas/TextStyle'
       additionalProperties: false
     ExtendedPropertyAffinity:
       enum:
@@ -2388,24 +1765,746 @@ components:
       - 401
       type: integer
       format: int32
+    CreateBaseOperationRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          maxLength: 512
+          type:
+          - string
+          - 'null'
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        genericType:
+          type:
+          - string
+          - 'null'
+        allowedItemsScope:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OperationDynamicContentResponse:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        slots:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicField'
+      additionalProperties: false
+    OperationDimensionResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationDimensionResponse'
+          readOnly: true
+      additionalProperties: false
+    DynamicFieldValueSourceEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    DimensionType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 100
+      - 198
+      - 199
+      - 200
+      type: integer
+      format: int32
+    IOEntity:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
+    GetDefinedPropertyParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        affinity:
+          $ref: '#/components/schemas/ExtendedPropertyAffinity'
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    QtyCalcMode:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    OrderType:
+      enum:
+      - 10
+      - 20
+      - 40
+      - 90
+      type: integer
+      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
     UpdateOperationFlagsRequest:
       type: object
       properties:
         flags:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OperationFlagItem'
-          nullable: true
+      additionalProperties: false
+    ValidationRulesEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    ItemType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    OperationQuestionResponse:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        questionId:
+          type:
+          - string
+          - 'null'
+        questionText:
+          type:
+          - string
+          - 'null'
+        scope:
+          $ref: '#/components/schemas/SessionScanEventEnum'
+      additionalProperties: false
+    OperationDimGroupResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        validationRule:
+          $ref: '#/components/schemas/ValidationRulesEnum'
+      additionalProperties: false
+    Door:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateOperationDimensionRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+        sortOrder:
+          type: integer
+          format: int32
+        dimensionGroupId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        displayType:
+          type:
+          - string
+          - 'null'
+        isUniquenessIdentifier:
+          type: boolean
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        dimAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        itemType:
+          $ref: '#/components/schemas/ItemType'
+      additionalProperties: false
+    UpdateOperationQuestionRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        questionText:
+          type:
+          - string
+          - 'null'
+        scope:
+          $ref: '#/components/schemas/SessionScanEventEnum'
+        entityType:
+          $ref: '#/components/schemas/IOEntity'
+      additionalProperties: false
+    ItemCondition:
+      type: object
+      properties:
+        propertyKey:
+          type:
+          - string
+          - 'null'
+        propertyValue:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    TextStyle:
+      type: object
+      properties:
+        style:
+          type:
+          - string
+          - 'null'
+        color:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UniqueItemGenericStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    OperationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        parentId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateOperationUniqueItemStatusesRequest:
+      type: object
+      properties:
+        issueItemStatusId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        receiveItemStatusId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    OperationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationResponse'
+          readOnly: true
+      additionalProperties: false
+    SessionScanEventEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    AddOperationQuestionRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        questionText:
+          type:
+          - string
+          - 'null'
+        scope:
+          $ref: '#/components/schemas/SessionScanEventEnum'
+        entityType:
+          $ref: '#/components/schemas/IOEntity'
+      additionalProperties: false
+    UniqueItemStatusResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    CreateDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
+    BulkUpsertDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    UpdateOperationDetailsRequest:
+      type: object
+      properties:
+        parentId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          maxLength: 512
+          type:
+          - string
+          - 'null'
+        genericType:
+          type:
+          - string
+          - 'null'
+        allowedItemsScope:
+          type:
+          - string
+          - 'null'
+        weightsAdjustmentEnabled:
+          type: boolean
+        defaultWmsLocationsEnabled:
+          type: boolean
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        doors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Door'
+        autoPostJournal:
+          type: boolean
+      additionalProperties: false
+    BulkUpdateOperationDimensionRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+        sortOrder:
+          type: integer
+          format: int32
+        dimensionGroupId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        isUniquenessIdentifier:
+          type: boolean
+        displayType:
+          type:
+          - string
+          - 'null'
+        itemType:
+          $ref: '#/components/schemas/ItemType'
+      additionalProperties: false
+    GenericOperationType:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
+          readOnly: true
+        name:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        transType:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/OperationType'
+        orderType:
+          $ref: '#/components/schemas/OrderType'
+        qtyCalcMode:
+          $ref: '#/components/schemas/QtyCalcMode'
       additionalProperties: false
     DefinedPropertyValueDTO:
       type: object
       properties:
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isRequired:
           type: boolean
       additionalProperties: false
+    DynamicField:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        key:
+          type:
+          - string
+          - 'null'
+        valueSource:
+          $ref: '#/components/schemas/DynamicFieldValueSourceEnum'
+        segments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DynamicFieldSegment'
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
+      additionalProperties: false
+    OperationDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        parentId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type:
+          - string
+          - 'null'
+        allowedItemsScope:
+          type:
+          - string
+          - 'null'
+        inventTransType:
+          type:
+          - string
+          - 'null'
+        parent:
+          $ref: '#/components/schemas/OperationDetailsResponse'
+        doors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Door'
+        defaultWmsLocationsEnabled:
+          type: boolean
+        weightsAdjustmentEnabled:
+          type: boolean
+        autoPostJournal:
+          type: boolean
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        definedProperties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/DefinedPropertyValueDTO'
+        issueItemStatusId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        receiveItemStatusId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        issueItemStatus:
+          $ref: '#/components/schemas/UniqueItemStatusResponse'
+        receiveItemStatus:
+          $ref: '#/components/schemas/UniqueItemStatusResponse'
+        operationFlags:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperationFlagItem'
+      additionalProperties: false
+    OperationFlagItem:
+      type: object
+      properties:
+        flagTypeId:
+          type: integer
+          format: int32
+        flagActionType:
+          $ref: '#/components/schemas/FlagActionType'
+        name:
+          type:
+          - string
+          - 'null'
+        color:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    FlagActionType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
   securitySchemes:
     OAuth2:
       type: oauth2

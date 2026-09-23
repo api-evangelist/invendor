@@ -1,9 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Dimensions API
+  title: Invendor Dimensions API
   version: '1.0'
-security:
-- OAuth2: []
+  description: 'Operations tagged Dimensions across 2 of this provider''s published API definitions: invendor-common-openapi-original.json, invendor-reporting-openapi-original.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Dimensions
 paths:
@@ -492,6 +491,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1DimensionsUsers
+      x-operation-id-source: derived
   /api/v1/Dimensions/Locations:
     get:
       tags:
@@ -519,6 +520,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1DimensionsLocations
+      x-operation-id-source: derived
   /api/v1/Dimensions/Operations:
     get:
       tags:
@@ -546,6 +549,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1DimensionsOperations
+      x-operation-id-source: derived
   /api/v1/Dimensions/Items/properties:
     get:
       tags:
@@ -579,6 +584,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1DimensionsItemsProperties
+      x-operation-id-source: derived
   /api/v1/Dimensions/Users/properties:
     get:
       tags:
@@ -612,6 +619,8 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1DimensionsUsersProperties
+      x-operation-id-source: derived
   /api/v1/Dimensions/Accounts:
     get:
       tags:
@@ -639,181 +648,69 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1DimensionsAccounts
+      x-operation-id-source: derived
 components:
   schemas:
-    AccountBasicResponse:
+    CreateDimensionRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        accountCode:
-          type: string
-          nullable: true
-        isTenantPrimary:
-          type: boolean
-      additionalProperties: false
-    UserDTO:
-      type: object
-      properties:
-        userId:
-          type: integer
-          format: int32
-        userName:
-          type: string
-          nullable: true
-        profileId:
-          type: integer
-          format: int32
-        profileName:
-          type: string
-          nullable: true
-        firstName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        fullName:
-          type: string
-          nullable: true
-        isDeleted:
-          type: boolean
-      additionalProperties: false
-    OperationResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
         accountId:
-          type: integer
-          format: int32
-          nullable: true
-        parentId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/OperationType'
-        genericType:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OperationDTO:
-      type: object
-      properties:
-        operationId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
         name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-      additionalProperties: false
-    DimensionType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 100
-      - 198
-      - 199
-      - 200
-      type: integer
-      format: int32
-    DimensionResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         shortName:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UpdateDimensionRequest:
-      type: object
-      properties:
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         type:
           $ref: '#/components/schemas/DimensionType'
         rank:
           type: integer
           format: int32
         properties:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: string
-          nullable: true
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    OperationType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      type: integer
-      format: int32
-    Error:
+    DimensionDetailsResponse:
       type: object
       properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
     DimensionResponsePagedResult:
       type: object
@@ -835,22 +732,43 @@ components:
           format: int32
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/DimensionResponse'
-          nullable: true
           readOnly: true
       additionalProperties: false
-    AccountDimensionsParametersResponse:
+    DimensionResponse:
       type: object
       properties:
         id:
           type: integer
           format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DimensionType'
         accountId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
+      additionalProperties: false
+    CreateUpdateAccountDimensionParametersRequest:
+      type: object
+      properties:
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
         dimensionId:
           type: integer
           format: int32
@@ -858,6 +776,149 @@ components:
           type: boolean
         showOnNotifications:
           type: boolean
+      additionalProperties: false
+    ItemCondition:
+      type: object
+      properties:
+        propertyKey:
+          type:
+          - string
+          - 'null'
+        propertyValue:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OperationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        parentId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    DimensionType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 100
+      - 198
+      - 199
+      - 200
+      type: integer
+      format: int32
+    AccountDimensionsParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    UpdateDimensionRequest:
+      type: object
+      properties:
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        rank:
+          type: integer
+          format: int32
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
     LocationDTO:
       type: object
@@ -866,95 +927,85 @@ components:
           type: integer
           format: int32
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         accountId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         accounts:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
-          nullable: true
       additionalProperties: false
-    ItemCondition:
+    UserDTO:
       type: object
       properties:
-        propertyKey:
-          type: string
-          nullable: true
-        propertyValue:
-          type: string
-          nullable: true
-      additionalProperties: false
-    CreateDimensionRequest:
-      type: object
-      properties:
-        accountId:
+        userId:
           type: integer
           format: int32
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        rank:
+        userName:
+          type:
+          - string
+          - 'null'
+        profileId:
           type: integer
           format: int32
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
-      additionalProperties: false
-    CreateUpdateAccountDimensionParametersRequest:
-      type: object
-      properties:
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-        dimensionId:
-          type: integer
-          format: int32
-        showOnReports:
-          type: boolean
-        showOnNotifications:
+        profileName:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        fullName:
+          type:
+          - string
+          - 'null'
+        isDeleted:
           type: boolean
       additionalProperties: false
-    DimensionDetailsResponse:
+    AccountBasicResponse:
       type: object
       properties:
         id:
           type: integer
           format: int32
         name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        accountId:
+          type:
+          - string
+          - 'null'
+        accountCode:
+          type:
+          - string
+          - 'null'
+        isTenantPrimary:
+          type: boolean
+      additionalProperties: false
+    OperationDTO:
+      type: object
+      properties:
+        operationId:
           type: integer
           format: int32
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -965,3 +1016,6 @@ components:
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
             io.common: default scope
+x-refined-from:
+- invendor-common-openapi-original.json
+- invendor-reporting-openapi-original.json

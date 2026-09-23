@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Sessions API
+  title: IO.Reports Sessions API
   version: '1.0'
-security:
-- OAuth2: []
 tags:
 - name: Sessions
 paths:
@@ -68,11 +66,13 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1Sessions
+      x-operation-id-source: derived
   /api/v1/Sessions/empty:
     get:
       tags:
       - Sessions
-      summary: Get all the empty sessions in defined period. Empty sessions are sessions without any scans.
+      summary: Get all the empty sessions in defined period.
       parameters:
       - name: accountId
         in: query
@@ -129,8 +129,22 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1SessionsEmpty
+      x-operation-id-source: derived
 components:
   schemas:
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ScanEventReportRowDTO:
       type: object
       properties:
@@ -141,9 +155,10 @@ components:
           type: integer
           format: int32
         itemId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         locationId:
           type: integer
           format: int32
@@ -151,11 +166,13 @@ components:
           type: integer
           format: int32
         scannedData:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         unit:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         quantity:
           type: number
           format: double
@@ -173,105 +190,100 @@ components:
           type: string
           format: date-time
         itemName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         altCode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         altName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         vendor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         itemUnit:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         user:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userFirstName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userLastName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userFullName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userGroupName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         companyName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         location:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         operation:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         operationType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         metadata:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/MetadataDTO'
-          nullable: true
         itemProperties:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PropertyDTO'
-          nullable: true
         userProperties:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PropertyDTO'
-          nullable: true
-      additionalProperties: false
-    MetadataDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-        shortName:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-        dimensionId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    PropertyDTO:
-      type: object
-      properties:
-        key:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
       additionalProperties: false
     Error:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     SessionReportRowDTO:
       type: object
@@ -289,29 +301,37 @@ components:
           type: integer
           format: int32
         user:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userFirstName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userLastName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userFullName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         userGroupName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         companyName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         location:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         operation:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         serverDateTime:
           type: string
           format: date-time
@@ -329,15 +349,36 @@ components:
           format: int32
           readOnly: true
         scanEvents:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ScanEventReportRowDTO'
-          nullable: true
         metadata:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/MetadataDTO'
-          nullable: true
+      additionalProperties: false
+    MetadataDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        dimensionId:
+          type: integer
+          format: int32
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -347,4 +388,4 @@ components:
           authorizationUrl: https://identity.scanbro.com/connect/authorize
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
-            io.common: default scope
+            io.reporting: default scope

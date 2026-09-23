@@ -1,9 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: IO.Common Accounts Users API
+  title: Invendor Users API
   version: '1.0'
-security:
-- OAuth2: []
+  description: 'Operations tagged Users across 2 of this provider''s published API definitions: invendor-common-openapi-original.json, invendor-reporting-openapi-original.json. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Users
 paths:
@@ -808,6 +807,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      operationId: postV1UsersByUserIdPasswordResetEmail
+      x-operation-id-source: derived
   /api/v1/Users/all:
     get:
       tags:
@@ -841,414 +842,10 @@ paths:
       security:
       - OAuth2:
         - io.reporting
+      operationId: getApiV1UsersAll
+      x-operation-id-source: derived
 components:
   schemas:
-    CreateDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UpdateUserDetailsRequest:
-      type: object
-      properties:
-        profileId:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        roles:
-          type: array
-          items:
-            type: string
-          nullable: true
-        pin:
-          type: string
-          nullable: true
-        ioid:
-          type: string
-          nullable: true
-          deprecated: true
-        nfcid:
-          type: string
-          nullable: true
-        twoFactorEnabled:
-          type: boolean
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        mfaEnabled:
-          type: boolean
-          nullable: true
-        isDashboardEnabled:
-          type: boolean
-      additionalProperties: false
-    ChangeUserPasswordRequest:
-      type: object
-      properties:
-        password:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UserModuleListItem:
-      type: object
-      properties:
-        module:
-          type: string
-          nullable: true
-        permissions:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    UserDetailsResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        username:
-          type: string
-          nullable: true
-        accountId:
-          type: integer
-          format: int32
-        profileId:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        fullName:
-          type: string
-          nullable: true
-          readOnly: true
-        profileName:
-          type: string
-          nullable: true
-        identityId:
-          type: string
-          nullable: true
-        nfcid:
-          type: string
-          nullable: true
-        pin:
-          type: string
-          nullable: true
-        simpleUser:
-          type: boolean
-        isDashboardEnabled:
-          type: boolean
-        email:
-          type: string
-          nullable: true
-        emailConfirmed:
-          type: boolean
-        mfaEnabled:
-          type: boolean
-        ioid:
-          type: string
-          nullable: true
-        vendor:
-          type: string
-          nullable: true
-        roles:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          nullable: true
-        definedProperties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DefinedPropertyValueDTO'
-          nullable: true
-      additionalProperties: false
-    UserInfoResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        username:
-          type: string
-          nullable: true
-        accountId:
-          type: integer
-          format: int32
-        profileId:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        fullName:
-          type: string
-          nullable: true
-          readOnly: true
-        profileName:
-          type: string
-          nullable: true
-        identityId:
-          type: string
-          nullable: true
-        nfcid:
-          type: string
-          nullable: true
-        pin:
-          type: string
-          nullable: true
-        simpleUser:
-          type: boolean
-        isDashboardEnabled:
-          type: boolean
-        email:
-          type: string
-          nullable: true
-        emailConfirmed:
-          type: boolean
-        mfaEnabled:
-          type: boolean
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserProfileAccountResponse'
-          nullable: true
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserServiceSubscriptions'
-          nullable: true
-        modules:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserModuleListItem'
-          nullable: true
-        roles:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-          nullable: true
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/FeatureResponse'
-          nullable: true
-        tenantId:
-          type: string
-          format: uuid
-      additionalProperties: false
-    CreateUserRequest:
-      required:
-      - firstName
-      - lastName
-      - profileId
-      type: object
-      properties:
-        username:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        profileId:
-          type: integer
-          format: int32
-        password:
-          type: string
-          nullable: true
-        firstName:
-          minLength: 1
-          type: string
-        lastName:
-          minLength: 1
-          type: string
-        roles:
-          type: array
-          items:
-            type: string
-          nullable: true
-        pin:
-          type: string
-          nullable: true
-        ioid:
-          type: string
-          nullable: true
-        nfcid:
-          type: string
-          nullable: true
-        twoFactorEnabled:
-          type: boolean
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-            nullable: true
-          nullable: true
-      additionalProperties: false
-    GetDefinedPropertyParametersResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        affinity:
-          $ref: '#/components/schemas/ExtendedPropertyAffinity'
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UserResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        username:
-          type: string
-          nullable: true
-        accountId:
-          type: integer
-          format: int32
-        profileId:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        fullName:
-          type: string
-          nullable: true
-          readOnly: true
-        profileName:
-          type: string
-          nullable: true
-        identityId:
-          type: string
-          nullable: true
-        nfcid:
-          type: string
-          nullable: true
-        pin:
-          type: string
-          nullable: true
-        simpleUser:
-          type: boolean
-        isDashboardEnabled:
-          type: boolean
-        email:
-          type: string
-          nullable: true
-        emailConfirmed:
-          type: boolean
-        mfaEnabled:
-          type: boolean
-      additionalProperties: false
-    PropertyDTO:
-      type: object
-      properties:
-        key:
-          type: string
-          nullable: true
-        value:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    UserServiceSubscriptions:
-      type: object
-      properties:
-        serviceCode:
-          type: string
-          nullable: true
-        serviceId:
-          type: string
-          format: uuid
-        subscriptionId:
-          type: string
-          format: uuid
-      additionalProperties: false
-    UserResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserResponse'
-          nullable: true
-          readOnly: true
-      additionalProperties: false
     UpdateDefinedPropertyParametersRequest:
       type: object
       properties:
@@ -1256,8 +853,9 @@ components:
           type: integer
           format: int32
         key:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         showOnReports:
           type: boolean
         useAsFilter:
@@ -1265,130 +863,36 @@ components:
         isRequired:
           type: boolean
         accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
       additionalProperties: false
     ProblemDetails:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         instance:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: {}
-    UserProfileAccountResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountCode:
-          type: string
-          nullable: true
-        accountName:
-          type: string
-          nullable: true
-        filteredItems:
-          type: boolean
-        isTenantPrimary:
-          type: boolean
-        isUserPrimary:
-          type: boolean
-        mfaEnabled:
-          type: boolean
-        tenantId:
-          type: string
-          format: uuid
-          nullable: true
-        integrationEnabled:
-          type: boolean
-        default:
-          type: boolean
-      additionalProperties: false
-    BulkUpsertDefinedPropertyParametersRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          nullable: true
-        key:
-          type: string
-          nullable: true
-        showOnReports:
-          type: boolean
-        useAsFilter:
-          type: boolean
-        isRequired:
-          type: boolean
-        accountId:
-          type: integer
-          format: int32
-          nullable: true
-      additionalProperties: false
-    UsersDTO:
-      type: object
-      properties:
-        username:
-          type: string
-          nullable: true
-        firstName:
-          type: string
-          nullable: true
-        lastName:
-          type: string
-          nullable: true
-        pin:
-          type: string
-          nullable: true
-        nfcId:
-          type: string
-          nullable: true
-        accontId:
-          type: integer
-          format: int32
-        accountName:
-          type: string
-          nullable: true
-        groupId:
-          type: integer
-          format: int32
-        groupName:
-          type: string
-          nullable: true
-        userProperties:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-          nullable: true
-      additionalProperties: false
-    UpdateUsersNFCIDRequest:
-      type: object
-      properties:
-        nfcid:
-          type: string
-          nullable: true
-      additionalProperties: false
     ExtendedPropertyAffinity:
       enum:
       - 0
@@ -1437,6 +941,506 @@ components:
       - 401
       type: integer
       format: int32
+    UserModuleListItem:
+      type: object
+      properties:
+        module:
+          type:
+          - string
+          - 'null'
+        permissions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    GetDefinedPropertyParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        affinity:
+          $ref: '#/components/schemas/ExtendedPropertyAffinity'
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UpdateUsersNFCIDRequest:
+      type: object
+      properties:
+        nfcid:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type: integer
+          format: int32
+        profileId:
+          type: integer
+          format: int32
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        fullName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        profileName:
+          type:
+          - string
+          - 'null'
+        identityId:
+          type:
+          - string
+          - 'null'
+        nfcid:
+          type:
+          - string
+          - 'null'
+        pin:
+          type:
+          - string
+          - 'null'
+        simpleUser:
+          type: boolean
+        isDashboardEnabled:
+          type: boolean
+        email:
+          type:
+          - string
+          - 'null'
+        emailConfirmed:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    CreateUserRequest:
+      required:
+      - firstName
+      - lastName
+      - profileId
+      type: object
+      properties:
+        username:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        profileId:
+          type: integer
+          format: int32
+        password:
+          type:
+          - string
+          - 'null'
+        firstName:
+          minLength: 1
+          type: string
+        lastName:
+          minLength: 1
+          type: string
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        pin:
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+        nfcid:
+          type:
+          - string
+          - 'null'
+        twoFactorEnabled:
+          type: boolean
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    UserProfileAccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountCode:
+          type:
+          - string
+          - 'null'
+        accountName:
+          type:
+          - string
+          - 'null'
+        filteredItems:
+          type: boolean
+        isTenantPrimary:
+          type: boolean
+        isUserPrimary:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        tenantId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        integrationEnabled:
+          type: boolean
+        default:
+          type: boolean
+      additionalProperties: false
+    ChangeUserPasswordRequest:
+      type: object
+      properties:
+        password:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserServiceSubscriptions:
+      type: object
+      properties:
+        serviceCode:
+          type:
+          - string
+          - 'null'
+        serviceId:
+          type: string
+          format: uuid
+        subscriptionId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    UpdateUserDetailsRequest:
+      type: object
+      properties:
+        profileId:
+          type: integer
+          format: int32
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        roles:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        pin:
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+        nfcid:
+          type:
+          - string
+          - 'null'
+        twoFactorEnabled:
+          type: boolean
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        mfaEnabled:
+          type:
+          - boolean
+          - 'null'
+        isDashboardEnabled:
+          type: boolean
+      additionalProperties: false
+    UserResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserResponse'
+          readOnly: true
+      additionalProperties: false
+    UserInfoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type: integer
+          format: int32
+        profileId:
+          type: integer
+          format: int32
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        fullName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        profileName:
+          type:
+          - string
+          - 'null'
+        identityId:
+          type:
+          - string
+          - 'null'
+        nfcid:
+          type:
+          - string
+          - 'null'
+        pin:
+          type:
+          - string
+          - 'null'
+        simpleUser:
+          type: boolean
+        isDashboardEnabled:
+          type: boolean
+        email:
+          type:
+          - string
+          - 'null'
+        emailConfirmed:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        accounts:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserProfileAccountResponse'
+        services:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserServiceSubscriptions'
+        modules:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserModuleListItem'
+        roles:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        features:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FeatureResponse'
+        tenantId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    UserDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type: integer
+          format: int32
+        profileId:
+          type: integer
+          format: int32
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        fullName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        profileName:
+          type:
+          - string
+          - 'null'
+        identityId:
+          type:
+          - string
+          - 'null'
+        nfcid:
+          type:
+          - string
+          - 'null'
+        pin:
+          type:
+          - string
+          - 'null'
+        simpleUser:
+          type: boolean
+        isDashboardEnabled:
+          type: boolean
+        email:
+          type:
+          - string
+          - 'null'
+        emailConfirmed:
+          type: boolean
+        mfaEnabled:
+          type: boolean
+        ioid:
+          type:
+          - string
+          - 'null'
+        vendor:
+          type:
+          - string
+          - 'null'
+        roles:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        definedProperties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/DefinedPropertyValueDTO'
+      additionalProperties: false
     FeatureResponse:
       type: object
       properties:
@@ -1444,29 +1448,122 @@ components:
           type: string
           format: uuid
         featureName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ApiErrorResponse:
+    CreateDefinedPropertyParametersRequest:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    BulkUpsertDefinedPropertyParametersRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        key:
+          type:
+          - string
+          - 'null'
+        showOnReports:
+          type: boolean
+        useAsFilter:
+          type: boolean
+        isRequired:
+          type: boolean
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
       additionalProperties: false
     DefinedPropertyValueDTO:
       type: object
       properties:
         value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isRequired:
           type: boolean
+      additionalProperties: false
+    UsersDTO:
+      type: object
+      properties:
+        username:
+          type:
+          - string
+          - 'null'
+        firstName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+        pin:
+          type:
+          - string
+          - 'null'
+        nfcId:
+          type:
+          - string
+          - 'null'
+        accontId:
+          type: integer
+          format: int32
+        accountName:
+          type:
+          - string
+          - 'null'
+        groupId:
+          type: integer
+          format: int32
+        groupName:
+          type:
+          - string
+          - 'null'
+        userProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+      additionalProperties: false
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:
@@ -1477,3 +1574,6 @@ components:
           tokenUrl: https://identity.scanbro.com/connect/token
           scopes:
             io.common: default scope
+x-refined-from:
+- invendor-common-openapi-original.json
+- invendor-reporting-openapi-original.json
