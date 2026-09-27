@@ -12,7 +12,7 @@ paths:
       tags:
       - Reports
       summary: Get user saved report states
-      operationId: User reports
+      operationId: UserReports
       parameters:
       - name: Account
         in: query
@@ -40,11 +40,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: User reports
     post:
       tags:
       - Reports
       summary: Saves (upserts) user defined custom report state
-      operationId: Save report
+      operationId: SaveReport
       parameters:
       - name: Account
         in: query
@@ -82,12 +84,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Save report
   /v1/Reports/{viewId}:
     get:
       tags:
       - Reports
       summary: Returns the saved report view payload by viewId
-      operationId: Get report view
+      operationId: GetReportView
       parameters:
       - name: viewId
         in: path
@@ -122,12 +126,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get report view
   /v1/Reports/targets:
     get:
       tags:
       - Reports
       summary: Returns the users, groups and accounts available as report state targets for…
-      operationId: Available report targets
+      operationId: AvailableReportTargets
       parameters:
       - name: Account
         in: query
@@ -155,12 +161,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Available report targets
   /v1/Reports/userDefault:
     post:
       tags:
       - Reports
       summary: To set users default report state
-      operationId: Set default report
+      operationId: SetDefaultReport
       parameters:
       - name: Account
         in: query
@@ -198,12 +206,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Set default report
   /v1/Reports/{reportId}:
     put:
       tags:
       - Reports
       summary: Update saved report state
-      operationId: Update report
+      operationId: UpdateReport
       parameters:
       - name: reportId
         in: path
@@ -246,11 +256,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update report
     delete:
       tags:
       - Reports
       summary: Delete saved report state
-      operationId: Delete report
+      operationId: DeleteReport
       parameters:
       - name: reportId
         in: path
@@ -279,80 +291,10 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete report
 components:
   schemas:
-    UpdateReportRequest:
-      type: object
-      properties:
-        userId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        userProfileId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        scope:
-          $ref: '#/components/schemas/ReportScope'
-        payload:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ReportTargetAccount:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ReportTargetGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
     UserReportsResponse:
       type: object
       properties:
@@ -387,47 +329,6 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    CreateReportRequest:
-      type: object
-      properties:
-        scope:
-          $ref: '#/components/schemas/ReportScope'
-        userId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        userProfileId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        reportId:
-          type:
-          - string
-          - 'null'
-        payload:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     ReportScope:
       enum:
       - 1
@@ -458,6 +359,35 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    CreateReportRequest:
+      type: object
+      properties:
+        scope:
+          $ref: '#/components/schemas/ReportScope'
+        userId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        userProfileId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        reportId:
+          type:
+          - string
+          - 'null'
+        payload:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     AvailableReportTargetsResponse:
       type: object
       properties:
@@ -473,6 +403,90 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ReportTargetAccount'
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ReportTargetAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ReportTargetGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateReportRequest:
+      type: object
+      properties:
+        userId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        userProfileId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        scope:
+          $ref: '#/components/schemas/ReportScope'
+        payload:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

@@ -12,7 +12,7 @@ paths:
       tags:
       - Global Settings
       summary: Get all global settings types
-      operationId: Get global settings types list
+      operationId: GetGlobalSettingsTypesList
       parameters:
       - name: Account
         in: query
@@ -42,12 +42,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get global settings types list
   /v1/GlobalSettings:
     get:
       tags:
       - Global Settings
       summary: Get all existing global settings
-      operationId: Get global settings list
+      operationId: GetGlobalSettingsList
       parameters:
       - name: Account
         in: query
@@ -75,11 +77,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get global settings list
     post:
       tags:
       - Global Settings
       summary: Create a new global setting
-      operationId: Create global setting
+      operationId: CreateGlobalSetting
       parameters:
       - name: Account
         in: query
@@ -118,12 +122,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create global setting
   /v1/GlobalSettings/{id}:
     get:
       tags:
       - Global Settings
       summary: Get a global setting by id
-      operationId: Get a global setting by it's id
+      operationId: GetAGlobalSettingByIt'sId
       parameters:
       - name: id
         in: path
@@ -157,11 +163,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a global setting by it's id
     put:
       tags:
       - Global Settings
       summary: Change the value of a global setting
-      operationId: Change global setting
+      operationId: ChangeGlobalSetting
       parameters:
       - name: id
         in: path
@@ -210,11 +218,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Change global setting
     delete:
       tags:
       - Global Settings
       summary: Delete a global setting by it's id
-      operationId: Delete global setting
+      operationId: DeleteGlobalSetting
       parameters:
       - name: id
         in: path
@@ -254,12 +264,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete global setting
   /v1/GlobalSettings/bulk:
     put:
       tags:
       - Global Settings
       summary: Update multiple global settings with new values and types
-      operationId: Bulk update global settings
+      operationId: BulkUpdateGlobalSettings
       parameters:
       - name: Account
         in: query
@@ -310,12 +322,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Bulk update global settings
   /v1/GlobalSettings/logo:
     get:
       tags:
       - Global Settings
       summary: Get tenant logo URL
-      operationId: Get tenant logo
+      operationId: GetTenantLogo
       parameters:
       - name: Account
         in: query
@@ -343,11 +357,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get tenant logo
     post:
       tags:
       - Global Settings
       summary: Upload Tenant logo
-      operationId: Upload tenant logo
+      operationId: UploadTenantLogo
       parameters:
       - name: Account
         in: query
@@ -393,12 +409,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Upload tenant logo
   /v1/GlobalSettings/logo/url:
     post:
       tags:
       - Global Settings
       summary: Update tenant logo URL
-      operationId: Update tenant logo URL
+      operationId: UpdateTenantLogoURL
       parameters:
       - name: Account
         in: query
@@ -437,53 +455,10 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update tenant logo URL
 components:
   schemas:
-    CreateGlobalSettingRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    GlobalSettingType:
-      enum:
-      - 0
-      - 1
-      - 100
-      - 101
-      - 102
-      - 103
-      - 200
-      - 201
-      - 203
-      - 500
-      - 1000
-      - 2000
-      - 3000
-      type: integer
-      format: int32
-    BulkUpdateGlobalSettingRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
     GlobalSettingsResponsePagedResult:
       type: object
       properties:
@@ -511,6 +486,16 @@ components:
             $ref: '#/components/schemas/GlobalSettingsResponse'
           readOnly: true
       additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     GlobalSettingsResponse:
       type: object
       properties:
@@ -527,38 +512,6 @@ components:
         type:
           $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
-    UpdateGlobalSettingRequest:
-      type: object
-      properties:
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    GetGlobalSettingsTypeResponse:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        value:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     UpdateLogoUrlRequest:
       type: object
       properties:
@@ -566,16 +519,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
     GetGlobalSettingResponse:
       type: object
@@ -590,6 +533,83 @@ components:
           - 'null'
         isReserved:
           type: boolean
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    BulkUpdateGlobalSettingRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    CreateGlobalSettingRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GetGlobalSettingsTypeResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        value:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    GlobalSettingType:
+      enum:
+      - 0
+      - 1
+      - 100
+      - 101
+      - 102
+      - 103
+      - 200
+      - 201
+      - 203
+      - 500
+      - 1000
+      - 2000
+      - 3000
+      type: integer
+      format: int32
+    UpdateGlobalSettingRequest:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
         type:
           $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false

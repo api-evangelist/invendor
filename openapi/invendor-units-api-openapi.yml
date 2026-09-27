@@ -66,7 +66,7 @@ paths:
       tags:
       - Units
       summary: Create new unit
-      operationId: Create unit
+      operationId: CreateUnit
       parameters:
       - name: Account
         in: query
@@ -109,6 +109,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create unit
   /v1/Units/{unitId}:
     get:
       tags:
@@ -355,78 +357,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UnitResponse:
-      type: object
-      properties:
-        unitId:
-          type:
-          - string
-          - 'null'
-        text:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    UpdateUnitRequest:
-      type: object
-      properties:
-        text:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CreateUnitRequest:
-      type: object
-      properties:
-        unitId:
-          type:
-          - string
-          - 'null'
-        text:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    StringResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ValidateUnitIdsRequest:
-      type: object
-      properties:
-        unitIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
     UnitResponsePagedResult:
       type: object
       properties:
@@ -453,6 +383,78 @@ components:
           items:
             $ref: '#/components/schemas/UnitResponse'
           readOnly: true
+      additionalProperties: false
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    ValidateUnitIdsRequest:
+      type: object
+      properties:
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateUnitRequest:
+      type: object
+      properties:
+        unitId:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UnitResponse:
+      type: object
+      properties:
+        unitId:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateUnitRequest:
+      type: object
+      properties:
+        text:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

@@ -12,7 +12,7 @@ paths:
       tags:
       - Barcodes
       summary: Get all items barcodes that has weight defined for scale locker.
-      operationId: Get all items barcodes for scale lockers
+      operationId: GetAllItemsBarcodesForScaleLockers
       parameters:
       - name: Filter
         in: query
@@ -62,8 +62,22 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get all items barcodes for scale lockers
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ItemBarcodeSearchResponsePagedResult:
       type: object
       properties:
@@ -137,18 +151,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

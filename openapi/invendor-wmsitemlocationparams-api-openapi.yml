@@ -520,7 +520,7 @@ paths:
       tags:
       - WMSItemLocationParams
       summary: Get all location items in excel
-      operationId: Get location items in excel
+      operationId: GetLocationItemsInExcel
       parameters:
       - name: locationId
         in: query
@@ -588,21 +588,17 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get location items in excel
 components:
   schemas:
-    UpdateLocationsItemsParamsRequest:
+    BulkUpsertItemLocationItemsParamsRequest:
       type: object
       properties:
-        itemId:
-          type: integer
-          format: int32
-        wmsLocationId:
+        itemCode:
           type:
           - string
           - 'null'
-        bufferLevel:
-          type: number
-          format: double
         minOrderQty:
           type: number
           format: double
@@ -610,37 +606,35 @@ components:
           type:
           - string
           - 'null'
-        minSalesQty:
+        bufferLevel:
           type: number
           format: double
-        salesUnitId:
+        wmsLocationId:
           type:
           - string
           - 'null'
-        dlvIntervalDays:
-          type: integer
-          format: int32
-        dlvDurationDays:
-          type: integer
-          format: int32
         vendorAccountId:
           type:
           - integer
           - 'null'
           format: int32
-        serviceLevel:
-          $ref: '#/components/schemas/IlpServiceLevel'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
+        vendorAccountCode:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+        serviceLevel:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
       additionalProperties: false
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
     CreateLocationsItemsParamsRequest:
       type: object
       properties:
@@ -685,30 +679,6 @@ components:
         serviceLevel:
           $ref: '#/components/schemas/IlpServiceLevel'
       additionalProperties: false
-    AddBarcodeToItemLocationRequest:
-      type: object
-      properties:
-        barcode:
-          type:
-          - string
-          - 'null'
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-      additionalProperties: false
-    WeightType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    IlpServiceLevel:
-      enum:
-      - 70
-      - 95
-      - 99
-      - 100
-      type: integer
-      format: int32
     BulkDeleteItemLocationParamsRequest:
       type: object
       properties:
@@ -720,37 +690,24 @@ components:
             type: integer
             format: int32
       additionalProperties: false
-    Error:
+    ApiErrorResponse:
       type: object
       properties:
-        code:
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        message:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
-    ItemLocationBarcodeResponse:
-      type: object
-      properties:
-        barcode:
-          type:
-          - string
-          - 'null'
-        unitId:
-          type:
-          - string
-          - 'null'
-        weight:
-          type: number
-          format: double
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-        isWeightAdjusted:
-          type: boolean
-      additionalProperties: false
+    IlpServiceLevel:
+      enum:
+      - 70
+      - 95
+      - 99
+      - 100
+      type: integer
+      format: int32
     ItemLocationParamsResponse:
       type: object
       properties:
@@ -838,13 +795,29 @@ components:
           items:
             type: string
       additionalProperties: false
-    BulkUpsertItemLocationItemsParamsRequest:
+    AddBarcodeToItemLocationRequest:
       type: object
       properties:
-        itemCode:
+        barcode:
           type:
           - string
           - 'null'
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+      additionalProperties: false
+    UpdateLocationsItemsParamsRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        bufferLevel:
+          type: number
+          format: double
         minOrderQty:
           type: number
           format: double
@@ -852,28 +825,57 @@ components:
           type:
           - string
           - 'null'
-        bufferLevel:
+        minSalesQty:
           type: number
           format: double
-        wmsLocationId:
+        salesUnitId:
           type:
           - string
           - 'null'
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
         vendorAccountId:
           type:
           - integer
           - 'null'
           format: int32
-        vendorAccountCode:
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+      additionalProperties: false
+    ItemLocationBarcodeResponse:
+      type: object
+      properties:
+        barcode:
           type:
           - string
           - 'null'
-        serviceLevel:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
+        unitId:
+          type:
+          - string
+          - 'null'
+        weight:
+          type: number
+          format: double
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        isWeightAdjusted:
+          type: boolean
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

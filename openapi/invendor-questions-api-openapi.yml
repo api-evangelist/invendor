@@ -122,6 +122,18 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ItemStatusRowDTO:
       type: object
       properties:
@@ -235,30 +247,6 @@ components:
           items:
             $ref: '#/components/schemas/PropertyDTO'
       additionalProperties: false
-    PropertyDTO:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     MetadataDTO:
       type: object
       properties:
@@ -277,6 +265,18 @@ components:
         dimensionId:
           type: integer
           format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

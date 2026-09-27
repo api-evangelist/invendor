@@ -87,29 +87,40 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    InventDimResponse:
+    StatusIssue:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    InventTransResponsePagedResult:
       type: object
       properties:
-        id:
+        pageSize:
           type: integer
           format: int32
-        locationId:
-          type:
-          - integer
-          - 'null'
+          readOnly: true
+        page:
+          type: integer
           format: int32
-        locationName:
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
           type:
-          - string
+          - array
           - 'null'
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/InventTransResponse'
+          readOnly: true
       additionalProperties: false
     InventTransResponse:
       type: object
@@ -145,22 +156,6 @@ components:
         inventDim:
           $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
-    StatusIssue:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    StatusReceipt:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
     Error:
       type: object
       properties:
@@ -173,32 +168,37 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    InventTransResponsePagedResult:
+    StatusReceipt:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    InventDimResponse:
       type: object
       properties:
-        pageSize:
+        id:
           type: integer
           format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
+        locationId:
           type:
-          - array
+          - integer
           - 'null'
-          items:
-            $ref: '#/components/schemas/InventTransResponse'
-          readOnly: true
+          format: int32
+        locationName:
+          type:
+          - string
+          - 'null'
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

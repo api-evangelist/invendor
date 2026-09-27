@@ -12,7 +12,7 @@ paths:
       tags:
       - DimensionValues
       summary: Get dimensions values
-      operationId: Get dimension values
+      operationId: GetDimensionValues
       parameters:
       - name: dimId
         in: path
@@ -71,6 +71,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get dimension values
     post:
       tags:
       - DimensionValues
@@ -581,6 +583,16 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     DimensionValueRelResponse:
       type: object
       properties:
@@ -631,18 +643,6 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     UpdateDimensionValueRequest:
       type: object
       properties:
@@ -667,15 +667,17 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    ApiErrorResponse:
+    Error:
       type: object
       properties:
-        errors:
+        code:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

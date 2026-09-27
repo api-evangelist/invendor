@@ -12,7 +12,7 @@ paths:
       tags:
       - Roles
       summary: Returns roles that authorized user can assign to other users
-      operationId: Roles list
+      operationId: RolesList
       parameters:
       - name: Account
         in: query
@@ -42,18 +42,10 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Roles list
 components:
   schemas:
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     Error:
       type: object
       properties:
@@ -65,6 +57,16 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
   securitySchemes:
     OAuth2:

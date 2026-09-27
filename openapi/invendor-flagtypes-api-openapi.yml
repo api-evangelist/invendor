@@ -12,7 +12,7 @@ paths:
       tags:
       - FlagTypes
       summary: 'Get a paged list of flag types visible to the current account: global rows plus…'
-      operationId: Get flag types
+      operationId: GetFlagTypes
       parameters:
       - name: Filter
         in: query
@@ -73,11 +73,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get flag types
     post:
       tags:
       - FlagTypes
       summary: Create a new flag type
-      operationId: Create flag type
+      operationId: CreateFlagType
       parameters:
       - name: Account
         in: query
@@ -126,12 +128,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create flag type
   /v1/FlagTypes/{id}:
     get:
       tags:
       - FlagTypes
       summary: Get a single flag type by id
-      operationId: Get flag type
+      operationId: GetFlagType
       parameters:
       - name: id
         in: path
@@ -172,11 +176,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get flag type
     put:
       tags:
       - FlagTypes
       summary: Update an existing flag type. `AccountId` is immutable
-      operationId: Update flag type
+      operationId: UpdateFlagType
       parameters:
       - name: id
         in: path
@@ -234,11 +240,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update flag type
     delete:
       tags:
       - FlagTypes
       summary: Soft-delete a flag type.
-      operationId: Delete flag type
+      operationId: DeleteFlagType
       parameters:
       - name: id
         in: path
@@ -275,8 +283,52 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete flag type
 components:
   schemas:
+    UpdateFlagTypeRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        color:
+          type:
+          - string
+          - 'null'
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    FlagSeverity:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
     FlagTypeResponsePagedResult:
       type: object
       properties:
@@ -304,50 +356,6 @@ components:
             $ref: '#/components/schemas/FlagTypeResponse'
           readOnly: true
       additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    UpdateFlagTypeRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        color:
-          type:
-          - string
-          - 'null'
-        severity:
-          $ref: '#/components/schemas/FlagSeverity'
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    FlagSeverity:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
     CreateFlagTypeRequest:
       type: object
       properties:
@@ -371,15 +379,17 @@ components:
           - 'null'
           format: int32
       additionalProperties: false
-    ApiErrorResponse:
+    Error:
       type: object
       properties:
-        errors:
+        code:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     FlagTypeResponse:
       type: object

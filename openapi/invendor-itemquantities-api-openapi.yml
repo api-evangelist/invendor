@@ -232,29 +232,100 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    InventDimResponse:
+    ItemQuantityGroupedResponsePagedResult:
       type: object
       properties:
-        id:
+        pageSize:
           type: integer
           format: int32
-        locationId:
-          type:
-          - integer
-          - 'null'
+          readOnly: true
+        page:
+          type: integer
           format: int32
-        locationName:
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ItemQuantityGroupedResponse'
+          readOnly: true
+      additionalProperties: false
+    ItemQuantityResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ItemQuantityResponse'
+          readOnly: true
+      additionalProperties: false
+    ItemQuantityResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        name:
           type:
           - string
           - 'null'
-        wmsLocationId:
+        code:
           type:
           - string
           - 'null'
-        batchId:
+        displayName:
           type:
           - string
           - 'null'
+        displayCode:
+          type:
+          - string
+          - 'null'
+        onOrder:
+          type: number
+          format: double
+        ordered:
+          type: number
+          format: double
+        qty:
+          type: number
+          format: double
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type:
+          - string
+          - 'null'
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
     ItemQuantityGroupedResponse:
       type: object
@@ -302,100 +373,29 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ItemQuantityGroupedResponsePagedResult:
+    InventDimResponse:
       type: object
       properties:
-        pageSize:
+        id:
           type: integer
           format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
+        locationId:
           type:
-          - array
+          - integer
           - 'null'
-          items:
-            $ref: '#/components/schemas/ItemQuantityGroupedResponse'
-          readOnly: true
-      additionalProperties: false
-    ItemQuantityResponse:
-      type: object
-      properties:
-        itemId:
-          type: integer
           format: int32
-        name:
+        locationName:
           type:
           - string
           - 'null'
-        code:
+        wmsLocationId:
           type:
           - string
           - 'null'
-        displayName:
+        batchId:
           type:
           - string
           - 'null'
-        displayCode:
-          type:
-          - string
-          - 'null'
-        onOrder:
-          type: number
-          format: double
-        ordered:
-          type: number
-          format: double
-        qty:
-          type: number
-          format: double
-        minSalesQty:
-          type: number
-          format: double
-        salesUnitId:
-          type:
-          - string
-          - 'null'
-        inventDim:
-          $ref: '#/components/schemas/InventDimResponse'
-      additionalProperties: false
-    ItemQuantityResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ItemQuantityResponse'
-          readOnly: true
       additionalProperties: false
     ItemQuantitiesDTO:
       type: object

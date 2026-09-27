@@ -12,7 +12,7 @@ paths:
       tags:
       - ExtendedProperties
       summary: Get global extended properties that are not attached to any object
-      operationId: Get global extended properties
+      operationId: GetGlobalExtendedProperties
       parameters:
       - name: affinity
         in: path
@@ -68,12 +68,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get global extended properties
   /v1/ExtendedProperties/{affinity}/{ownerId}:
     get:
       tags:
       - ExtendedProperties
       summary: Get extended properties for an extendable object
-      operationId: Get extended properties for the object
+      operationId: GetExtendedPropertiesForTheObject
       parameters:
       - name: affinity
         in: path
@@ -136,11 +138,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get extended properties for the object
     post:
       tags:
       - ExtendedProperties
       summary: Create an extended property for an extendable object
-      operationId: Create extended property for the object
+      operationId: CreateExtendedPropertyForTheObject
       parameters:
       - name: affinity
         in: path
@@ -196,12 +200,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create extended property for the object
   /v1/ExtendedProperties/{affinity}/{ownerId}/{key}:
     put:
       tags:
       - ExtendedProperties
       summary: Update an extended property for an extendable object
-      operationId: Update extended property for the object
+      operationId: UpdateExtendedPropertyForTheObject
       parameters:
       - name: affinity
         in: path
@@ -259,11 +265,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update extended property for the object
     delete:
       tags:
       - ExtendedProperties
       summary: Delete an extended property for an extendable object
-      operationId: Delete extended property for the object
+      operationId: DeleteExtendedPropertyForTheObject
       parameters:
       - name: affinity
         in: path
@@ -306,44 +314,19 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete extended property for the object
 components:
   schemas:
-    CreateExtendedPropertyRequest:
+    ApiErrorResponse:
       type: object
       properties:
-        key:
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ExtendedProperty:
-      type: object
-      properties:
-        affinity:
-          $ref: '#/components/schemas/ExtendedPropertyAffinity'
-        ownerId:
-          type: integer
-          format: int32
-        key:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UpdateExtendedPropertyRequest:
-      type: object
-      properties:
-        value:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     ExtendedPropertyPagedResult:
       type: object
@@ -420,6 +403,14 @@ components:
       - 401
       type: integer
       format: int32
+    UpdateExtendedPropertyRequest:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     Error:
       type: object
       properties:
@@ -428,6 +419,35 @@ components:
           - string
           - 'null'
         message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ExtendedProperty:
+      type: object
+      properties:
+        affinity:
+          $ref: '#/components/schemas/ExtendedPropertyAffinity'
+        ownerId:
+          type: integer
+          format: int32
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateExtendedPropertyRequest:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
           type:
           - string
           - 'null'
@@ -443,16 +463,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
   securitySchemes:
     OAuth2:

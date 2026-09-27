@@ -11,7 +11,7 @@ paths:
     get:
       tags:
       - Subscriptions
-      operationId: Subscriptions list
+      operationId: SubscriptionsList
       parameters:
       - name: Account
         in: query
@@ -43,11 +43,13 @@ paths:
         - io.common
       summary: Subscriptions list
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Subscriptions list
   /v1/Subscriptions/start:
     post:
       tags:
       - Subscriptions
-      operationId: Start subscription
+      operationId: StartSubscription
       parameters:
       - name: Account
         in: query
@@ -93,11 +95,13 @@ paths:
         - io.common
       summary: Start subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Start subscription
   /v1/Subscriptions/finish:
     post:
       tags:
       - Subscriptions
-      operationId: Finish subscription
+      operationId: FinishSubscription
       parameters:
       - name: Account
         in: query
@@ -143,11 +147,13 @@ paths:
         - io.common
       summary: Finish subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Finish subscription
   /v1/Subscriptions/{serviceCode}/start:
     post:
       tags:
       - Subscriptions
-      operationId: Start subscription by code
+      operationId: StartSubscriptionByCode
       parameters:
       - name: serviceCode
         in: path
@@ -184,11 +190,13 @@ paths:
         - io.common
       summary: Start subscription by code
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Start subscription by code
   /v1/Subscriptions/{serviceCode}/end:
     post:
       tags:
       - Subscriptions
-      operationId: End subscription by code
+      operationId: EndSubscriptionByCode
       parameters:
       - name: serviceCode
         in: path
@@ -225,6 +233,8 @@ paths:
         - io.common
       summary: End subscription by code
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: End subscription by code
 components:
   schemas:
     StartSubscriptionRequest:
@@ -233,6 +243,28 @@ components:
         serviceId:
           type: string
           format: uuid
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ProblemDetails:
       type: object
@@ -259,18 +291,6 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     ServiceSubscription:
       type: object
       properties:
@@ -303,16 +323,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
     EndSubscriptionRequest:
       type: object

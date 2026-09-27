@@ -12,7 +12,7 @@ paths:
       tags:
       - OperationDimGroups
       summary: Get list of operation dimension groups.
-      operationId: Get operation dimension groups
+      operationId: GetOperationDimensionGroups
       parameters:
       - name: Filter
         in: query
@@ -62,11 +62,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get operation dimension groups
     post:
       tags:
       - OperationDimGroups
       summary: Create operation metadata (dimension) group
-      operationId: Create operation dimension group
+      operationId: CreateOperationDimensionGroup
       parameters:
       - name: Account
         in: query
@@ -109,12 +111,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create operation dimension group
   /v1/OperationDimGroups/{id}:
     get:
       tags:
       - OperationDimGroups
       summary: Get operation dimension group.
-      operationId: Get operation dimension group
+      operationId: GetOperationDimensionGroup
       parameters:
       - name: id
         in: path
@@ -148,11 +152,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get operation dimension group
     put:
       tags:
       - OperationDimGroups
       summary: Update operation metadata (dimension) group
-      operationId: Update operation dimension group
+      operationId: UpdateOperationDimensionGroup
       parameters:
       - name: id
         in: path
@@ -202,11 +208,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update operation dimension group
     delete:
       tags:
       - OperationDimGroups
       summary: Delete operation metadata (dimension) group
-      operationId: Delete operation dimension group
+      operationId: DeleteOperationDimensionGroup
       parameters:
       - name: id
         in: path
@@ -241,8 +249,57 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete operation dimension group
 components:
   schemas:
+    CreateOperationDimGroupRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        validationRule:
+          $ref: '#/components/schemas/ValidationRulesEnum'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ValidationRulesEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     OperationDimGroupResponsePagedResult:
       type: object
       properties:
@@ -270,53 +327,6 @@ components:
             $ref: '#/components/schemas/OperationDimGroupResponse'
           readOnly: true
       additionalProperties: false
-    CreateOperationDimGroupRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        validationRule:
-          $ref: '#/components/schemas/ValidationRulesEnum'
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    UpdateOperationDimGroupRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        validationRule:
-          $ref: '#/components/schemas/ValidationRulesEnum'
-      additionalProperties: false
-    ValidationRulesEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     OperationDimGroupResponse:
       type: object
       properties:
@@ -330,15 +340,15 @@ components:
         validationRule:
           $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
-    ApiErrorResponse:
+    UpdateOperationDimGroupRequest:
       type: object
       properties:
-        errors:
+        name:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+        validationRule:
+          $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
   securitySchemes:
     OAuth2:

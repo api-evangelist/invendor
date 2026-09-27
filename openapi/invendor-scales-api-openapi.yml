@@ -11,7 +11,7 @@ paths:
     get:
       tags:
       - Scales
-      operationId: Shelf layouts
+      operationId: ShelfLayouts
       parameters:
       - name: Account
         in: query
@@ -43,6 +43,8 @@ paths:
         - io.common
       summary: Shelf layouts
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Shelf layouts
 components:
   schemas:
     BinTypeResponse:
@@ -98,18 +100,6 @@ components:
           items:
             $ref: '#/components/schemas/ShelfLayoutBinResponse'
       additionalProperties: false
-    ShelfLayoutBinResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        index:
-          type: integer
-          format: int32
-        binType:
-          $ref: '#/components/schemas/BinTypeResponse'
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -135,6 +125,18 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    ShelfLayoutBinResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        index:
+          type: integer
+          format: int32
+        binType:
+          $ref: '#/components/schemas/BinTypeResponse'
+      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

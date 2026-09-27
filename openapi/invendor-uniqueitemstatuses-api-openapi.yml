@@ -12,7 +12,7 @@ paths:
       tags:
       - UniqueItemStatuses
       summary: 'Get a paged list of unique item statuses visible to the current account: global…'
-      operationId: Get unique item statuses
+      operationId: GetUniqueItemStatuses
       parameters:
       - name: Filter
         in: query
@@ -73,11 +73,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get unique item statuses
     post:
       tags:
       - UniqueItemStatuses
       summary: Create a new unique item status
-      operationId: Create unique item status
+      operationId: CreateUniqueItemStatus
       parameters:
       - name: Account
         in: query
@@ -126,12 +128,14 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create unique item status
   /v1/UniqueItemStatuses/{id}:
     get:
       tags:
       - UniqueItemStatuses
       summary: Get a single unique item status by id
-      operationId: Get unique item status
+      operationId: GetUniqueItemStatus
       parameters:
       - name: id
         in: path
@@ -172,11 +176,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Get unique item status
     put:
       tags:
       - UniqueItemStatuses
       summary: Update an existing unique item status. `AccountId` is immutable
-      operationId: Update unique item status
+      operationId: UpdateUniqueItemStatus
       parameters:
       - name: id
         in: path
@@ -234,11 +240,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update unique item status
     delete:
       tags:
       - UniqueItemStatuses
       summary: Soft-delete a unique item status.
-      operationId: Delete unique item status
+      operationId: DeleteUniqueItemStatus
       parameters:
       - name: id
         in: path
@@ -275,8 +283,57 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete unique item status
 components:
   schemas:
+    UniqueItemStatusResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UniqueItemStatusResponse'
+          readOnly: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    UpdateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+      additionalProperties: false
     UniqueItemGenericStatus:
       enum:
       - 0
@@ -290,6 +347,18 @@ components:
         id:
           type: integer
           format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     UniqueItemStatusResponse:
       type: object
@@ -333,65 +402,6 @@ components:
           - integer
           - 'null'
           format: int32
-      additionalProperties: false
-    UniqueItemStatusResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UniqueItemStatusResponse'
-          readOnly: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    UpdateUniqueItemStatusRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
       additionalProperties: false
   securitySchemes:
     OAuth2:

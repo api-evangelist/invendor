@@ -44,7 +44,7 @@ paths:
       tags:
       - QuestionDefinitions
       summary: Create new question definition
-      operationId: Create question
+      operationId: CreateQuestion
       parameters:
       - name: Account
         in: query
@@ -87,6 +87,8 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Create question
   /v1/QuestionDefinitions/{id}:
     get:
       tags:
@@ -130,7 +132,7 @@ paths:
       tags:
       - QuestionDefinitions
       summary: Update question definition
-      operationId: Update question definition
+      operationId: UpdateQuestionDefinition
       parameters:
       - name: id
         in: path
@@ -175,11 +177,13 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Update question definition
     delete:
       tags:
       - QuestionDefinitions
       summary: Delete question definition
-      operationId: Delete question
+      operationId: DeleteQuestion
       parameters:
       - name: id
         in: path
@@ -209,8 +213,52 @@ paths:
       security:
       - OAuth2:
         - io.common
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete question
 components:
   schemas:
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    QuestionDefResponse:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    UpdateQuestionDefRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     QuestionDefResponsePagedResult:
       type: object
       properties:
@@ -238,38 +286,6 @@ components:
             $ref: '#/components/schemas/QuestionDefResponse'
           readOnly: true
       additionalProperties: false
-    CreateQuestionDefinitionRequest:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    QuestionDefResponse:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    StringResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     Error:
       type: object
       properties:
@@ -282,7 +298,7 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    UpdateQuestionDefRequest:
+    CreateQuestionDefinitionRequest:
       type: object
       properties:
         questionId:
@@ -293,16 +309,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
   securitySchemes:
     OAuth2:
