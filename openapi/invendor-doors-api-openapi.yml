@@ -47,18 +47,6 @@ paths:
       x-operation-id-original: Get doors list
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     Door:
       type: object
       properties:
@@ -80,6 +68,18 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

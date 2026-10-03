@@ -66,45 +66,6 @@ paths:
       x-operation-id-original: Get all items barcodes for scale lockers
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ItemBarcodeSearchResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ItemBarcodeSearchResponse'
-          readOnly: true
-      additionalProperties: false
     ItemBarcodeSearchResponse:
       type: object
       properties:
@@ -142,6 +103,33 @@ components:
           type: number
           format: double
       additionalProperties: false
+    ItemBarcodeSearchResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ItemBarcodeSearchResponse'
+          readOnly: true
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -151,6 +139,18 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

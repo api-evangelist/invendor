@@ -392,34 +392,14 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ApiErrorResponse:
+    UnitResponse:
       type: object
       properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    ValidateUnitIdsRequest:
-      type: object
-      properties:
-        unitIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
+        unitId:
           type:
           - string
           - 'null'
-        message:
+        text:
           type:
           - string
           - 'null'
@@ -436,17 +416,15 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    UnitResponse:
+    ApiErrorResponse:
       type: object
       properties:
-        unitId:
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        text:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     UpdateUnitRequest:
       type: object
@@ -455,6 +433,28 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ValidateUnitIdsRequest:
+      type: object
+      properties:
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
       additionalProperties: false
   securitySchemes:
     OAuth2:

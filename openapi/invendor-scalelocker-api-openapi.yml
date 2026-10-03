@@ -273,12 +273,67 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    WeightType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
+    CabinetDto:
+      type: object
+      properties:
+        open:
+          $ref: '#/components/schemas/ColorsDto'
+        closed:
+          $ref: '#/components/schemas/ColorsDto'
+      additionalProperties: false
+    ShelfBinConfig:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        code:
+          type:
+          - string
+          - 'null'
+        address:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BinItem'
+        itemParam:
+          $ref: '#/components/schemas/CabinetLocationItemsParam'
+        createdOn:
+          type: string
+          format: date-time
+      additionalProperties: false
+    SaveCabinetLedsRequest:
+      type: object
+      properties:
+        leds:
+          $ref: '#/components/schemas/LedsDto'
+      additionalProperties: false
+    ScaleLockerConfig:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        lockerId:
+          type:
+          - string
+          - 'null'
+        ioid:
+          type:
+          - string
+          - 'null'
+        compartments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CompartmentConfig'
+      additionalProperties: false
     LedsDto:
       type: object
       properties:
@@ -286,6 +341,27 @@ components:
           $ref: '#/components/schemas/CabinetDto'
         lower:
           $ref: '#/components/schemas/CabinetDto'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    ShelfBinValueTuple:
+      type: object
       additionalProperties: false
     ColorsDto:
       type: object
@@ -299,6 +375,48 @@ components:
         blue:
           type: integer
           format: int32
+      additionalProperties: false
+    CreateScaleLockerConfigRequest:
+      type: object
+      properties:
+        compartments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Compartment'
+      additionalProperties: false
+    CompartmentConfig:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        state:
+          $ref: '#/components/schemas/ScaleLockerStateEnum'
+        shelves:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ShelfConfig'
+      additionalProperties: false
+    ScaleLockerStateEnum:
+      enum:
+      - 0
+      - 10
+      - 20
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     ShelfConfig:
       type: object
@@ -340,16 +458,6 @@ components:
         slot:
           type: integer
           format: int32
-      additionalProperties: false
-    CreateScaleLockerConfigRequest:
-      type: object
-      properties:
-        compartments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Compartment'
       additionalProperties: false
     CabinetLocationItemsParam:
       type: object
@@ -396,97 +504,6 @@ components:
           - 'null'
           format: double
       additionalProperties: false
-    CabinetDto:
-      type: object
-      properties:
-        open:
-          $ref: '#/components/schemas/ColorsDto'
-        closed:
-          $ref: '#/components/schemas/ColorsDto'
-      additionalProperties: false
-    ShelfBinConfig:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
-        code:
-          type:
-          - string
-          - 'null'
-        address:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BinItem'
-        itemParam:
-          $ref: '#/components/schemas/CabinetLocationItemsParam'
-        createdOn:
-          type: string
-          format: date-time
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ShelfBinValueTuple:
-      type: object
-      additionalProperties: false
-    SaveCabinetLedsRequest:
-      type: object
-      properties:
-        leds:
-          $ref: '#/components/schemas/LedsDto'
-      additionalProperties: false
-    ScaleLockerStateEnum:
-      enum:
-      - 0
-      - 10
-      - 20
-      type: integer
-      format: int32
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    Bin:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
-        code:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BinItem'
-        itemParam:
-          $ref: '#/components/schemas/CabinetLocationItemsParam'
-      additionalProperties: false
     Compartment:
       type: object
       properties:
@@ -507,41 +524,24 @@ components:
             $ref: '#/components/schemas/ShelfBinValueTuple'
           readOnly: true
       additionalProperties: false
-    CompartmentConfig:
+    Bin:
       type: object
       properties:
         index:
           type: integer
           format: int32
-        state:
-          $ref: '#/components/schemas/ScaleLockerStateEnum'
-        shelves:
+        code:
+          type:
+          - string
+          - 'null'
+        items:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/ShelfConfig'
-      additionalProperties: false
-    ScaleLockerConfig:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        lockerId:
-          type:
-          - string
-          - 'null'
-        ioid:
-          type:
-          - string
-          - 'null'
-        compartments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CompartmentConfig'
+            $ref: '#/components/schemas/BinItem'
+        itemParam:
+          $ref: '#/components/schemas/CabinetLocationItemsParam'
       additionalProperties: false
     BinItem:
       type: object

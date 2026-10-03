@@ -112,16 +112,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     PropertyDTO:
       type: object
       properties:
@@ -133,6 +123,25 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    MetadataDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        dimensionId:
+          type: integer
+          format: int32
       additionalProperties: false
     ItemStatusRowDTO:
       type: object
@@ -247,24 +256,15 @@ components:
           items:
             $ref: '#/components/schemas/PropertyDTO'
       additionalProperties: false
-    MetadataDTO:
+    ApiErrorResponse:
       type: object
       properties:
-        name:
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        dimensionId:
-          type: integer
-          format: int32
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     Error:
       type: object

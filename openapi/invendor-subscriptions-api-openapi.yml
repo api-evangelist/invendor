@@ -244,28 +244,6 @@ components:
           type: string
           format: uuid
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -291,6 +269,35 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    EndSubscriptionRequest:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ServiceSubscription:
       type: object
       properties:
@@ -323,13 +330,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    EndSubscriptionRequest:
-      type: object
-      properties:
-        subscriptionId:
-          type: string
-          format: uuid
       additionalProperties: false
   securitySchemes:
     OAuth2:

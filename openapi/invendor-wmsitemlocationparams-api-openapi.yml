@@ -592,6 +592,14 @@ paths:
       x-operation-id-original: Get location items in excel
 components:
   schemas:
+    IlpServiceLevel:
+      enum:
+      - 70
+      - 95
+      - 99
+      - 100
+      type: integer
+      format: int32
     BulkUpsertItemLocationItemsParamsRequest:
       type: object
       properties:
@@ -629,12 +637,6 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    WeightType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
     CreateLocationsItemsParamsRequest:
       type: object
       properties:
@@ -690,6 +692,16 @@ components:
             type: integer
             format: int32
       additionalProperties: false
+    AddBarcodeToItemLocationRequest:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -700,14 +712,84 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
-    IlpServiceLevel:
+    UpdateLocationsItemsParamsRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        bufferLevel:
+          type: number
+          format: double
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type:
+          - string
+          - 'null'
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type:
+          - string
+          - 'null'
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
+        vendorAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WeightType:
       enum:
-      - 70
-      - 95
-      - 99
-      - 100
+      - 0
+      - 1
       type: integer
       format: int32
+    ItemLocationBarcodeResponse:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+        unitId:
+          type:
+          - string
+          - 'null'
+        weight:
+          type: number
+          format: double
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+        isWeightAdjusted:
+          type: boolean
+      additionalProperties: false
     ItemLocationParamsResponse:
       type: object
       properties:
@@ -794,88 +876,6 @@ components:
           - 'null'
           items:
             type: string
-      additionalProperties: false
-    AddBarcodeToItemLocationRequest:
-      type: object
-      properties:
-        barcode:
-          type:
-          - string
-          - 'null'
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-      additionalProperties: false
-    UpdateLocationsItemsParamsRequest:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        bufferLevel:
-          type: number
-          format: double
-        minOrderQty:
-          type: number
-          format: double
-        orderUnitId:
-          type:
-          - string
-          - 'null'
-        minSalesQty:
-          type: number
-          format: double
-        salesUnitId:
-          type:
-          - string
-          - 'null'
-        dlvIntervalDays:
-          type: integer
-          format: int32
-        dlvDurationDays:
-          type: integer
-          format: int32
-        vendorAccountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        serviceLevel:
-          $ref: '#/components/schemas/IlpServiceLevel'
-      additionalProperties: false
-    ItemLocationBarcodeResponse:
-      type: object
-      properties:
-        barcode:
-          type:
-          - string
-          - 'null'
-        unitId:
-          type:
-          - string
-          - 'null'
-        weight:
-          type: number
-          format: double
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-        isWeightAdjusted:
-          type: boolean
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

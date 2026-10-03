@@ -72,6 +72,18 @@ components:
           type: integer
           format: int32
       additionalProperties: false
+    ShelfLayoutBinResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        index:
+          type: integer
+          format: int32
+        binType:
+          $ref: '#/components/schemas/BinTypeResponse'
+      additionalProperties: false
     ShelfLayoutResponse:
       type: object
       properties:
@@ -125,18 +137,6 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    ShelfLayoutBinResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        index:
-          type: integer
-          format: int32
-        binType:
-          $ref: '#/components/schemas/BinTypeResponse'
-      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

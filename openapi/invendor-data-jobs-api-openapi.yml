@@ -114,6 +114,12 @@ paths:
         - io.common
 components:
   schemas:
+    BulkJobDirection:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
     ApiErrorResponse:
       type: object
       properties:
@@ -123,6 +129,18 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     BulkJobStatusResponsePagedResult:
       type: object
@@ -150,18 +168,6 @@ components:
           items:
             $ref: '#/components/schemas/BulkJobStatusResponse'
           readOnly: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     BulkJobStatusResponse:
       type: object
@@ -214,12 +220,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    BulkJobDirection:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
   securitySchemes:
     OAuth2:
       type: oauth2

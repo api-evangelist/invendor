@@ -295,6 +295,14 @@ paths:
       x-operation-id-original: Delete report
 components:
   schemas:
+    ReportScope:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
     UserReportsResponse:
       type: object
       properties:
@@ -329,41 +337,9 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    ReportScope:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      format: int32
-    ApiErrorResponse:
+    UpdateReportRequest:
       type: object
       properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    SetUserDefaultReportRequest:
-      type: object
-      properties:
-        reportId:
-          type:
-          - string
-          - 'null'
-        reportName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CreateReportRequest:
-      type: object
-      properties:
-        scope:
-          $ref: '#/components/schemas/ReportScope'
         userId:
           type:
           - integer
@@ -379,10 +355,8 @@ components:
           - integer
           - 'null'
           format: int32
-        reportId:
-          type:
-          - string
-          - 'null'
+        scope:
+          $ref: '#/components/schemas/ReportScope'
         payload:
           type:
           - string
@@ -429,17 +403,15 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    Error:
+    ApiErrorResponse:
       type: object
       properties:
-        code:
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        message:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     ReportTargetAccount:
       type: object
@@ -463,9 +435,23 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    UpdateReportRequest:
+    Error:
       type: object
       properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateReportRequest:
+      type: object
+      properties:
+        scope:
+          $ref: '#/components/schemas/ReportScope'
         userId:
           type:
           - integer
@@ -481,9 +467,23 @@ components:
           - integer
           - 'null'
           format: int32
-        scope:
-          $ref: '#/components/schemas/ReportScope'
+        reportId:
+          type:
+          - string
+          - 'null'
         payload:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    SetUserDefaultReportRequest:
+      type: object
+      properties:
+        reportId:
+          type:
+          - string
+          - 'null'
+        reportName:
           type:
           - string
           - 'null'

@@ -287,75 +287,6 @@ paths:
       x-operation-id-original: Delete flag type
 components:
   schemas:
-    UpdateFlagTypeRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        color:
-          type:
-          - string
-          - 'null'
-        severity:
-          $ref: '#/components/schemas/FlagSeverity'
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    FlagSeverity:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    FlagTypeResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FlagTypeResponse'
-          readOnly: true
-      additionalProperties: false
     CreateFlagTypeRequest:
       type: object
       properties:
@@ -378,18 +309,6 @@ components:
           - integer
           - 'null'
           format: int32
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     FlagTypeResponse:
       type: object
@@ -426,6 +345,87 @@ components:
           - string
           - 'null'
           format: date-time
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    FlagSeverity:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateFlagTypeRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        color:
+          type:
+          - string
+          - 'null'
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    FlagTypeResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FlagTypeResponse'
+          readOnly: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

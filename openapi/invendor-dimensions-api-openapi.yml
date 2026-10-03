@@ -656,7 +656,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    DimensionResponse:
+    CreateUpdateAccountDimensionParametersRequest:
+      type: object
+      properties:
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    DimensionDetailsResponse:
       type: object
       properties:
         id:
@@ -677,18 +693,16 @@ components:
           - integer
           - 'null'
           format: int32
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
+        properties:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+          additionalProperties:
+            type: string
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    UpdateDimensionRequest:
+    CreateDimensionRequest:
       type: object
       properties:
         accountId:
@@ -718,6 +732,23 @@ components:
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
+    DimensionType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 100
+      - 198
+      - 199
+      - 200
+      type: integer
+      format: int32
     ItemCondition:
       type: object
       properties:
@@ -729,34 +760,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    OperationType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      type: integer
-      format: int32
-    CreateUpdateAccountDimensionParametersRequest:
-      type: object
-      properties:
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        dimensionId:
-          type: integer
-          format: int32
-        showOnReports:
-          type: boolean
-        showOnNotifications:
-          type: boolean
       additionalProperties: false
     OperationResponse:
       type: object
@@ -789,6 +792,35 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    AccountDimensionsParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     DimensionResponsePagedResult:
       type: object
       properties:
@@ -816,85 +848,7 @@ components:
             $ref: '#/components/schemas/DimensionResponse'
           readOnly: true
       additionalProperties: false
-    AccountDimensionsParametersResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        dimensionId:
-          type: integer
-          format: int32
-        showOnReports:
-          type: boolean
-        showOnNotifications:
-          type: boolean
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DimensionDetailsResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
-      additionalProperties: false
-    DimensionType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 100
-      - 198
-      - 199
-      - 200
-      type: integer
-      format: int32
-    CreateDimensionRequest:
+    UpdateDimensionRequest:
       type: object
       properties:
         accountId:
@@ -924,7 +878,7 @@ components:
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    AccountBasicResponse:
+    DimensionResponse:
       type: object
       properties:
         id:
@@ -934,12 +888,79 @@ components:
           type:
           - string
           - 'null'
-        accountCode:
+        shortName:
           type:
           - string
           - 'null'
-        isTenantPrimary:
-          type: boolean
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
+    LocationDTO:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accounts:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+      additionalProperties: false
+    OperationDTO:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     UserDTO:
       type: object
@@ -973,43 +994,22 @@ components:
         isDeleted:
           type: boolean
       additionalProperties: false
-    OperationDTO:
+    AccountBasicResponse:
       type: object
       properties:
-        operationId:
+        id:
           type: integer
           format: int32
         name:
           type:
           - string
           - 'null'
-        description:
+        accountCode:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    LocationDTO:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        accounts:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
+        isTenantPrimary:
+          type: boolean
       additionalProperties: false
   securitySchemes:
     OAuth2:

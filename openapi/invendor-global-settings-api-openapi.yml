@@ -459,6 +459,81 @@ paths:
       x-operation-id-original: Update tenant logo URL
 components:
   schemas:
+    GlobalSettingType:
+      enum:
+      - 0
+      - 1
+      - 100
+      - 101
+      - 102
+      - 103
+      - 200
+      - 201
+      - 203
+      - 500
+      - 1000
+      - 2000
+      - 3000
+      type: integer
+      format: int32
+    UpdateGlobalSettingRequest:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    CreateGlobalSettingRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    GlobalSettingsResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        isReserved:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    UpdateLogoUrlRequest:
+      type: object
+      properties:
+        imageUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     GlobalSettingsResponsePagedResult:
       type: object
       properties:
@@ -486,40 +561,6 @@ components:
             $ref: '#/components/schemas/GlobalSettingsResponse'
           readOnly: true
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    GlobalSettingsResponse:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        isReserved:
-          type: boolean
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    UpdateLogoUrlRequest:
-      type: object
-      properties:
-        imageUrl:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     GetGlobalSettingResponse:
       type: object
       properties:
@@ -533,34 +574,6 @@ components:
           - 'null'
         isReserved:
           type: boolean
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    BulkUpdateGlobalSettingRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    CreateGlobalSettingRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
         type:
           $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
@@ -586,26 +599,13 @@ components:
         value:
           $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
-    GlobalSettingType:
-      enum:
-      - 0
-      - 1
-      - 100
-      - 101
-      - 102
-      - 103
-      - 200
-      - 201
-      - 203
-      - 500
-      - 1000
-      - 2000
-      - 3000
-      type: integer
-      format: int32
-    UpdateGlobalSettingRequest:
+    BulkUpdateGlobalSettingRequest:
       type: object
       properties:
+        id:
+          type:
+          - string
+          - 'null'
         value:
           type:
           - string

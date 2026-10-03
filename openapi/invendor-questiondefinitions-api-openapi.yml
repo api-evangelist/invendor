@@ -237,28 +237,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    UpdateQuestionDefRequest:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     QuestionDefResponsePagedResult:
       type: object
       properties:
@@ -286,6 +264,28 @@ components:
             $ref: '#/components/schemas/QuestionDefResponse'
           readOnly: true
       additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    CreateQuestionDefinitionRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     Error:
       type: object
       properties:
@@ -298,7 +298,7 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    CreateQuestionDefinitionRequest:
+    UpdateQuestionDefRequest:
       type: object
       properties:
         questionId:

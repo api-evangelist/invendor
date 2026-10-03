@@ -42,17 +42,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
+    MetadataDimensionDTO:
       type: object
       properties:
-        code:
+        id:
+          type: integer
+          format: int32
+        shortName:
           type:
           - string
           - 'null'
-        message:
+        name:
           type:
           - string
           - 'null'
+        dimensionType:
+          $ref: '#/components/schemas/DimensionType'
       additionalProperties: false
     DimensionType:
       enum:
@@ -71,22 +76,17 @@ components:
       - 200
       type: integer
       format: int32
-    MetadataDimensionDTO:
+    Error:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        shortName:
+        code:
           type:
           - string
           - 'null'
-        name:
+        message:
           type:
           - string
           - 'null'
-        dimensionType:
-          $ref: '#/components/schemas/DimensionType'
       additionalProperties: false
   securitySchemes:
     OAuth2:

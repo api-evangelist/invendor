@@ -558,10 +558,13 @@ paths:
         - io.common
 components:
   schemas:
-    DimensionValueResponse:
+    UpdateDimensionValueRequest:
       type: object
       properties:
         id:
+          type: integer
+          format: int32
+        dimensionId:
           type: integer
           format: int32
         key:
@@ -572,26 +575,12 @@ components:
           type:
           - string
           - 'null'
-        hasParents:
-          type: boolean
-        hasChildren:
-          type: boolean
         properties:
           type:
           - object
           - 'null'
           additionalProperties:
             type: string
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
     DimensionValueRelResponse:
       type: object
@@ -643,13 +632,20 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    UpdateDimensionValueRequest:
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    DimensionValueResponse:
       type: object
       properties:
         id:
-          type: integer
-          format: int32
-        dimensionId:
           type: integer
           format: int32
         key:
@@ -660,6 +656,10 @@ components:
           type:
           - string
           - 'null'
+        hasParents:
+          type: boolean
+        hasChildren:
+          type: boolean
         properties:
           type:
           - object
