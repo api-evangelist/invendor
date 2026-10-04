@@ -974,6 +974,293 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UpdateAccountRequest:
+      type: object
+      properties:
+        accountName:
+          type:
+          - string
+          - 'null'
+        mfaEnabled:
+          type:
+          - boolean
+          - 'null'
+        orderNotificationsEnabled:
+          type:
+          - boolean
+          - 'null'
+        orderNotificationReceivers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        attachmentStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+        attachmentFormat:
+          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
+      additionalProperties: false
+    OrderNotificationAttachmentFormat:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    AddAccountRelatedProfileRequest:
+      type: object
+      properties:
+        userProfileId:
+          type: integer
+          format: int32
+        isDefault:
+          type: boolean
+      additionalProperties: false
+    AccountAddress:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AddressType'
+        addressLine:
+          type:
+          - string
+          - 'null'
+        addressLine2:
+          type:
+          - string
+          - 'null'
+        addressLine3:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        state:
+          type:
+          - string
+          - 'null'
+        zipCode:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AccountVendorResult:
+      type: object
+      properties:
+        vendorId:
+          type: integer
+          format: int32
+        vendorCode:
+          type:
+          - string
+          - 'null'
+        vendorName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateAccountRequest:
+      type: object
+      properties:
+        accountCode:
+          type:
+          - string
+          - 'null'
+        accountName:
+          type:
+          - string
+          - 'null'
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AccountAddress'
+        filteredItems:
+          type:
+          - boolean
+          - 'null'
+        mfaEnabled:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    AccountRelationEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    LinkedAccountSettingsDataResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        tenantId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accountName:
+          type:
+          - string
+          - 'null'
+        userId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        type:
+          $ref: '#/components/schemas/AccountRelationEnum'
+        externalUserId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        externalAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        externalAccountName:
+          type:
+          - string
+          - 'null'
+        locations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LinkedLocationsMap'
+        operations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LinkedOperationsMap'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accountName:
+          type:
+          - string
+          - 'null'
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    LinkedOperationsMap:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        genericOperationType:
+          type:
+          - string
+          - 'null'
+        operationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        externalOperationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     AccountDetailsResponse:
       type: object
       properties:
@@ -1048,91 +1335,76 @@ components:
         attachmentFormat:
           $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
       additionalProperties: false
-    ValidateAccountCodesRequest:
+    UpdateAccountFromInvitationRequest:
       type: object
       properties:
-        accountCodes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    UserProfileResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        accountName:
-          type:
-          - string
-          - 'null'
-        mfaEnabled:
-          type: boolean
-      additionalProperties: false
-    LinkedAccountSettingsDataResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        tenantId:
-          type:
-          - string
-          - 'null'
+        inviterTenantId:
+          type: string
           format: uuid
-        accountId:
-          type:
-          - integer
-          - 'null'
+        externalAccountId:
+          type: integer
           format: int32
+      additionalProperties: false
+    AccountLocationResponse:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        relType:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CreateAccountFromInvitationRequest:
+      type: object
+      properties:
+        accountCode:
+          type:
+          - string
+          - 'null'
         accountName:
           type:
           - string
           - 'null'
-        userId:
+        addresses:
           type:
-          - integer
+          - array
           - 'null'
-          format: int32
-        type:
-          $ref: '#/components/schemas/AccountRelationEnum'
-        externalUserId:
+          items:
+            $ref: '#/components/schemas/AccountAddress'
+        filteredItems:
           type:
-          - integer
+          - boolean
           - 'null'
-          format: int32
+        inviterTenantId:
+          type: string
+          format: uuid
         externalAccountId:
-          type:
-          - integer
-          - 'null'
+          type: integer
           format: int32
-        externalAccountName:
+      additionalProperties: false
+    CreateAccountInvetationRequest:
+      type: object
+      properties:
+        accountIdToInvite:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        locationName:
           type:
           - string
           - 'null'
-        locations:
+        genericOperationTypes:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/LinkedLocationsMap'
-        operations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LinkedOperationsMap'
+            $ref: '#/components/schemas/OperationsForHash'
       additionalProperties: false
     LinkedAccountValidationResponse:
       type: object
@@ -1167,66 +1439,63 @@ components:
           items:
             type: string
       additionalProperties: false
-    UpdateAccountRequest:
+    ClientTenantResponse:
       type: object
       properties:
-        accountName:
+        tenantId:
+          type: string
+          format: uuid
+        name:
           type:
           - string
           - 'null'
-        mfaEnabled:
+        accountId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AddressType:
+      enum:
+      - 0
+      - 1
+      - 99
+      type: integer
+      format: int32
+    AccountResponseIPagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
           type:
-          - boolean
+          - array
           - 'null'
-        orderNotificationsEnabled:
-          type:
-          - boolean
-          - 'null'
-        orderNotificationReceivers:
+          items:
+            $ref: '#/components/schemas/AccountResponse'
+          readOnly: true
+      additionalProperties: false
+    ValidateAccountCodesRequest:
+      type: object
+      properties:
+        accountCodes:
           type:
           - array
           - 'null'
           items:
             type: string
-        attachmentStatuses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrderStatus'
-        attachmentFormat:
-          $ref: '#/components/schemas/OrderNotificationAttachmentFormat'
-      additionalProperties: false
-    AccountRelationEnum:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    AccountVendorResult:
-      type: object
-      properties:
-        vendorId:
-          type: integer
-          format: int32
-        vendorCode:
-          type:
-          - string
-          - 'null'
-        vendorName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    AccountLocationResponse:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        relType:
-          type: integer
-          format: int32
       additionalProperties: false
     CreateAccountInvetationResponse:
       type: object
@@ -1249,38 +1518,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    CreateAccountRequest:
-      type: object
-      properties:
-        accountCode:
-          type:
-          - string
-          - 'null'
-        accountName:
-          type:
-          - string
-          - 'null'
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AccountAddress'
-        filteredItems:
-          type:
-          - boolean
-          - 'null'
-        mfaEnabled:
-          type:
-          - boolean
-          - 'null'
-      additionalProperties: false
-    OrderNotificationAttachmentFormat:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
     AccountResponse:
       type: object
       properties:
@@ -1310,243 +1547,6 @@ components:
           format: uuid
         integrationEnabled:
           type: boolean
-      additionalProperties: false
-    LinkedOperationsMap:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        genericOperationType:
-          type:
-          - string
-          - 'null'
-        operationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        externalOperationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-      additionalProperties: false
-    AddAccountRelatedProfileRequest:
-      type: object
-      properties:
-        userProfileId:
-          type: integer
-          format: int32
-        isDefault:
-          type: boolean
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    AccountAddress:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/AddressType'
-        addressLine:
-          type:
-          - string
-          - 'null'
-        addressLine2:
-          type:
-          - string
-          - 'null'
-        addressLine3:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        state:
-          type:
-          - string
-          - 'null'
-        zipCode:
-          type:
-          - string
-          - 'null'
-        country:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    AccountResponseIPagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AccountResponse'
-          readOnly: true
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CreateAccountFromInvitationRequest:
-      type: object
-      properties:
-        accountCode:
-          type:
-          - string
-          - 'null'
-        accountName:
-          type:
-          - string
-          - 'null'
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AccountAddress'
-        filteredItems:
-          type:
-          - boolean
-          - 'null'
-        inviterTenantId:
-          type: string
-          format: uuid
-        externalAccountId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ClientTenantResponse:
-      type: object
-      properties:
-        tenantId:
-          type: string
-          format: uuid
-        name:
-          type:
-          - string
-          - 'null'
-        accountId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    CreateAccountInvetationRequest:
-      type: object
-      properties:
-        accountIdToInvite:
-          type: integer
-          format: int32
-        userId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        locationName:
-          type:
-          - string
-          - 'null'
-        genericOperationTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OperationsForHash'
-      additionalProperties: false
-    OrderStatus:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
-    UpdateAccountFromInvitationRequest:
-      type: object
-      properties:
-        inviterTenantId:
-          type: string
-          format: uuid
-        externalAccountId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    AddressType:
-      enum:
-      - 0
-      - 1
-      - 99
-      type: integer
-      format: int32
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
     LinkedLocationsMap:
       type: object

@@ -656,83 +656,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CreateUpdateAccountDimensionParametersRequest:
-      type: object
-      properties:
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        dimensionId:
-          type: integer
-          format: int32
-        showOnReports:
-          type: boolean
-        showOnNotifications:
-          type: boolean
-      additionalProperties: false
-    DimensionDetailsResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
-      additionalProperties: false
-    CreateDimensionRequest:
-      type: object
-      properties:
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        rank:
-          type: integer
-          format: int32
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
-      additionalProperties: false
-    DimensionType:
+    OperationType:
       enum:
       - 0
       - 1
@@ -742,25 +666,8 @@ components:
       - 5
       - 6
       - 7
-      - 8
-      - 100
-      - 198
-      - 199
-      - 200
       type: integer
       format: int32
-    ItemCondition:
-      type: object
-      properties:
-        propertyKey:
-          type:
-          - string
-          - 'null'
-        propertyValue:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     OperationResponse:
       type: object
       properties:
@@ -792,61 +699,47 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    AccountDimensionsParametersResponse:
+    DimensionDetailsResponse:
       type: object
       properties:
         id:
           type: integer
           format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DimensionType'
         accountId:
           type:
           - integer
           - 'null'
           format: int32
-        dimensionId:
-          type: integer
-          format: int32
-        showOnReports:
-          type: boolean
-        showOnNotifications:
-          type: boolean
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    ApiErrorResponse:
+    Error:
       type: object
       properties:
-        errors:
+        code:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    DimensionResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
+        message:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/DimensionResponse'
-          readOnly: true
       additionalProperties: false
     UpdateDimensionRequest:
       type: object
@@ -878,6 +771,18 @@ components:
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
+    ItemCondition:
+      type: object
+      properties:
+        propertyKey:
+          type:
+          - string
+          - 'null'
+        propertyValue:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     DimensionResponse:
       type: object
       properties:
@@ -900,19 +805,7 @@ components:
           - 'null'
           format: int32
       additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    OperationType:
+    DimensionType:
       enum:
       - 0
       - 1
@@ -922,30 +815,131 @@ components:
       - 5
       - 6
       - 7
+      - 8
+      - 100
+      - 198
+      - 199
+      - 200
       type: integer
       format: int32
-    LocationDTO:
+    ApiErrorResponse:
       type: object
       properties:
-        locationId:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    AccountDimensionsParametersResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    DimensionResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DimensionResponse'
+          readOnly: true
+      additionalProperties: false
+    CreateDimensionRequest:
+      type: object
+      properties:
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        rank:
+          type: integer
+          format: int32
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
+      additionalProperties: false
+    CreateUpdateAccountDimensionParametersRequest:
+      type: object
+      properties:
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        dimensionId:
+          type: integer
+          format: int32
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
+      additionalProperties: false
+    AccountBasicResponse:
+      type: object
+      properties:
+        id:
           type: integer
           format: int32
         name:
           type:
           - string
           - 'null'
-        accountId:
+        accountCode:
           type:
-          - integer
+          - string
           - 'null'
-          format: int32
-        accounts:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
+        isTenantPrimary:
+          type: boolean
       additionalProperties: false
     OperationDTO:
       type: object
@@ -994,22 +988,28 @@ components:
         isDeleted:
           type: boolean
       additionalProperties: false
-    AccountBasicResponse:
+    LocationDTO:
       type: object
       properties:
-        id:
+        locationId:
           type: integer
           format: int32
         name:
           type:
           - string
           - 'null'
-        accountCode:
+        accountId:
           type:
-          - string
+          - integer
           - 'null'
-        isTenantPrimary:
-          type: boolean
+          format: int32
+        accounts:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
       additionalProperties: false
   securitySchemes:
     OAuth2:

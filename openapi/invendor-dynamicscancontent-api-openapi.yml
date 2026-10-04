@@ -85,16 +85,18 @@ paths:
         - io.common
 components:
   schemas:
-    DynamicFieldValueSourceEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -105,6 +107,16 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
+    DynamicFieldValueSourceEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
     DynamicFieldDataSource:
       type: object
       properties:
@@ -115,18 +127,6 @@ components:
           - string
           - 'null'
         key:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
           type:
           - string
           - 'null'

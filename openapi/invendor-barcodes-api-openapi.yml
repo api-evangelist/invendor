@@ -66,43 +66,6 @@ paths:
       x-operation-id-original: Get all items barcodes for scale lockers
 components:
   schemas:
-    ItemBarcodeSearchResponse:
-      type: object
-      properties:
-        barcode:
-          type:
-          - string
-          - 'null'
-        itemCode:
-          type:
-          - string
-          - 'null'
-        itemName:
-          type:
-          - string
-          - 'null'
-        altItemCode:
-          type:
-          - string
-          - 'null'
-        altItemName:
-          type:
-          - string
-          - 'null'
-        unit:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: number
-          format: double
-        netWeight:
-          type: number
-          format: double
-        grossWeight:
-          type: number
-          format: double
-      additionalProperties: false
     ItemBarcodeSearchResponsePagedResult:
       type: object
       properties:
@@ -139,6 +102,43 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    ItemBarcodeSearchResponse:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+        itemCode:
+          type:
+          - string
+          - 'null'
+        itemName:
+          type:
+          - string
+          - 'null'
+        altItemCode:
+          type:
+          - string
+          - 'null'
+        altItemName:
+          type:
+          - string
+          - 'null'
+        unit:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: number
+          format: double
+        netWeight:
+          type: number
+          format: double
+        grossWeight:
+          type: number
+          format: double
       additionalProperties: false
     Error:
       type: object

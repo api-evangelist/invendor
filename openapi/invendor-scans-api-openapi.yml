@@ -331,42 +331,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PropertyDTO:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    LocationOperationDateScansDTO:
-      type: object
-      properties:
-        operationId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        date:
-          type: string
-          format: date-time
-        scans:
-          type: integer
-          format: int64
-        operationName:
-          type:
-          - string
-          - 'null'
-        locationName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     BadScanDto:
       type: object
       properties:
@@ -459,6 +423,18 @@ components:
           - string
           - 'null'
         operation:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
           type:
           - string
           - 'null'
@@ -609,6 +585,30 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/PropertyDTO'
+      additionalProperties: false
+    LocationOperationDateScansDTO:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date-time
+        scans:
+          type: integer
+          format: int64
+        operationName:
+          type:
+          - string
+          - 'null'
+        locationName:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     Error:
       type: object

@@ -87,34 +87,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    InventTransResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/InventTransResponse'
-          readOnly: true
-      additionalProperties: false
-    StatusReceipt:
+    StatusIssue:
       enum:
       - 0
       - 1
@@ -122,18 +95,6 @@ components:
       - 3
       type: integer
       format: int32
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     InventDimResponse:
       type: object
       properties:
@@ -192,7 +153,34 @@ components:
         inventDim:
           $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
-    StatusIssue:
+    InventTransResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/InventTransResponse'
+          readOnly: true
+      additionalProperties: false
+    StatusReceipt:
       enum:
       - 0
       - 1
@@ -200,6 +188,18 @@ components:
       - 3
       type: integer
       format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

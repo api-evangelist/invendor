@@ -294,6 +294,50 @@ components:
       - 2
       type: integer
       format: int32
+    UniqueItemStatusResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UniqueItemStatusResponse'
+          readOnly: true
+      additionalProperties: false
+    UpdateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
     UniqueItemStatusResponse:
       type: object
       properties:
@@ -322,6 +366,16 @@ components:
           - 'null'
           format: date-time
       additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     CreateUniqueItemStatusRequest:
       type: object
       properties:
@@ -337,33 +391,6 @@ components:
           - 'null'
           format: int32
       additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    UpdateUniqueItemStatusRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
-      additionalProperties: false
     Error:
       type: object
       properties:
@@ -375,33 +402,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    UniqueItemStatusResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UniqueItemStatusResponse'
-          readOnly: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

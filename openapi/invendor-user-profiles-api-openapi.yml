@@ -736,18 +736,13 @@ paths:
         - io.common
 components:
   schemas:
-    SessionScanEventEnum:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    LocationConsumptionType:
-      enum:
-      - 10
-      - 20
-      type: integer
-      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
     UserResponsePagedResult:
       type: object
       properties:
@@ -774,137 +769,6 @@ components:
           items:
             $ref: '#/components/schemas/UserResponse'
           readOnly: true
-      additionalProperties: false
-    UserProfileResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        accountName:
-          type:
-          - string
-          - 'null'
-        mfaEnabled:
-          type: boolean
-      additionalProperties: false
-    CreateUserProfileRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        doors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Door'
-      additionalProperties: false
-    UpdateUserProfileDetailsRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        mfaEnabled:
-          type: boolean
-        doors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Door'
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-      additionalProperties: false
-    UserProfileResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UserProfileResponse'
-          readOnly: true
-      additionalProperties: false
-    ProfileLocationResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProfileLocationResponse'
-          readOnly: true
-      additionalProperties: false
-    CreateProfileLocationRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        operations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LocationOperationRequest'
       additionalProperties: false
     UserResponse:
       type: object
@@ -964,28 +828,230 @@ components:
         mfaEnabled:
           type: boolean
       additionalProperties: false
-    LocationOperationRequest:
+    LocationOperationLock:
+      type: object
+      properties:
+        lockId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UserProfileResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UserProfileResponse'
+          readOnly: true
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    UserProfileResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        accountName:
+          type:
+          - string
+          - 'null'
+        mfaEnabled:
+          type: boolean
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ProfileLocationOperationQuestionResponse:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        questionText:
+          type:
+          - string
+          - 'null'
+        scope:
+          $ref: '#/components/schemas/SessionScanEventEnum'
+      additionalProperties: false
+    LocationConsumptionType:
+      enum:
+      - 10
+      - 20
+      type: integer
+      format: int32
+    LocationType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    ProfileLocationResponse:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        userProfileId:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        serviceType:
+          type:
+          - string
+          - 'null'
+        subscriptionId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        operations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProfileLocationOperationResponse'
+      additionalProperties: false
+    Door:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateProfileLocationRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        operations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocationOperationRequest'
+      additionalProperties: false
+    ProfileLocationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProfileLocationResponse'
+          readOnly: true
+      additionalProperties: false
+    ProfileLocationOperationResponse:
       type: object
       properties:
         operationId:
           type: integer
           format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
         autoFinish:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
         noDoorAccess:
-          type: boolean
-        locks:
+          type:
+          - boolean
+          - 'null'
+        doors:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/LocationOperationLock'
+            $ref: '#/components/schemas/Door'
         questions:
           type:
           - array
           - 'null'
           items:
-            type: string
+            $ref: '#/components/schemas/ProfileLocationOperationQuestionResponse'
       additionalProperties: false
     LocationResponse:
       type: object
@@ -1025,62 +1091,6 @@ components:
         consumptionType:
           $ref: '#/components/schemas/LocationConsumptionType'
       additionalProperties: false
-    ProfileLocationResponse:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        userProfileId:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        serviceType:
-          type:
-          - string
-          - 'null'
-        subscriptionId:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        operations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProfileLocationOperationResponse'
-      additionalProperties: false
-    LocationResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/LocationResponse'
-          readOnly: true
-      additionalProperties: false
     UserProfileDetailsResponse:
       type: object
       properties:
@@ -1115,114 +1125,104 @@ components:
           items:
             $ref: '#/components/schemas/Door'
       additionalProperties: false
-    Door:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ProfileLocationOperationResponse:
+    LocationOperationRequest:
       type: object
       properties:
         operationId:
           type: integer
           format: int32
+        autoFinish:
+          type: boolean
+        noDoorAccess:
+          type: boolean
+        locks:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocationOperationLock'
+        questions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    SessionScanEventEnum:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    UpdateUserProfileDetailsRequest:
+      type: object
+      properties:
         name:
           type:
           - string
           - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        autoFinish:
-          type:
-          - boolean
-          - 'null'
-        noDoorAccess:
-          type:
-          - boolean
-          - 'null'
+        mfaEnabled:
+          type: boolean
         doors:
           type:
           - array
           - 'null'
           items:
             $ref: '#/components/schemas/Door'
-        questions:
+        properties:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            $ref: '#/components/schemas/ProfileLocationOperationQuestionResponse'
+          additionalProperties:
+            type: string
       additionalProperties: false
-    ProfileLocationOperationQuestionResponse:
+    CreateUserProfileRequest:
       type: object
       properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        questionText:
-          type:
-          - string
-          - 'null'
-        scope:
-          $ref: '#/components/schemas/SessionScanEventEnum'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    LocationOperationLock:
-      type: object
-      properties:
-        lockId:
-          type:
-          - string
-          - 'null'
         name:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        doors:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Door'
       additionalProperties: false
-    LocationType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
+    LocationResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LocationResponse'
+          readOnly: true
+      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

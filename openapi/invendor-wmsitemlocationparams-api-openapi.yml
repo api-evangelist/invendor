@@ -592,126 +592,6 @@ paths:
       x-operation-id-original: Get location items in excel
 components:
   schemas:
-    IlpServiceLevel:
-      enum:
-      - 70
-      - 95
-      - 99
-      - 100
-      type: integer
-      format: int32
-    BulkUpsertItemLocationItemsParamsRequest:
-      type: object
-      properties:
-        itemCode:
-          type:
-          - string
-          - 'null'
-        minOrderQty:
-          type: number
-          format: double
-        orderUnitId:
-          type:
-          - string
-          - 'null'
-        bufferLevel:
-          type: number
-          format: double
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        vendorAccountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        vendorAccountCode:
-          type:
-          - string
-          - 'null'
-        serviceLevel:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    CreateLocationsItemsParamsRequest:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        bufferLevel:
-          type: number
-          format: double
-        minOrderQty:
-          type: number
-          format: double
-        orderUnitId:
-          type:
-          - string
-          - 'null'
-        minSalesQty:
-          type: number
-          format: double
-        salesUnitId:
-          type:
-          - string
-          - 'null'
-        dlvIntervalDays:
-          type: integer
-          format: int32
-        dlvDurationDays:
-          type: integer
-          format: int32
-        vendorAccountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        serviceLevel:
-          $ref: '#/components/schemas/IlpServiceLevel'
-      additionalProperties: false
-    BulkDeleteItemLocationParamsRequest:
-      type: object
-      properties:
-        ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
-      additionalProperties: false
-    AddBarcodeToItemLocationRequest:
-      type: object
-      properties:
-        barcode:
-          type:
-          - string
-          - 'null'
-        weightType:
-          $ref: '#/components/schemas/WeightType'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     UpdateLocationsItemsParamsRequest:
       type: object
       properties:
@@ -753,24 +633,6 @@ components:
         serviceLevel:
           $ref: '#/components/schemas/IlpServiceLevel'
       additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    WeightType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
     ItemLocationBarcodeResponse:
       type: object
       properties:
@@ -790,6 +652,14 @@ components:
         isWeightAdjusted:
           type: boolean
       additionalProperties: false
+    IlpServiceLevel:
+      enum:
+      - 70
+      - 95
+      - 99
+      - 100
+      type: integer
+      format: int32
     ItemLocationParamsResponse:
       type: object
       properties:
@@ -876,6 +746,136 @@ components:
           - 'null'
           items:
             type: string
+      additionalProperties: false
+    BulkDeleteItemLocationParamsRequest:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+      additionalProperties: false
+    WeightType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    BulkUpsertItemLocationItemsParamsRequest:
+      type: object
+      properties:
+        itemCode:
+          type:
+          - string
+          - 'null'
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type:
+          - string
+          - 'null'
+        bufferLevel:
+          type: number
+          format: double
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        vendorAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        vendorAccountCode:
+          type:
+          - string
+          - 'null'
+        serviceLevel:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AddBarcodeToItemLocationRequest:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+        weightType:
+          $ref: '#/components/schemas/WeightType'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    CreateLocationsItemsParamsRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        bufferLevel:
+          type: number
+          format: double
+        minOrderQty:
+          type: number
+          format: double
+        orderUnitId:
+          type:
+          - string
+          - 'null'
+        minSalesQty:
+          type: number
+          format: double
+        salesUnitId:
+          type:
+          - string
+          - 'null'
+        dlvIntervalDays:
+          type: integer
+          format: int32
+        dlvDurationDays:
+          type: integer
+          format: int32
+        vendorAccountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        serviceLevel:
+          $ref: '#/components/schemas/IlpServiceLevel'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

@@ -253,18 +253,22 @@ paths:
       x-operation-id-original: Delete operation dimension group
 components:
   schemas:
-    OperationDimGroupResponse:
+    UpdateOperationDimGroupRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
         name:
           type:
           - string
           - 'null'
         validationRule:
           $ref: '#/components/schemas/ValidationRulesEnum'
+      additionalProperties: false
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
       additionalProperties: false
     OperationDimGroupResponsePagedResult:
       type: object
@@ -311,12 +315,18 @@ components:
         validationRule:
           $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
-    Int32ResourceCreatedResponse:
+    OperationDimGroupResponse:
       type: object
       properties:
         id:
           type: integer
           format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        validationRule:
+          $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
     ApiErrorResponse:
       type: object
@@ -339,16 +349,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    UpdateOperationDimGroupRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        validationRule:
-          $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
   securitySchemes:
     OAuth2:

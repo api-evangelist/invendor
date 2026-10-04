@@ -292,18 +292,6 @@ components:
           items:
             $ref: '#/components/schemas/PropertyDTO'
       additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     SessionReportRowDTO:
       type: object
       properties:
@@ -379,6 +367,18 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/MetadataDTO'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

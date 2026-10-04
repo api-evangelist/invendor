@@ -237,13 +237,6 @@ paths:
       x-operation-id-original: End subscription by code
 components:
   schemas:
-    StartSubscriptionRequest:
-      type: object
-      properties:
-        serviceId:
-          type: string
-          format: uuid
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -269,34 +262,12 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    ApiErrorResponse:
+    StartSubscriptionRequest:
       type: object
       properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    EndSubscriptionRequest:
-      type: object
-      properties:
-        subscriptionId:
+        serviceId:
           type: string
           format: uuid
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     ServiceSubscription:
       type: object
@@ -327,6 +298,35 @@ components:
           - string
           - 'null'
         serviceName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    EndSubscriptionRequest:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
           type:
           - string
           - 'null'

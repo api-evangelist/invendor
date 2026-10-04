@@ -357,6 +357,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ValidateUnitIdsRequest:
+      type: object
+      properties:
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    CreateUnitRequest:
+      type: object
+      properties:
+        unitId:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     UnitResponsePagedResult:
       type: object
       properties:
@@ -384,13 +414,15 @@ components:
             $ref: '#/components/schemas/UnitResponse'
           readOnly: true
       additionalProperties: false
-    StringResourceCreatedResponse:
+    ApiErrorResponse:
       type: object
       properties:
-        id:
+        errors:
           type:
-          - string
+          - array
           - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     UnitResponse:
       type: object
@@ -403,28 +435,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    CreateUnitRequest:
-      type: object
-      properties:
-        unitId:
-          type:
-          - string
-          - 'null'
-        text:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
     UpdateUnitRequest:
       type: object
@@ -445,16 +455,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    ValidateUnitIdsRequest:
-      type: object
-      properties:
-        unitIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
       additionalProperties: false
   securitySchemes:
     OAuth2:

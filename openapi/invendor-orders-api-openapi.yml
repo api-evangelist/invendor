@@ -789,93 +789,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateOrderLineRequest:
-      type: object
-      properties:
-        orderId:
-          type: integer
-          format: int32
-        transDate:
-          type: string
-          format: date-time
-        itemId:
-          type: integer
-          format: int32
-        inventDim:
-          $ref: '#/components/schemas/InventDimDto'
-        orderQty:
-          type: number
-          format: double
-        unitId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UpdateOrderLineRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        itemId:
-          type: integer
-          format: int32
-        inventDim:
-          $ref: '#/components/schemas/InventDimDto'
-        orderQty:
-          type: number
-          format: double
-        firmedQty:
-          type: number
-          format: double
-        shippedQty:
-          type: number
-          format: double
-        receivedQty:
-          type: number
-          format: double
-      additionalProperties: false
-    CreateReceptionJournalForOrderRequest:
-      type: object
-      properties:
-        operationId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    OrderLocationParamResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        orderAutoShip:
-          type: boolean
-        partialFulFillmentAllowed:
-          type: boolean
-      additionalProperties: false
     CreateReplenishmentOrderLine:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        inventDim:
-          $ref: '#/components/schemas/InventDimDto'
-        orderQty:
-          type: number
-          format: double
-        unitId:
-          type:
-          - string
-          - 'null'
-        transDate:
-          type: string
-          format: date-time
-      additionalProperties: false
-    CreatePurchaseOrderLine:
       type: object
       properties:
         itemId:
@@ -957,54 +871,14 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    OrderLineStatus:
+    OrderType:
       enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
+      - 10
+      - 20
+      - 40
+      - 90
       type: integer
       format: int32
-    CreatePurchaseOrderRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        vendorId:
-          type: integer
-          format: int32
-        buyerId:
-          type: integer
-          format: int32
-        description:
-          type:
-          - string
-          - 'null'
-        lines:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CreatePurchaseOrderLine'
-      additionalProperties: false
-    InventDimDto:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     OrderLineResponse:
       type: object
       properties:
@@ -1059,6 +933,81 @@ components:
           type: string
           format: date-time
       additionalProperties: false
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateOrderLineRequest:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int32
+        transDate:
+          type: string
+          format: date-time
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        unitId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderLineStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    CreateOrUpdateOrderLocationParamRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        orderAutoShip:
+          type: boolean
+        partialFulFillmentAllowed:
+          type: boolean
+      additionalProperties: false
     UpdateOrderDetailsRequest:
       type: object
       properties:
@@ -1080,6 +1029,154 @@ components:
           - integer
           - 'null'
           format: int32
+      additionalProperties: false
+    CreatePurchaseOrderRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        vendorId:
+          type: integer
+          format: int32
+        buyerId:
+          type: integer
+          format: int32
+        description:
+          type:
+          - string
+          - 'null'
+        lines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CreatePurchaseOrderLine'
+      additionalProperties: false
+    OrderListResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OrderListResponse'
+          readOnly: true
+      additionalProperties: false
+    OrderLineType:
+      enum:
+      - 10
+      - 20
+      type: integer
+      format: int32
+    CreatePurchaseOrderLine:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        unitId:
+          type:
+          - string
+          - 'null'
+        transDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    InventDimDto:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderLocationParamResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        orderAutoShip:
+          type: boolean
+        partialFulFillmentAllowed:
+          type: boolean
+      additionalProperties: false
+    CreateReceptionJournalForOrderRequest:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    CreateReplenishmentOrderRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        lines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CreateReplenishmentOrderLine'
+      additionalProperties: false
+    UpdateOrderLineRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        itemId:
+          type: integer
+          format: int32
+        inventDim:
+          $ref: '#/components/schemas/InventDimDto'
+        orderQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        shippedQty:
+          type: number
+          format: double
+        receivedQty:
+          type: number
+          format: double
       additionalProperties: false
     OrderDetailsResponse:
       type: object
@@ -1152,103 +1249,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CreateOrUpdateOrderLocationParamRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        orderAutoShip:
-          type: boolean
-        partialFulFillmentAllowed:
-          type: boolean
-      additionalProperties: false
-    OrderStatus:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
-    OrderType:
-      enum:
-      - 10
-      - 20
-      - 40
-      - 90
-      type: integer
-      format: int32
-    OrderListResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/OrderListResponse'
-          readOnly: true
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    OrderLineType:
-      enum:
-      - 10
-      - 20
-      type: integer
-      format: int32
-    CreateReplenishmentOrderRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        lines:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CreateReplenishmentOrderLine'
       additionalProperties: false
   securitySchemes:
     OAuth2:

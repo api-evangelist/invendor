@@ -83,6 +83,18 @@ paths:
       x-operation-id-original: Available services list
 components:
   schemas:
+    IDomainEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        occurredOn:
+          type: string
+          format: date-time
+          readOnly: true
+      additionalProperties: false
     Subscription:
       type: object
       properties:
@@ -130,39 +142,6 @@ components:
         service:
           $ref: '#/components/schemas/Service'
       additionalProperties: false
-    Service:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        subscriptions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Subscription'
-      additionalProperties: false
-    IDomainEvent:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        occurredOn:
-          type: string
-          format: date-time
-          readOnly: true
-      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -188,6 +167,27 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    Service:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        subscriptions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Subscription'
+      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

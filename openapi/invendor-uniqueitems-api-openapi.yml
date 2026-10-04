@@ -142,6 +142,119 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ItemStatusRowDTO:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type:
+          - string
+          - 'null'
+        itemName:
+          type:
+          - string
+          - 'null'
+        imageUrl:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        locationId:
+          type: integer
+          format: int32
+        location:
+          type:
+          - string
+          - 'null'
+        vendor:
+          type:
+          - string
+          - 'null'
+        metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MetadataDTO'
+        sessionId:
+          type: integer
+          format: int32
+        scanEventId:
+          type: integer
+          format: int32
+        datetime:
+          type: string
+          format: date-time
+        returnDatetime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        operationId:
+          type: integer
+          format: int32
+        operation:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+        itemType:
+          type:
+          - string
+          - 'null'
+        currentUserId:
+          type: integer
+          format: int32
+        currentUser:
+          type:
+          - string
+          - 'null'
+        currentUserFirstName:
+          type:
+          - string
+          - 'null'
+        currentUserLastName:
+          type:
+          - string
+          - 'null'
+        currentUserFullName:
+          type:
+          - string
+          - 'null'
+        previousUserId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        previousUser:
+          type:
+          - string
+          - 'null'
+        previousUserFirstName:
+          type:
+          - string
+          - 'null'
+        previousUserLastName:
+          type:
+          - string
+          - 'null'
+        previousUserFullName:
+          type:
+          - string
+          - 'null'
+        itemProperties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+      additionalProperties: false
     PropertyDTO:
       type: object
       properties:
@@ -153,25 +266,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    MetadataDTO:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        dimensionId:
-          type: integer
-          format: int32
       additionalProperties: false
     UniqueItemCurrentStatusRowDTO:
       type: object
@@ -286,118 +380,24 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ItemStatusRowDTO:
+    MetadataDTO:
       type: object
       properties:
-        itemId:
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        dimensionId:
           type: integer
           format: int32
-        itemCode:
-          type:
-          - string
-          - 'null'
-        itemName:
-          type:
-          - string
-          - 'null'
-        imageUrl:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        locationId:
-          type: integer
-          format: int32
-        location:
-          type:
-          - string
-          - 'null'
-        vendor:
-          type:
-          - string
-          - 'null'
-        metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MetadataDTO'
-        sessionId:
-          type: integer
-          format: int32
-        scanEventId:
-          type: integer
-          format: int32
-        datetime:
-          type: string
-          format: date-time
-        returnDatetime:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        operationId:
-          type: integer
-          format: int32
-        operation:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-        itemType:
-          type:
-          - string
-          - 'null'
-        currentUserId:
-          type: integer
-          format: int32
-        currentUser:
-          type:
-          - string
-          - 'null'
-        currentUserFirstName:
-          type:
-          - string
-          - 'null'
-        currentUserLastName:
-          type:
-          - string
-          - 'null'
-        currentUserFullName:
-          type:
-          - string
-          - 'null'
-        previousUserId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        previousUser:
-          type:
-          - string
-          - 'null'
-        previousUserFirstName:
-          type:
-          - string
-          - 'null'
-        previousUserLastName:
-          type:
-          - string
-          - 'null'
-        previousUserFullName:
-          type:
-          - string
-          - 'null'
-        itemProperties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
       additionalProperties: false
     Error:
       type: object

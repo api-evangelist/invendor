@@ -217,10 +217,14 @@ paths:
       x-operation-id-original: Delete question
 components:
   schemas:
-    StringResourceCreatedResponse:
+    UpdateQuestionDefRequest:
       type: object
       properties:
-        id:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
           type:
           - string
           - 'null'
@@ -264,16 +268,6 @@ components:
             $ref: '#/components/schemas/QuestionDefResponse'
           readOnly: true
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     CreateQuestionDefinitionRequest:
       type: object
       properties:
@@ -286,6 +280,24 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    StringResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     Error:
       type: object
       properties:
@@ -294,18 +306,6 @@ components:
           - string
           - 'null'
         message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UpdateQuestionDefRequest:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
           type:
           - string
           - 'null'

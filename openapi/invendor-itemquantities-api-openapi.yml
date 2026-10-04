@@ -273,6 +273,64 @@ components:
         inventDim:
           $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
+    InventDimResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        locationName:
+          type:
+          - string
+          - 'null'
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ItemQuantityGroupedResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        displayName:
+          type:
+          - string
+          - 'null'
+        displayCode:
+          type:
+          - string
+          - 'null'
+        onOrder:
+          type: number
+          format: double
+        ordered:
+          type: number
+          format: double
+        qty:
+          type: number
+          format: double
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
+      additionalProperties: false
     ItemQuantityGroupedResponsePagedResult:
       type: object
       properties:
@@ -338,64 +396,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    InventDimResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        locationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        locationName:
-          type:
-          - string
-          - 'null'
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ItemQuantityGroupedResponse:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        displayName:
-          type:
-          - string
-          - 'null'
-        displayCode:
-          type:
-          - string
-          - 'null'
-        onOrder:
-          type: number
-          format: double
-        ordered:
-          type: number
-          format: double
-        qty:
-          type: number
-          format: double
-        inventDim:
-          $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
     ItemQuantitiesDTO:
       type: object
