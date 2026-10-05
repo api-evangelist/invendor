@@ -1,0 +1,12 @@
+{
+ "url": "https://reporting.invendor.com/swagger/v1/swagger.json",
+ "requested_url": "https://reporting.invendor.com/swagger/v1/swagger.json",
+ "status": 200,
+ "content_type": "application/json;charset=utf-8",
+ "bytes": 92661,
+ "sha256": "4e5a33da9e031086711d8b4a86d107e4bd2be9d9480d562618090b9c27b14f78",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.968), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
