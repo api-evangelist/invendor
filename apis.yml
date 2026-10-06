@@ -45,7 +45,7 @@ accessModel:
 image: https://invendor.com/wp-content/uploads/2026/06/invendor-social-image.jpg
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-10-06'
 tags:
 - Company
 - Inventory
@@ -672,6 +672,8 @@ apis:
   - type: APIReference
     url: https://reporting.invendor.com/swagger/index.html
 common:
+- url: https://invendor.com/invendor-blog/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/invendor-capability-edges.yml
   name: Invendor Business Capability Map
