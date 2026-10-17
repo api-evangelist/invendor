@@ -677,6 +677,176 @@ paths:
       x-operation-id-original: Export journal lines
 components:
   schemas:
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UpdateJournalDetailsRequest:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        operationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        date:
+          type: string
+          format: date-time
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    CreateConfirmationJournalRequestLine:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        itemCode:
+          type:
+          - string
+          - 'null'
+        transDate:
+          type: string
+          format: date-time
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
+        expectedQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        unitId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateJournalLineRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: number
+          format: double
+        onHandQty:
+          type: number
+          format: double
+        qtyConfirmed:
+          type: number
+          format: double
+      additionalProperties: false
+    JournalType:
+      enum:
+      - 0
+      - 1
+      type: integer
+      format: int32
+    CreateConfirmationJournalRequest:
+      type: object
+      properties:
+        tenantId:
+          type: string
+          format: uuid
+        orderRefId:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+        accountId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        operationId:
+          type: integer
+          format: int32
+        journalDate:
+          type: string
+          format: date-time
+        processType:
+          $ref: '#/components/schemas/JournalProcessType'
+        autoPost:
+          type: boolean
+        isInternal:
+          type: boolean
+        description:
+          type:
+          - string
+          - 'null'
+        lines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CreateConfirmationJournalRequestLine'
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    JournalLineResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/JournalLineResponse'
+          readOnly: true
+      additionalProperties: false
     CreateCorrectionJournalRequest:
       type: object
       properties:
@@ -717,49 +887,94 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    JournalLineResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/JournalLineResponse'
-          readOnly: true
-      additionalProperties: false
-    Int32ResourceCreatedResponse:
+    JournalProcessType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      format: int32
+    ConfirmationJournalLine:
       type: object
       properties:
         id:
           type: integer
           format: int32
+        lineRefId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        itemCode:
+          type:
+          - string
+          - 'null'
+        transDate:
+          type: string
+          format: date-time
+        inventDimId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
+        expectedQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        unitId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    ApiErrorResponse:
+    CreateCorrectionJournalRequestLine:
       type: object
       properties:
-        errors:
+        itemId:
+          type: integer
+          format: int32
+        transDate:
+          type: string
+          format: date-time
+        wmsLocationId:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+        batchId:
+          type:
+          - string
+          - 'null'
+        expectedQty:
+          type: number
+          format: double
+        firmedQty:
+          type: number
+          format: double
+        unitId:
+          type:
+          - string
+          - 'null'
+        diff:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    PostJournalRequest:
+      type: object
+      properties:
+        isInternal:
+          type: boolean
       additionalProperties: false
     Error:
       type: object
@@ -803,211 +1018,6 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
-    CreateCorrectionJournalRequestLine:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        transDate:
-          type: string
-          format: date-time
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-        expectedQty:
-          type: number
-          format: double
-        firmedQty:
-          type: number
-          format: double
-        unitId:
-          type:
-          - string
-          - 'null'
-        diff:
-          type: number
-          format: double
-          readOnly: true
-      additionalProperties: false
-    JournalLineResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        journalId:
-          type: integer
-          format: int32
-        operationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        journalType:
-          $ref: '#/components/schemas/JournalType'
-        itemId:
-          type: integer
-          format: int32
-        itemCode:
-          type:
-          - string
-          - 'null'
-        itemName:
-          type:
-          - string
-          - 'null'
-        transDate:
-          type: string
-          format: date-time
-        quantity:
-          type: number
-          format: double
-        qtyOnHand:
-          type: number
-          format: double
-        qtyConfirmed:
-          type: number
-          format: double
-        inventDim:
-          $ref: '#/components/schemas/InventDimResponse'
-      additionalProperties: false
-    JournalResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/JournalResponse'
-          readOnly: true
-      additionalProperties: false
-    UpdateJournalDetailsRequest:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        operationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        locationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        date:
-          type: string
-          format: date-time
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-      additionalProperties: false
-    JournalType:
-      enum:
-      - 0
-      - 1
-      type: integer
-      format: int32
-    PostJournalRequest:
-      type: object
-      properties:
-        isInternal:
-          type: boolean
-      additionalProperties: false
-    JournalProcessType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      format: int32
-    CreateJournalLineRequest:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: number
-          format: double
-        onHandQty:
-          type: number
-          format: double
-        qtyConfirmed:
-          type: number
-          format: double
-      additionalProperties: false
-    CreateConfirmationJournalRequestLine:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        itemCode:
-          type:
-          - string
-          - 'null'
-        transDate:
-          type: string
-          format: date-time
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-        expectedQty:
-          type: number
-          format: double
-        firmedQty:
-          type: number
-          format: double
-        unitId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     ReCreateJournalLinesRequest:
       type: object
       properties:
@@ -1019,6 +1029,30 @@ components:
           format: date-time
         diffOnly:
           type: boolean
+      additionalProperties: false
+    InventDimResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        locationId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        locationName:
+          type:
+          - string
+          - 'null'
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        batchId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     JournalResponse:
       type: object
@@ -1066,118 +1100,84 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    InventDimResponse:
+    JournalLineResponse:
       type: object
       properties:
         id:
           type: integer
           format: int32
-        locationId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        locationName:
-          type:
-          - string
-          - 'null'
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ConfirmationJournalLine:
-      type: object
-      properties:
-        id:
+        journalId:
           type: integer
           format: int32
-        lineRefId:
+        operationId:
           type:
           - integer
           - 'null'
+          format: int32
+        journalType:
+          $ref: '#/components/schemas/JournalType'
+        itemId:
+          type: integer
           format: int32
         itemCode:
+          type:
+          - string
+          - 'null'
+        itemName:
           type:
           - string
           - 'null'
         transDate:
           type: string
           format: date-time
-        inventDimId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        batchId:
-          type:
-          - string
-          - 'null'
-        expectedQty:
+        quantity:
           type: number
           format: double
-        firmedQty:
+        qtyOnHand:
           type: number
           format: double
-        unitId:
-          type:
-          - string
-          - 'null'
+        qtyConfirmed:
+          type: number
+          format: double
+        inventDim:
+          $ref: '#/components/schemas/InventDimResponse'
       additionalProperties: false
-    CreateConfirmationJournalRequest:
+    ApiErrorResponse:
       type: object
       properties:
-        tenantId:
-          type: string
-          format: uuid
-        orderRefId:
-          type: integer
-          format: int32
-        userId:
-          type: integer
-          format: int32
-        accountId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        operationId:
-          type: integer
-          format: int32
-        journalDate:
-          type: string
-          format: date-time
-        processType:
-          $ref: '#/components/schemas/JournalProcessType'
-        autoPost:
-          type: boolean
-        isInternal:
-          type: boolean
-        description:
-          type:
-          - string
-          - 'null'
-        lines:
+        errors:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/CreateConfirmationJournalRequestLine'
-        properties:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    JournalResponsePagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
           type:
-          - object
+          - array
           - 'null'
-          additionalProperties:
-            type: string
+          items:
+            $ref: '#/components/schemas/JournalResponse'
+          readOnly: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

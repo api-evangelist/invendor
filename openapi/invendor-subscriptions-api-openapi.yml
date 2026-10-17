@@ -262,6 +262,35 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    EndSubscriptionRequest:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     StartSubscriptionRequest:
       type: object
       properties:
@@ -298,35 +327,6 @@ components:
           - string
           - 'null'
         serviceName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    EndSubscriptionRequest:
-      type: object
-      properties:
-        subscriptionId:
-          type: string
-          format: uuid
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
           type:
           - string
           - 'null'

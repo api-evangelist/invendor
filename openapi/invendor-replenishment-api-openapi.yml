@@ -175,6 +175,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    OrderStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
     PropertyDTO:
       type: object
       properties:
@@ -183,6 +193,28 @@ components:
           - string
           - 'null'
         value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OrderLineStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
           type:
           - string
           - 'null'
@@ -359,26 +391,6 @@ components:
           items:
             $ref: '#/components/schemas/PropertyDTO'
       additionalProperties: false
-    OrderStatus:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
-    OrderLineStatus:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
     ReplenishmentOrderRowDTO:
       type: object
       properties:
@@ -439,18 +451,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/PropertyDTO'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

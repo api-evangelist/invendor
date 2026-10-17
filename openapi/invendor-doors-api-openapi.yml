@@ -47,6 +47,18 @@ paths:
       x-operation-id-original: Get doors list
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -65,18 +77,6 @@ components:
           - string
           - 'null'
         name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
           type:
           - string
           - 'null'

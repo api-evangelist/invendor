@@ -318,45 +318,6 @@ paths:
       x-operation-id-original: Delete extended property for the object
 components:
   schemas:
-    ExtendedPropertyPagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExtendedProperty'
-          readOnly: true
-      additionalProperties: false
-    CreateExtendedPropertyRequest:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     ExtendedPropertyAffinity:
       enum:
       - 0
@@ -405,6 +366,43 @@ components:
       - 401
       type: integer
       format: int32
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    ExtendedPropertyPagedResult:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExtendedProperty'
+          readOnly: true
+      additionalProperties: false
     Door:
       type: object
       properties:
@@ -417,20 +415,22 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     UpdateExtendedPropertyRequest:
       type: object
       properties:
         value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
           type:
           - string
           - 'null'
@@ -452,14 +452,14 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    Error:
+    CreateExtendedPropertyRequest:
       type: object
       properties:
-        code:
+        key:
           type:
           - string
           - 'null'
-        message:
+        value:
           type:
           - string
           - 'null'

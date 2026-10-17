@@ -287,13 +287,13 @@ paths:
       x-operation-id-original: Delete unique item status
 components:
   schemas:
-    UniqueItemGenericStatus:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
+    Int32ResourceCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+      additionalProperties: false
     UniqueItemStatusResponsePagedResult:
       type: object
       properties:
@@ -321,6 +321,21 @@ components:
             $ref: '#/components/schemas/UniqueItemStatusResponse'
           readOnly: true
       additionalProperties: false
+    CreateUniqueItemStatusRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        genericStatus:
+          $ref: '#/components/schemas/UniqueItemGenericStatus'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
     UpdateUniqueItemStatusRequest:
       type: object
       properties:
@@ -331,12 +346,27 @@ components:
         genericStatus:
           $ref: '#/components/schemas/UniqueItemGenericStatus'
       additionalProperties: false
-    Int32ResourceCreatedResponse:
+    ApiErrorResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     UniqueItemStatusResponse:
       type: object
@@ -366,43 +396,13 @@ components:
           - 'null'
           format: date-time
       additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    CreateUniqueItemStatusRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        genericStatus:
-          $ref: '#/components/schemas/UniqueItemGenericStatus'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+    UniqueItemGenericStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
   securitySchemes:
     OAuth2:
       type: oauth2

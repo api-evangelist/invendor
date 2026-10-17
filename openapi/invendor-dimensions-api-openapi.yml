@@ -656,90 +656,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    OperationType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      type: integer
-      format: int32
-    OperationResponse:
+    CreateUpdateAccountDimensionParametersRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
         accountId:
           type:
           - integer
           - 'null'
           format: int32
-        parentId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/OperationType'
-        genericType:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    DimensionDetailsResponse:
-      type: object
-      properties:
-        id:
+        dimensionId:
           type: integer
           format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/DimensionType'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        itemCondition:
-          $ref: '#/components/schemas/ItemCondition'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
+        showOnReports:
+          type: boolean
+        showOnNotifications:
+          type: boolean
       additionalProperties: false
     UpdateDimensionRequest:
       type: object
@@ -771,17 +702,62 @@ components:
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    ItemCondition:
+    DimensionResponsePagedResult:
       type: object
       properties:
-        propertyKey:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DimensionResponse'
+          readOnly: true
+      additionalProperties: false
+    DimensionDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
           type:
           - string
           - 'null'
-        propertyValue:
+        shortName:
           type:
           - string
           - 'null'
+        type:
+          $ref: '#/components/schemas/DimensionType'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        itemCondition:
+          $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
     DimensionResponse:
       type: object
@@ -804,6 +780,18 @@ components:
           - integer
           - 'null'
           format: int32
+      additionalProperties: false
+    ItemCondition:
+      type: object
+      properties:
+        propertyKey:
+          type:
+          - string
+          - 'null'
+        propertyValue:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     DimensionType:
       enum:
@@ -832,7 +820,7 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
-    AccountDimensionsParametersResponse:
+    OperationResponse:
       type: object
       properties:
         id:
@@ -843,40 +831,25 @@ components:
           - integer
           - 'null'
           format: int32
-        dimensionId:
-          type: integer
-          format: int32
-        showOnReports:
-          type: boolean
-        showOnNotifications:
-          type: boolean
-      additionalProperties: false
-    DimensionResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
+        parentId:
           type:
-          - array
+          - integer
           - 'null'
-          items:
-            $ref: '#/components/schemas/DimensionResponse'
-          readOnly: true
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/OperationType'
+        genericType:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     CreateDimensionRequest:
       type: object
@@ -908,9 +881,12 @@ components:
         itemCondition:
           $ref: '#/components/schemas/ItemCondition'
       additionalProperties: false
-    CreateUpdateAccountDimensionParametersRequest:
+    AccountDimensionsParametersResponse:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         accountId:
           type:
           - integer
@@ -924,38 +900,30 @@ components:
         showOnNotifications:
           type: boolean
       additionalProperties: false
-    AccountBasicResponse:
+    Error:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        name:
+        code:
           type:
           - string
           - 'null'
-        accountCode:
-          type:
-          - string
-          - 'null'
-        isTenantPrimary:
-          type: boolean
-      additionalProperties: false
-    OperationDTO:
-      type: object
-      properties:
-        operationId:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        description:
+        message:
           type:
           - string
           - 'null'
       additionalProperties: false
+    OperationType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      type: integer
+      format: int32
     UserDTO:
       type: object
       properties:
@@ -988,6 +956,23 @@ components:
         isDeleted:
           type: boolean
       additionalProperties: false
+    AccountBasicResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        accountCode:
+          type:
+          - string
+          - 'null'
+        isTenantPrimary:
+          type: boolean
+      additionalProperties: false
     LocationDTO:
       type: object
       properties:
@@ -1010,6 +995,21 @@ components:
           items:
             type: integer
             format: int32
+      additionalProperties: false
+    OperationDTO:
+      type: object
+      properties:
+        operationId:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     OAuth2:

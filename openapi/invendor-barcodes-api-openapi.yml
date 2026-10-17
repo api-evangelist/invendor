@@ -66,32 +66,17 @@ paths:
       x-operation-id-original: Get all items barcodes for scale lockers
 components:
   schemas:
-    ItemBarcodeSearchResponsePagedResult:
+    Error:
       type: object
       properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
+        code:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/ItemBarcodeSearchResponse'
-          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     ApiErrorResponse:
       type: object
@@ -140,17 +125,32 @@ components:
           type: number
           format: double
       additionalProperties: false
-    Error:
+    ItemBarcodeSearchResponsePagedResult:
       type: object
       properties:
-        code:
+        pageSize:
+          type: integer
+          format: int32
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
           type:
-          - string
+          - array
           - 'null'
-        message:
-          type:
-          - string
-          - 'null'
+          items:
+            $ref: '#/components/schemas/ItemBarcodeSearchResponse'
+          readOnly: true
       additionalProperties: false
   securitySchemes:
     OAuth2:

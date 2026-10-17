@@ -87,14 +87,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    StatusIssue:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
     InventDimResponse:
       type: object
       properties:
@@ -180,7 +172,7 @@ components:
             $ref: '#/components/schemas/InventTransResponse'
           readOnly: true
       additionalProperties: false
-    StatusReceipt:
+    StatusIssue:
       enum:
       - 0
       - 1
@@ -200,6 +192,14 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    StatusReceipt:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
   securitySchemes:
     OAuth2:
       type: oauth2

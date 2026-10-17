@@ -287,67 +287,6 @@ paths:
       x-operation-id-original: Delete flag type
 components:
   schemas:
-    FlagSeverity:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    FlagTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type:
-          - string
-          - 'null'
-        color:
-          type:
-          - string
-          - 'null'
-        severity:
-          $ref: '#/components/schemas/FlagSeverity'
-        description:
-          type:
-          - string
-          - 'null'
-        accountId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        createdOn:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        modifiedOn:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      additionalProperties: false
-    UpdateFlagTypeRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        color:
-          type:
-          - string
-          - 'null'
-        severity:
-          $ref: '#/components/schemas/FlagSeverity'
-        description:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     Int32ResourceCreatedResponse:
       type: object
       properties:
@@ -378,15 +317,30 @@ components:
           - 'null'
           format: int32
       additionalProperties: false
-    ApiErrorResponse:
+    FlagSeverity:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    UpdateFlagTypeRequest:
       type: object
       properties:
-        errors:
+        name:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
+        color:
+          type:
+          - string
+          - 'null'
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     FlagTypeResponsePagedResult:
       type: object
@@ -426,6 +380,52 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    FlagTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type:
+          - string
+          - 'null'
+        color:
+          type:
+          - string
+          - 'null'
+        severity:
+          $ref: '#/components/schemas/FlagSeverity'
+        description:
+          type:
+          - string
+          - 'null'
+        accountId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modifiedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
       additionalProperties: false
   securitySchemes:
     OAuth2:

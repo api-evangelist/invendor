@@ -112,6 +112,47 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PropertyDTO:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    MetadataDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        shortName:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        dimensionId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     ItemStatusRowDTO:
       type: object
       properties:
@@ -224,47 +265,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/PropertyDTO'
-      additionalProperties: false
-    PropertyDTO:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    MetadataDTO:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        shortName:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        dimensionId:
-          type: integer
-          format: int32
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
       additionalProperties: false
     Error:
       type: object

@@ -217,30 +217,6 @@ paths:
       x-operation-id-original: Delete question
 components:
   schemas:
-    UpdateQuestionDefRequest:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    QuestionDefResponse:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     QuestionDefResponsePagedResult:
       type: object
       properties:
@@ -268,18 +244,6 @@ components:
             $ref: '#/components/schemas/QuestionDefResponse'
           readOnly: true
       additionalProperties: false
-    CreateQuestionDefinitionRequest:
-      type: object
-      properties:
-        questionId:
-          type:
-          - string
-          - 'null'
-        query:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     StringResourceCreatedResponse:
       type: object
       properties:
@@ -298,6 +262,30 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
+    CreateQuestionDefinitionRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    QuestionDefResponse:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     Error:
       type: object
       properties:
@@ -306,6 +294,18 @@ components:
           - string
           - 'null'
         message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateQuestionDefRequest:
+      type: object
+      properties:
+        questionId:
+          type:
+          - string
+          - 'null'
+        query:
           type:
           - string
           - 'null'

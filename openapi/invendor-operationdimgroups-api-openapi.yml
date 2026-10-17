@@ -253,16 +253,6 @@ paths:
       x-operation-id-original: Delete operation dimension group
 components:
   schemas:
-    UpdateOperationDimGroupRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        validationRule:
-          $ref: '#/components/schemas/ValidationRulesEnum'
-      additionalProperties: false
     Int32ResourceCreatedResponse:
       type: object
       properties:
@@ -270,6 +260,14 @@ components:
           type: integer
           format: int32
       additionalProperties: false
+    ValidationRulesEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
     OperationDimGroupResponsePagedResult:
       type: object
       properties:
@@ -297,17 +295,12 @@ components:
             $ref: '#/components/schemas/OperationDimGroupResponse'
           readOnly: true
       additionalProperties: false
-    ValidationRulesEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    CreateOperationDimGroupRequest:
+    OperationDimGroupResponse:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         name:
           type:
           - string
@@ -315,12 +308,9 @@ components:
         validationRule:
           $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
-    OperationDimGroupResponse:
+    CreateOperationDimGroupRequest:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
         name:
           type:
           - string
@@ -349,6 +339,16 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    UpdateOperationDimGroupRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        validationRule:
+          $ref: '#/components/schemas/ValidationRulesEnum'
       additionalProperties: false
   securitySchemes:
     OAuth2:

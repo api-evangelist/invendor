@@ -47,31 +47,6 @@ paths:
       x-operation-id-original: Shelf layouts
 components:
   schemas:
-    BinTypeResponse:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        length:
-          type: integer
-          format: int32
-        width:
-          type: integer
-          format: int32
-        height:
-          type: integer
-          format: int32
-      additionalProperties: false
     ShelfLayoutBinResponse:
       type: object
       properties:
@@ -137,6 +112,31 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    BinTypeResponse:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        length:
+          type: integer
+          format: int32
+        width:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+      additionalProperties: false
   securitySchemes:
     OAuth2:
       type: oauth2

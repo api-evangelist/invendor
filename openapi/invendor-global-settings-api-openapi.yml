@@ -486,44 +486,6 @@ components:
             $ref: '#/components/schemas/GlobalSettingsResponse'
           readOnly: true
       additionalProperties: false
-    BulkUpdateGlobalSettingRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    UpdateGlobalSettingRequest:
-      type: object
-      properties:
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    CreateGlobalSettingRequest:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
     GlobalSettingType:
       enum:
       - 0
@@ -557,13 +519,53 @@ components:
         type:
           $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
-    UpdateLogoUrlRequest:
+    CreateGlobalSettingRequest:
       type: object
       properties:
-        imageUrl:
+        id:
           type:
           - string
           - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    GetGlobalSettingsTypeResponse:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        value:
+          $ref: '#/components/schemas/GlobalSettingType'
+      additionalProperties: false
+    BulkUpdateGlobalSettingRequest:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
     GetGlobalSettingResponse:
       type: object
@@ -581,26 +583,6 @@ components:
         type:
           $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
-    GetGlobalSettingsTypeResponse:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        value:
-          $ref: '#/components/schemas/GlobalSettingType'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     Error:
       type: object
       properties:
@@ -612,6 +594,24 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    UpdateLogoUrlRequest:
+      type: object
+      properties:
+        imageUrl:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateGlobalSettingRequest:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/GlobalSettingType'
       additionalProperties: false
   securitySchemes:
     OAuth2:

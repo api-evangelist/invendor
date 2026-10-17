@@ -331,102 +331,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BadScanDto:
-      type: object
-      properties:
-        scanId:
-          type: integer
-          format: int32
-        locationId:
-          type: integer
-          format: int32
-        sessionTypeId:
-          type: integer
-          format: int32
-        sessionState:
-          type: integer
-          format: int32
-        scanDateTime:
-          type: string
-          format: date-time
-        itemId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        itemName:
-          type:
-          - string
-          - 'null'
-        itemCode:
-          type:
-          - string
-          - 'null'
-        altCode:
-          type:
-          - string
-          - 'null'
-        altName:
-          type:
-          - string
-          - 'null'
-        barcode:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type:
-          - number
-          - 'null'
-          format: double
-        expectedQuantity:
-          type:
-          - number
-          - 'null'
-          format: double
-        confirmedQuantity:
-          type:
-          - number
-          - 'null'
-          format: double
-        rawWeight:
-          type:
-          - number
-          - 'null'
-          format: double
-        itemWeight:
-          type:
-          - number
-          - 'null'
-          format: double
-        itemBinWeight:
-          type:
-          - number
-          - 'null'
-          format: double
-        calculatedItemWeight:
-          type:
-          - number
-          - 'null'
-          format: double
-        weightDiffPercent:
-          type:
-          - number
-          - 'null'
-          format: double
-        location:
-          type:
-          - string
-          - 'null'
-        wmsLocationId:
-          type:
-          - string
-          - 'null'
-        operation:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     PropertyDTO:
       type: object
       properties:
@@ -606,6 +510,102 @@ components:
           - string
           - 'null'
         locationName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    BadScanDto:
+      type: object
+      properties:
+        scanId:
+          type: integer
+          format: int32
+        locationId:
+          type: integer
+          format: int32
+        sessionTypeId:
+          type: integer
+          format: int32
+        sessionState:
+          type: integer
+          format: int32
+        scanDateTime:
+          type: string
+          format: date-time
+        itemId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        itemName:
+          type:
+          - string
+          - 'null'
+        itemCode:
+          type:
+          - string
+          - 'null'
+        altCode:
+          type:
+          - string
+          - 'null'
+        altName:
+          type:
+          - string
+          - 'null'
+        barcode:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type:
+          - number
+          - 'null'
+          format: double
+        expectedQuantity:
+          type:
+          - number
+          - 'null'
+          format: double
+        confirmedQuantity:
+          type:
+          - number
+          - 'null'
+          format: double
+        rawWeight:
+          type:
+          - number
+          - 'null'
+          format: double
+        itemWeight:
+          type:
+          - number
+          - 'null'
+          format: double
+        itemBinWeight:
+          type:
+          - number
+          - 'null'
+          format: double
+        calculatedItemWeight:
+          type:
+          - number
+          - 'null'
+          format: double
+        weightDiffPercent:
+          type:
+          - number
+          - 'null'
+          format: double
+        location:
+          type:
+          - string
+          - 'null'
+        wmsLocationId:
+          type:
+          - string
+          - 'null'
+        operation:
           type:
           - string
           - 'null'

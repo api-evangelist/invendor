@@ -306,30 +306,32 @@ paths:
         - io.common
 components:
   schemas:
-    CreateUnitConversionRequest:
+    UnitConversionResponsePagedResult:
       type: object
       properties:
-        itemId:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        fromUnitId:
-          type:
-          - string
-          - 'null'
-        toUnitId:
-          type:
-          - string
-          - 'null'
-        factor:
-          type: number
-          format: double
-        decimals:
+        pageSize:
           type: integer
           format: int32
-        roundOffType:
-          $ref: '#/components/schemas/RoundOffType'
+          readOnly: true
+        page:
+          type: integer
+          format: int32
+          readOnly: true
+        totalCount:
+          type: integer
+          format: int32
+          readOnly: true
+        filteredCount:
+          type: integer
+          format: int32
+          readOnly: true
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UnitConversionResponse'
+          readOnly: true
       additionalProperties: false
     UnitConversionResponse:
       type: object
@@ -355,6 +357,71 @@ components:
           $ref: '#/components/schemas/RoundOffType'
         item:
           $ref: '#/components/schemas/ItemResponseBase'
+      additionalProperties: false
+    ItemResponseBase:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        code:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ItemMissingUnitConversionResponse:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int32
+        fromUnitId:
+          type:
+          - string
+          - 'null'
+        toUnitId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateUnitConversionRequest:
+      type: object
+      properties:
+        itemId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        fromUnitId:
+          type:
+          - string
+          - 'null'
+        toUnitId:
+          type:
+          - string
+          - 'null'
+        factor:
+          type: number
+          format: double
+        decimals:
+          type: integer
+          format: int32
+        roundOffType:
+          $ref: '#/components/schemas/RoundOffType'
+      additionalProperties: false
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     UpdateUnitConversionRequest:
       type: object
@@ -400,73 +467,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ItemMissingUnitConversionResponse'
-          readOnly: true
-      additionalProperties: false
-    ItemMissingUnitConversionResponse:
-      type: object
-      properties:
-        itemId:
-          type: integer
-          format: int32
-        fromUnitId:
-          type:
-          - string
-          - 'null'
-        toUnitId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ItemResponseBase:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        code:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    ApiErrorResponse:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    UnitConversionResponsePagedResult:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-          readOnly: true
-        page:
-          type: integer
-          format: int32
-          readOnly: true
-        totalCount:
-          type: integer
-          format: int32
-          readOnly: true
-        filteredCount:
-          type: integer
-          format: int32
-          readOnly: true
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UnitConversionResponse'
           readOnly: true
       additionalProperties: false
     Error:

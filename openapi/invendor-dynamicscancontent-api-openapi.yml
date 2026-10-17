@@ -107,16 +107,6 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
-    DynamicFieldValueSourceEnum:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
-      format: int32
     DynamicFieldDataSource:
       type: object
       properties:
@@ -131,6 +121,16 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    DynamicFieldValueSourceEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      type: integer
+      format: int32
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -357,17 +357,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ValidateUnitIdsRequest:
-      type: object
-      properties:
-        unitIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      additionalProperties: false
-    CreateUnitRequest:
+    UnitResponse:
       type: object
       properties:
         unitId:
@@ -383,6 +373,14 @@ components:
       type: object
       properties:
         id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    UpdateUnitRequest:
+      type: object
+      properties:
+        text:
           type:
           - string
           - 'null'
@@ -414,6 +412,16 @@ components:
             $ref: '#/components/schemas/UnitResponse'
           readOnly: true
       additionalProperties: false
+    ValidateUnitIdsRequest:
+      type: object
+      properties:
+        unitIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
     ApiErrorResponse:
       type: object
       properties:
@@ -424,26 +432,6 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
-    UnitResponse:
-      type: object
-      properties:
-        unitId:
-          type:
-          - string
-          - 'null'
-        text:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    UpdateUnitRequest:
-      type: object
-      properties:
-        text:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     Error:
       type: object
       properties:
@@ -452,6 +440,18 @@ components:
           - string
           - 'null'
         message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    CreateUnitRequest:
+      type: object
+      properties:
+        unitId:
+          type:
+          - string
+          - 'null'
+        text:
           type:
           - string
           - 'null'
